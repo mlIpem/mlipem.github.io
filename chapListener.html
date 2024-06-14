@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Listener | render book</title>
+<meta name="author" content="ML">
+<meta name="description" content="In this chapter, we delve into the question what music does to people. The chapter is based on a theory of music appreciation, which is used for developing the questionnaire for a survey, as well...">
+<meta name="generator" content="bookdown 0.39 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Listener | render book">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://www.ugent.be/chapListener.html">
+<meta property="og:image" content="https://www.ugent.be/images/cover.png">
+<meta property="og:description" content="In this chapter, we delve into the question what music does to people. The chapter is based on a theory of music appreciation, which is used for developing the questionnaire for a survey, as well...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Listener | render book">
+<meta name="twitter:description" content="In this chapter, we delve into the question what music does to people. The chapter is based on a theory of music appreciation, which is used for developing the questionnaire for a survey, as well...">
+<meta name="twitter:image" content="https://www.ugent.be/images/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-99618359-1', 'auto');
+      ga('send', 'pageview');
+
+    </script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-VDC2S0ZNH5"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VDC2S0ZNH5');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h2>
+        <a href="index.html" title="">render book</a>
+      </h2>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="chapTheory.html"><span class="header-section-number">1</span> Theory</a></li>
+<li><a class="" href="chapModelling.html"><span class="header-section-number">2</span> Modelling</a></li>
+<li><a class="active" href="chapListener.html"><span class="header-section-number">3</span> Listener</a></li>
+<li><a class="" href="chapDancer.html"><span class="header-section-number">4</span> Dancer</a></li>
+<li><a class="" href="chapViolinist.html"><span class="header-section-number">5</span> Violin player</a></li>
+<li><a class="" href="chapExoskeletons.html"><span class="header-section-number">6</span> Two violin players</a></li>
+<li><a class="" href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers – dynamic system</a></li>
+<li><a class="" href="chapTappers2.html"><span class="header-section-number">8</span> Two finger tappers</a></li>
+<li><a class="" href="chapConclusion.html"><span class="header-section-number">9</span> Conclusion</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR">View book source <i class="fab fa-gitlab"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapListener" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Listener<a class="anchor" aria-label="anchor" href="#chapListener"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter, we delve into the question what music does to people.
+The chapter is based on a theory of music appreciation, which is used for developing the questionnaire for a survey, as well as for developing a statistical model. Ultimately, the modelling aims at connecting theory and data via refinement and, possibly, an updated theory.</p>
+<p>This chapter depends on the following scripts for data preparation, plotting, modelling and model plotting:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_00_Initialization.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_01_Functions.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapListener/chapListener_02_DataPreparation.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapListener/chapListener_03_DataPlotting.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapListener/chapListener_04_Modelling.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapListener/chapListener_05_ModelPlotting.R"</span><span class="op">)</span></span></code></pre></div>
+<div id="workflow" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Workflow<a class="anchor" aria-label="anchor" href="#workflow"><i class="fas fa-link"></i></a>
+</h2>
+<p>The theory-driven modelling applies the Bayesian epistemology outlined in figure <a href="chapModelling.html#fig:chapTheoryBayesianModel1">2.1</a>. The <em>subject</em> is the listener, who interacts with music as sonic moving form. In this chapter, we probe the listener with questions about appreciation and motivation.
+The answers are <em>indicators</em> of the listener’s appreciation.</p>
+<p>To fully grasp the stucture of this chapter, it is instructive to consider the workflow of figure <a href="chapListener.html#fig:chapListenerWorkflow">3.1</a>, which also applies this Bayesian epistemology.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:chapListenerWorkflow"></span>
+<img src="Figures/chapListener_Workflow.jpg" alt="Overview of theory and statistical modelling" width="100%"><p class="caption">
+FIGURE 3.1: Overview of theory and statistical modelling
+</p>
+</div>
+<p>The starting point is a theory of music appreciation.
+Based on this theory, a questionnaire and a statistical model is generated.
+The questionnaire is launched in a survey, and the answers to this questionnaire, the data, are processed and transmitted to the statistical model.
+The statistical modelling then serves as feedback to the theory.</p>
+<p>In what follows, we hook our wagon to an acceptable stage of this iteration, and we’ll try to further refine the results obtained.</p>
+</div>
+<div id="theory" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Theory<a class="anchor" aria-label="anchor" href="#theory"><i class="fas fa-link"></i></a>
+</h2>
+<p>Our approach draws from the fields of <em>neurobiology</em>, <em>marketing</em>, and <em>musicology.</em> This framework enables us to conceptualize music appreciation as the rating assigned by listeners to the gratification they experience while engaging with music.</p>
+<ul>
+<li><p><em>Neurobiology</em> suggests that gratification or reward arises from the brain’s release of dopamine, a neurotransmitter that diffuses throughout the brain, eliciting a pleasurable sensation and triggering a desire for more —- a behavioral pattern akin to seeking out further stimuli that induce this reward, reminiscent of addiction.</p></li>
+<li><p>In the realm of <em>marketing</em>, the concept of wanting is linked to the perceived value of a product, which reflects an overall appreciation indicative of customer satisfaction regarding the product’s functionalities and qualities. These qualities can be assessed through a series of questionnaires designed to probe various aspects.</p></li>
+<li><p>Finally, in the domain of <em>musicology</em>, it is proposed that music profoundly influences the listener’s experience, which can be analyzed in terms of embodiment, anticipation, and expression – as discussed in chapter <a href="chapTheory.html#chapTheory">1</a>.</p></li>
+</ul>
+<p>Combining insights from neurobiology, marketing, and musicology, a theory of music appreciation can be outlined as follows:
+When a listener engages with music, a dynamic anticipation-reward-motivation loop is initiated, leading to experiences such as being emotionally moved, deeply absorbed, or profoundly touched, which the listener can subsequently reflect upon. These experiences often culminate in a pleasurable bodily reward, which is positively evaluated.
+Upon reflection, the listener may discern the specific qualities of the music that contributed to these pleasurable experiences.</p>
+<p>Indeed, any comprehensive theory of music appreciation must also consider the influence of context. Factors such as the setting in which the music is heard (e.g., live concert versus radio broadcast), the listener’s mood, demographic background, and other environmental variables can significantly impact how listeners perceive and interpret their musical experiences. Therefore, when conducting surveys or assessments, it is essential to account for these contextual factors to ensure clarity and accuracy in participants’ responses, thus avoiding potential confusion or misinterpretation.</p>
+<p>It’s important to note that the concept of appreciation remains independent of the specific type of music being listened to. For example, even sad music can evoke high appreciation scores despite its melancholic nature, as it may trigger intense embodied experiences that are highly valued by listeners. Conversely, happy music may not always receive high appreciation if it fails to engage the listener with a compelling rhythm or groove.</p>
+<p>Furthermore, the theory of appreciation is agnostic to factors such as gender or age. What truly matters is the activation of reward, pleasure, and wanting experiences by the music. Global appreciation reflects both an inward reflection, focusing on the nature and evaluation of the experience itself, and an outward reflection, directed towards the quality of the music. These reflections are influenced by various contextual factors such as background, gender, and setting.</p>
+</div>
+<div id="causal-model" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Causal model<a class="anchor" aria-label="anchor" href="#causal-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>The above theory can be further clarified as a network of variables and relationships between variables.</p>
+<div id="directed-acyclic-graph-dag" class="section level3 unnumbered">
+<h3>Directed acyclic graph (DAG)<a class="anchor" aria-label="anchor" href="#directed-acyclic-graph-dag"><i class="fas fa-link"></i></a>
+</h3>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:chapListenerDAG1"></span>
+<img src="Figures/chapListener_Dagitty1c.jpg" alt="Causal model of appreciation" width="100%"><p class="caption">
+FIGURE 3.2: Causal model of appreciation
+</p>
+</div>
+<p>Figure <a href="chapListener.html#fig:chapListenerDAG1">3.2</a> shows a directed acyclic graph (DAG) in which the theory is defined as a network of variables and causal relationships. Note that the use of the term <em>causal</em> has a very specific meaning in this context. A cause-effect relationship among two variables means (i) that the information flow has a <em>direction</em>, in the sense that the cause precedes the effect in time, (ii) that there is an <em>association</em> (correlation) between the variables, and (iii) that <em>no potential confounding variables</em> could account for the observed association. The latter can be tested by considering the logic of the relations (see below).</p>
+<p>In this DAG, <code>Kind_of_Experience</code> is what is affected by the musical qualities, and the other variables are exposed to this variable, with <code>Global_Appreciation</code> as outcome.
+The rationale is that musical qualities (<code>Quality</code>) affect the listener, causing experiences in the listener (<code>Kind_of_Experience</code>), including for instance, an increase in dopamine level generating pleasurable feelings and a wanting urge.
+These experiences set the scene for an assessment (<code>Evaluation</code>), which then cause the scoring for <code>Global_Appreciation</code>.</p>
+<p>Be aware that the ellipses marked with X are associated with questions.
+They all have an incoming arrow because the answers to questions are generated by latent variables.</p>
+<p>Additionally, it’s important to note that <code>Quality</code> is a determinant of <code>Kind_of_Experience</code>. Essentially, <code>Quality</code> represents the musical attributes identified by the participant as contributing to the type of experience they had.</p>
+</div>
+<div id="confounding-variables" class="section level3 unnumbered">
+<h3>Confounding variables<a class="anchor" aria-label="anchor" href="#confounding-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>While the causal direction and the plausible association are clear concepts, it might require careful logical reasoning in order to prevent confounding variables in such a network.
+Fortunately, a DAG can be tested using the tool <a href="https://dagitty.net/dags.html">Daggity</a>. It involves evaluating whether the assumed causal structure is consistent, that is, whether certain sets of variables are conditionally independent given other sets of variables, as predicted by the DAG. We are lucky, our DAG is safe. No adjustment is necessary to estimate the total effect of <code>Kind_of_experience</code> on <code>Global_Appreciation</code>, meaning that there are no confounding paths between the variable <code>Kind_of_experience</code> and the outcome variable <code>Global_Appreciation</code>.</p>
+<p>We can test different interpretations of the model, for example, by drawing an arrow from <code>Kind_of_experience</code> to <code>Quality</code>, assuming that the <code>Kind_of_experience</code> is the cause of the quality recognized in the music.
+However, one should be careful about possible open biasing paths, where confounding variable would bias the estimation of the causal effect between <code>Kind_of_experience</code> and <code>Global_Appreciation</code>.</p>
+</div>
+</div>
+<div id="questionnaire" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Questionnaire<a class="anchor" aria-label="anchor" href="#questionnaire"><i class="fas fa-link"></i></a>
+</h2>
+<p>Based on the above DAG for music appreciation, it is possible to define the questions that allow us to measure the variables:</p>
+<ul>
+<li><p><code>Global_appreciation</code> is estimated with a single question, scored on a scale from 1 to 10. It reflects how eager the listener would want this music.</p></li>
+<li><p><code>Quality</code> is based on six yes/no questions that probe different aspects of the musical quality, such as “The music has qualities which I like (Y/N)”. The assessment of quality is a subjective assessment about the music, influenced by the kind of experience.</p></li>
+<li><p><code>Evaluation</code> is based on questions that probe the value of the experience, such as “I was touched in a positive sense” or “I enjoyed the experience,” rated on scales from 1 to 5.
+The assessment is influenced by the kind of experience and it is about ourselves, as listener.</p></li>
+<li><p><code>Kind_of_experience</code> is based on questions addressing the three subcategories of immersive, embodied, and emotional experiences, such as “I was absorbed by the music,” “I moved along with the music,” “I experienced emotions”. These questions probe the kind of experience that was generated by the music.</p></li>
+</ul>
+<p>There are some additional questions about demography such as listener’s age, gender, and education.
+Finally, there are two questions about arousal and valence effects of the music. In particular:
+“In the music, I heard energy, excitement” (rated on a scale from 1 to 5).
+“In the music, I heard joy, optimism, positive emotions” (rated on a scale from 1 to 5).</p>
+<p>By utilizing this questionnaire, researchers can effectively gather data to understand and analyze the components of music appreciation outlined in the theory.</p>
+<p>In what follows, we don’t go into the questionnaire’s specific questions.
+Unsless specified otherwise, we use the question labels Q1, Q2 …, and focus mainly on how questions are structured, as pointed at in figure <a href="chapListener.html#fig:chapListenerDAG1">3.2</a>.</p>
+</div>
+<div id="survey" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Survey<a class="anchor" aria-label="anchor" href="#survey"><i class="fas fa-link"></i></a>
+</h2>
+<p>Using the questionnaire, a survey was conducted in collaboration with the Flemish Radio for classical music, VRT-Klara. In the edition of the Klara-Top100 in 2023, listeners were invited to participate in a survey, using a redirect to a survey platform (Qualtrix). Approximately 1200 listeners responded to the survey and about 800 listeners completed the entire questionnaire.</p>
+<p>The questionnaire consisted of two parts. The first part investigated the factors contributing to high appreciation, coded as <em>Liking</em> in Q57, while the second part, using identical questions, explored factors contributing to low appreciation, coded as <em>Disliking</em> in Q57. Overall, the questionnaire comprised 66 questions.
+In the current analysis, only questions with score-based responses are included, while open-ended questions requiring verbal descriptions (e.g. of quality, kind of experience, evaluation) are excluded. The dataset used in this analysis is sourced from Jacobs et al. (in preparation).</p>
+</div>
+<div id="inspect-the-data" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Inspect the data<a class="anchor" aria-label="anchor" href="#inspect-the-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Exploration of the data via plotting is always useful.</p>
+<div id="appreciation" class="section level3 unnumbered">
+<h3>Appreciation<a class="anchor" aria-label="anchor" href="#appreciation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here we show the global appreciation (labelled in the dataset as: Q1) on a scale from 1 to 10, per category <em>Liking</em> or <em>Disliking.</em>
+The highest appreciated music gets a mean of 9.42, and standard deviation of 0.88.
+The lowest appreciated music gets a mean of 2.89 and standard deviation of 1.66.
+Apparently, the highest appreciated music is somewhat better defined than the lowest appreciated music which, in some case still gets an overall appreciation of 5/10 and in rare cases even 6/10.</p>
+<div class="figure">
+<span style="display:block;" id="fig:chapListeningPlot1"></span>
+<img src="Figures/chapListening_Plot1.png" alt="Distribution of scorings for global appreciation (Q1) for music qualified as Liking and Disliking (Q57), with mean and standard deviation indicated." width="80%"><p class="caption">
+FIGURE 3.3: Distribution of scorings for global appreciation (Q1) for music qualified as Liking and Disliking (Q57), with mean and standard deviation indicated.
+</p>
+</div>
+</div>
+<div id="participants" class="section level3 unnumbered">
+<h3>Participants<a class="anchor" aria-label="anchor" href="#participants"><i class="fas fa-link"></i></a>
+</h3>
+<p>A quick view on participants shows some striking facts. About 43% is 61-70 years old and only 17% is younger than 50 years old. There are about twice as many females compared to men. The majority has a low level of music education. Their main interaction with music is listening, not playing.
+The profile might be representative for a classical music radio.</p>
+<div class="figure">
+<span style="display:block;" id="fig:chapListeningPlot2"></span>
+<img src="Figures/chapListening_Plot2.png" alt="Some info about the listeners" width="100%"><p class="caption">
+FIGURE 3.4: Some info about the listeners
+</p>
+</div>
+</div>
+<div id="affect-attribution" class="section level3 unnumbered">
+<h3>Affect attribution<a class="anchor" aria-label="anchor" href="#affect-attribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>The listeners’ attribution of arousal and valence was probed with a Likert scale from 1 to 5.
+These scores can be interpreted as coordinates in so-called circumplex model of affect, as shown in figure <a href="chapListener.html#fig:chapListenerArousalValenceLikeDislike">3.5</a>.
+We use it here to identify four different attributed affect categories of music.</p>
+<ul>
+<li><p>High-arousal high-valence is defined as <code>happy</code></p></li>
+<li><p>high-arousal low-valence is defined as <code>aggressive</code></p></li>
+<li><p>low-arousal high-valence is defined as <code>relaxing</code></p></li>
+<li><p>low-arousal low-valence is defined as <code>sad</code>.</p></li>
+</ul>
+<p>The horizontal and vertical band in the middle show the neutral zone where listeners gave a score of 3 to either question.
+Interestingly, relaxing music is liked a lot, while aggressive music is mostly disliked, although sometimes liked.
+Likewise, happy music is mostly liked, but sometimes disliked.
+And sad music, it seems, is often disliked, but often also liked.</p>
+<div class="figure">
+<span style="display:block;" id="fig:chapListenerArousalValenceLikeDislike"></span>
+<img src="Figures/chapListening_Plot4.png" alt="Liked and disliked music categorized by arousal and valence on a 5-point scale. Jitter is used to show the distributions" width="100%"><p class="caption">
+FIGURE 3.5: Liked and disliked music categorized by arousal and valence on a 5-point scale. Jitter is used to show the distributions
+</p>
+</div>
+<p>Overall, there seems to be quite some structure in the dataset.
+Cronbach’s alpha gives a value of 0.84, which is considered good or excellent, meaning that the internal consistency of the dataset is high. The mean value of all correlations among all subjects is 0.54.
+More can be said about the data but we restrict ourselves to the minimum needed for modelling.</p>
+<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chapListenerExplore2">TABLE 3.1: </span>Cronbach alpha and mean
+</caption>
+<thead><tr>
+<th style="text-align:right;">
+Cronbach.s.alpha
+</th>
+<th style="text-align:right;">
+mean
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:right;">
+0.8339282
+</td>
+<td style="text-align:right;">
+0.5618432
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div id="preparing-analysis" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> Preparing analysis<a class="anchor" aria-label="anchor" href="#preparing-analysis"><i class="fas fa-link"></i></a>
+</h2>
+<p>The steps that follow can be seen as preparatory work for statistical modelling.
+The rationale is that in view of the main question about the global appreciation (Q1), it is possible to
+identify the questions that have low correlation with Q1.
+Such questions will anyhow not really affect Q1.</p>
+<p>To start with, consider figure <a href="chapListener.html#fig:chapListenerExplore1a">3.6</a>.
+The left panel shows the correlation among all questions.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:chapListenerExplore1a"></span>
+<img src="Figures/chapListener_Cor1.png" alt="Correlation matrices. (left) original, (right) pruned" width="49%"><img src="Figures/chapListener_Cor2.png" alt="Correlation matrices. (left) original, (right) pruned" width="49%"><p class="caption">
+FIGURE 3.6: Correlation matrices. (left) original, (right) pruned
+</p>
+</div>
+<p>To check contributes to Q1, it may suffice to look at the first vertical column (with Q1 as label).
+The important questions have high correlation values.
+Questions having a correlation value less then <span class="math inline">\(.5\)</span> can be deleted – or, as we did, set to zero.
+The leftovers are shown in the right panel.
+These are: Q2, Q31, Q33, Q35, Q37, Q39, Q41, Q43, Q47, Q48, Q49, and Quality:</p>
+<ul>
+<li>Quality is the weighted sum of six yes/no questions, based on yes/no questions and the weightings defined by the <a href="https://www.interaction-design.org/literature/article/the-kano-model-a-tool-to-prioritize-the-users-wants-and-desires">Kano model</a>.
+Figure <a href="chapListener.html#fig:chapListeningPlot3">3.7</a> suggest that Quality is indeed correlated with Q1.</li>
+</ul>
+<div class="figure">
+<span style="display:block;" id="fig:chapListeningPlot3"></span>
+<img src="Figures/chapListening_Plot3.png" alt="Quality versus the product value, coded as Q1 (jitter added), fitted by a straight line and smoothing curve" width="100%"><p class="caption">
+FIGURE 3.7: Quality versus the product value, coded as Q1 (jitter added), fitted by a straight line and smoothing curve
+</p>
+</div>
+<ul>
+<li>
+<p>Indicators of the latent variable <code>Kind_of_experience</code> are:</p>
+<ul>
+<li><p>Q31, Q33 and Q35, which probe the listeners’ immersive experience in terms of attention to, absorption in and engagement with the music.</p></li>
+<li><p>Q37, Q39, Q41, which probe the listeners’ embodied experiences in terms of moving, participating, having physical sensation.</p></li>
+<li><p>Q43, probing the listeners’ emotional experience.</p></li>
+<li><p>Q2, probing the listeners’ connection with the music.</p></li>
+</ul>
+</li>
+<li><p>Finally, Q47, Q48, and Q49 probe whether listeners’ evaluation of their experience in terms of enjoying the music, and whether they were touched and annoyed by the music. These questions are indicators of the latent variable <code>Evaluation.</code></p></li>
+</ul>
+<p>In short, based on a simple correlation threshold, a pruned version of our questionnaire has been obtained.
+The questions that pass the threshold, the leftovers are candidates for a model.</p>
+</div>
+<div id="structural-equation-modelling" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Structural equation modelling<a class="anchor" aria-label="anchor" href="#structural-equation-modelling"><i class="fas fa-link"></i></a>
+</h2>
+<p>A structural equation model (SEM) implements the structure shown in figure <a href="chapListener.html#fig:chapListenerDAG1">3.2</a>. Here we use the question labes as used in the questionnaire.
+The SEM estimates the strength and significance of the association between the variables.
+Then, we can assess the fit of the model to the observed data, and evaluate the overall model’s explanatory power.</p>
+<div id="model" class="section level3 unnumbered">
+<h3>Model<a class="anchor" aria-label="anchor" href="#model"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="va">model_1</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
+<span><span class="st">Evaluation =~ Q47 + Q48  + Q49</span></span>
+<span><span class="st">Immersion =~ Q33 + Q35 + Q31 </span></span>
+<span><span class="st">Embodiment =~ Q37 + Q39 + Q41</span></span>
+<span><span class="st">Emotion =~ Q43</span></span>
+<span><span class="st">Kind_of_experience =~ Immersion + Embodiment + Emotion</span></span>
+<span><span class="st">Kind_of_experience ~ Quality </span></span>
+<span><span class="st">Evaluation ~ Kind_of_experience</span></span>
+<span><span class="st">Q1 ~ Evaluation + Q2'</span></span></code></pre></div>
+<p>The SEM follows the syntax from the R-package <code>lavaan.</code>
+The operator <code>=~</code> defines a confirmatory factor analysis, which is used to created a latent variable.
+For example, <code>Evaluation</code> is constructed from Q47, Q48 and Q49.
+Similarly, <code>Immerson</code>, <code>Embodiment</code> and <code>Emotion</code> are latent variables, and they all define <code>Kind_of_experience</code>.
+The operator <code>~</code> defines a regression, which is used to relate a response variable to predictor variables.
+Quality (as indicator) has a link to <code>Kind_of_experience</code> and <code>Kind_of_experience</code> to <code>Evaluation</code>.
+Then, <code>Evaluation</code> and Q2 are predictors for <code>Q1</code>, which was called <code>Global_appreciation</code> in our DAG of figure <a href="chapListener.html#fig:chapListenerDAG1">3.2</a>.</p>
+</div>
+<div id="covariance-matrix" class="section level3 unnumbered">
+<h3>Covariance matrix<a class="anchor" aria-label="anchor" href="#covariance-matrix"><i class="fas fa-link"></i></a>
+</h3>
+<p>Mathematically speaking, SEM fits a covariance matrix <span class="math inline">\(\Sigma(\theta)\)</span> of a model, with a covariance matrix <span class="math inline">\(\Sigma\)</span> of the data. In optimal fitting:
+<span class="math display">\[
+\Sigma = \Sigma(\theta),
+\]</span>
+where <span class="math inline">\(\theta\)</span> are the parameters of the model.</p>
+<p>Our pruned questionnaire contains 12 questions of about 800 respondents who answered the questions. That gives us a 12x12 covariance matrix of questions (<span class="math inline">\(\Sigma\)</span>), and a 12x12 covariance matrix of questions embedded in a model with parameters, <span class="math inline">\(\Sigma(\theta)\)</span>.
+Then, this <span class="math inline">\(\Sigma(\theta)\)</span> will be optimized to approach <span class="math inline">\(\Sigma\)</span>.
+When optimization is successful, then we obtained insight in the data from the viewpoint of our theory of music appreciation.</p>
+<p>Thus, rather than just putting all data unrelated in a box, our theory suggests that data are structured.
+The data come from measurements using questions that relate to a theory.
+Hence, it can be tested if that theory is justified by the data.</p>
+</div>
+<div id="cfa-and-regression" class="section level3 unnumbered">
+<h3>CFA and regression<a class="anchor" aria-label="anchor" href="#cfa-and-regression"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let us just recall what we just said.
+Structure among variables, as specified by the DAG, is defined by <em>confirmatory factor analysis (CFA)</em> and <em>regression.</em>
+The <em>CFA</em> generates a new latent variable from a weighted sum of variables.
+For example, the latent variable <code>Immersion</code> is generated from indicators Q33, Q35, Q31.
+The <em>regression</em> associates a given variable with a weighted sum of given variables.
+For example, Q1 (the response) is associated with <code>Evaluation</code> and Q2 (the predictors).
+Recall that Quality is not really a latent variable anymore in this model because it was obtained by combining yes/no questions according to a particular weighting scheme suggested by the Kano theory, applied in a pre-processing stage. In contrast, <code>Kind_of_experience</code> and <code>Evaluation</code> can be considered genuine latent variables.</p>
+<!-- In what follows we'll have a look at the model defined in \@ref(fig:chapListenerSEMmodel1). -->
+<!-- ```{r, chapListener_chunk2 } -->
+<!--   model_1 <- ' -->
+<!-- Evaluation =~ Q47 + Q48  + Q49 -->
+<!-- Experience.immersion =~ Q33 + Q35 + Q31  -->
+<!-- Experience.embodiment =~ Q37 + Q39 + Q41 -->
+<!-- Experience.emotion =~ Q43  -->
+<!-- Experience =~ Experience.immersion + Experience.embodiment + Experience.emotion -->
+<!-- Q1 ~ Evaluation + Experience + Quality   -->
+<!-- ' -->
+<!-- ``` -->
+<!-- Model_6 is slightly different. It has only `Evaluation` and `Quality` as predictors for `Q1.` -->
+<!-- `Experience` is correlated with `Evaluation` and `Quality`, as defined by operator `~~`. -->
+<!-- The model suggests that the embodied experience, measured by indicators of immersion, movement and emotion, binds the assessment of music and its experience. Both `Quality` and `Evaluation` can be seen as judgements that predict the final appreciation, which is also a judgment. Questions such as: "I was absorbed by the music," "I moved along with the music," "I experienced emotions." are not judgements but descriptions of the state of embodied experience. -->
+<!-- The proposed SEM is shown as a graph in figure \@ref(fig:chapListener_SEMgraph_model5_structure). -->
+<!-- The graph shows the main structure of the model. -->
+<!-- The boxes are indicators and the circles are latent variables. -->
+<!-- The arrows from latent variables to Q1 form part of the regression. -->
+<!-- ```{r chapListenerSEMgraphmodel6structure, echo=FALSE, fig.cap='Graph of the SEM model', fig.show="hold", message=FALSE, warning=FALSE, out.width='75%'} -->
+<!--   knitr::include_graphics("Figures/chapListener_SEMgraph_model5_structure.png") -->
+<!-- # \@ref(fig:chapListenerSEMgraphmodel6structure) -->
+<!-- ``` -->
+</div>
+</div>
+<div id="dataset-and-sem" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Dataset and SEM<a class="anchor" aria-label="anchor" href="#dataset-and-sem"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let’s now fit the SEM with our data obtained via the survey:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">semfit1</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span><span class="op">(</span><span class="va">model_1</span>, data <span class="op">=</span> <span class="va">Data</span>, group <span class="op">=</span> <span class="st">"Q57"</span>,  meanstructure <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><code>Lavaan</code> has a lot of bells and whistles but we will limit ourselves here to a simple fitting in which we use Q57 to divide the database in two parts, based on <em>Liking</em> and <em>Disliking</em>.
+The two parts of our database reflect the fact that listeners filled in the same questionnaire twice. First for their preferred music, and then for a piece that they did not like.
+When fitting the models, we obtain weights for the parameters that associate the variables.
+However, whether the fitted model is acceptable depends on some tests that check the discrepancy between <span class="math inline">\(\Sigma\)</span> and <span class="math inline">\(\Sigma(\theta)\)</span>.</p>
+<div id="measurement-invariance" class="section level3 unnumbered">
+<h3>Measurement invariance<a class="anchor" aria-label="anchor" href="#measurement-invariance"><i class="fas fa-link"></i></a>
+</h3>
+<p>We use a technique called called <em>measurement invariance</em> to check the consistency across different groups or conditions simply by comparing the fit of several nested models that impose increasingly restrictive constraints on the parameters of the measurement model across groups. If measurement invariance is not established, differences in the observed scores between groups may be due to measurement bias rather than true differences in the underlying construct. Here we have a summary of the measurmement invariance.</p>
+<pre><code>## ####################### Model Fit Indices ###########################
+##             chisq  df pvalue rmsea   cfi   tli  srmr        aic        bic
+## semfit1  902.093† 122   .000 .089  .849† .810  .083† 40633.042† 41042.366 
+## semfit2  956.857  130   .000 .089† .840  .811† .085  40671.807  41038.044†
+## semfit3 1125.185  136   .000 .095  .809  .783  .093  40828.134  41162.057</code></pre>
+<p>Comparing the results of different models (semfit1, semfit2, and semfit3), we can see the following trends:</p>
+<ul>
+<li>Chi-square: All models have significant chi-square values (p &lt; .05), indicating that the models do not perfectly fit the data. However, this is often the case with large sample sizes, where even minor deviations from the model can lead to significant chi-square values.</li>
+</ul>
+<p>-RMSEA: All models have RMSEA values around .089-.095, which are within an acceptable range (typically below .08 for good fit), indicating reasonable fit.</p>
+<ul>
+<li><p>CFI and TLI: All models have CFI values around .81-.85 and TLI values around .79-.81, suggesting a reasonable fit.</p></li>
+<li><p>SRMR: Model semfit1 has the lowest SRMR (.083), indicating better fit in terms of standardized root mean square residual.</p></li>
+<li><p>AIC and BIC: Model semfit1 has the lowest AIC value among the three models, indicating better parsimony.</p></li>
+</ul>
+<p>Based on these results, the conclusion might be that model semfit1 provides the best overall fit to the data among the three models tested. However, given the minor differences among the three models, measurement invariance can be assumed.</p>
+<!-- The conclusion is that the model stands the test for measurement invariance. -->
+<!-- A performance of the entire model can be assessed with: -->
+<!-- ```{r chapListenerSEMPerformance, echo=FALSE, message=FALSE, warning=FALSE} -->
+<!-- model_performance(semfit1, metrics = c( "Chi2", "AGFI", "CFI", "RMSEA", "SRMR", "AIC")) -->
+<!-- # \@ref(tab:chapListenerSEMPerformance) -->
+<!-- ``` -->
+<!-- The table gives a summary of tests involving $\Sigma$ and $\Sigma(\theta)$. The numbers tell us something about the performance of the model, whether it is an acceptable model for the dataset: -->
+<!-- - *Chi2*, Chi-squared, assesses overall fit and the discrepancy between the sample and fitted covariance matrices.  However, it is quite sensitive to sample size. -->
+<!-- - *AGFI*, the (Adjusted) Goodness of Fit, is the proportion of variance accounted for by the estimated population covariance. Analogous to R2. The AGFI should be > .95 and > .90, respectively. -->
+<!-- - *CFI* compares the fit of a target model to the fit of an independent, or null, model. It should be > .90. -->
+<!-- - *RMSEA* is The Root Mean Square Error of Approximation whose values closer to 0 represent a good fit. It should be < .08 or < .05. -->
+<!-- - *SRMR* is the Standardized Root Mean Square Residual representing the square-root of the difference between the residuals of the sample covariance matrix and the hypothesized model. It should be < .08. -->
+<!-- - *AIC*  is an information measure based on number of parameters and likelihood. When comparing two models, the smallest AIC is preferred -->
+<!-- Based on the rationale that Q49 is a double check for Q48, and based on the idea that `Emotion` had only one indicator, we could change the model to: -->
+<!-- ```{r chapListenerSEMmodel2, echo=FALSE} -->
+<!--   model_2 <- ' -->
+<!--   Evaluation =~ Q47 + Q48  + Q49 -->
+<!-- Immersion =~ Q33 + Q35 + Q31  -->
+<!-- Embodiment =~ Q37 + Q39 + Q41 -->
+<!-- Emotion =~ Q43 -->
+<!-- #Quality =~ X13 + X14 + X15  -->
+<!-- Kind_of_experience =~ Immersion + Embodiment + Emotion -->
+<!-- Evaluation ~ Kind_of_experience -->
+<!-- Quality ~ Kind_of_experience -->
+<!-- Q1 ~ Evaluation + Quality + Q2' -->
+<!-- # \@ref(fig:chapListenerSEMmodel2) -->
+<!-- ``` -->
+<!-- And generate the test: -->
+<!-- ```{r chapListener_measurement_invariance2, echo=FALSE, warning=FALSE} -->
+<!--   semfit1B <- lavaan::sem(model_2, data = Data, group = "Q57",  meanstructure = TRUE) -->
+<!--   semfit2B <- lavaan::sem(model_2, data = Data, group = "Q57",  meanstructure = TRUE, group.equal = c("loadings"))  -->
+<!--   semfit3B <- lavaan::sem(model_2, data = Data, group = "Q57", meanstructure = TRUE, group.equal = c("loadings", "intercepts"))  -->
+<!--   comparefit <- compareFit(semfit1B,semfit2B,semfit3B, nested = FALSE) -->
+<!--   summary(comparefit) -->
+<!-- ``` -->
+<!-- Overall, while there are some differences in fit indices between the two sets of results, they are relatively small. The models in the second set (semfit1B, semfit2B, semfit3B) generally show slightly worse fit compared to the corresponding models in the first set (semfit1, semfit2, semfit3).  -->
+<!-- At this stage, however, let's opt for `model_1`. -->
+<!-- Some further insight can be obtained with a display of the residuals, that is, the difference between the covariances in data and model. Those differences should be small. -->
+<!-- ```{r chapListener_residuals, echo=FALSE, fig.cap='Graph of the SEM model', fig.show="hold", message=FALSE, warning=FALSE, out.width='55%'} -->
+<!-- r <- resid(semfit1, "cor") -->
+<!-- corrplot::corrplot(as.matrix(r$cov), is.corr = FALSE, -->
+<!--                type = 'lower', -->
+<!--                order = "original", -->
+<!--                tl.col='black', tl.cex=.75) -->
+<!-- # \@ref(fig:chapListener_residuals) -->
+<!-- ``` -->
+</div>
+<div id="parameters" class="section level3 unnumbered">
+<h3>Parameters<a class="anchor" aria-label="anchor" href="#parameters"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here we inspect the estimated parameters for the latent variables and the regression:</p>
+<p></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">semfit1</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, ci <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">reg</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
+<span><span class="st">Group 1 [Liking]:</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">Latent Variables:</span></span>
+<span><span class="st">                        Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper   Std.lv  Std.all</span></span>
+<span><span class="st">  Evaluation =~                                                                                </span></span>
+<span><span class="st">    Q47                    1.000                               1.000    1.000    0.315    0.674</span></span>
+<span><span class="st">    Q48                    0.848    0.114    7.422    0.000    0.624    1.072    0.267    0.383</span></span>
+<span><span class="st">    Q49                   -0.368    0.054   -6.756    0.000   -0.474   -0.261   -0.116   -0.337</span></span>
+<span><span class="st">  Immersion =~                                                                                 </span></span>
+<span><span class="st">    Q33                    1.000                               1.000    1.000    0.671    0.783</span></span>
+<span><span class="st">    Q35                    0.702    0.050   13.968    0.000    0.604    0.801    0.471    0.600</span></span>
+<span><span class="st">    Q31                    0.856    0.058   14.747    0.000    0.742    0.969    0.574    0.649</span></span>
+<span><span class="st">  Embodiment =~                                                                                </span></span>
+<span><span class="st">    Q37                    1.000                               1.000    1.000    0.896    0.727</span></span>
+<span><span class="st">    Q39                    0.957    0.104    9.205    0.000    0.753    1.161    0.857    0.672</span></span>
+<span><span class="st">    Q41                    0.408    0.052    7.860    0.000    0.306    0.509    0.365    0.381</span></span>
+<span><span class="st">  Emotion =~                                                                                   </span></span>
+<span><span class="st">    Q43                    1.000                               1.000    1.000    0.681    1.000</span></span>
+<span><span class="st">  Kind_of_experience =~                                                                        </span></span>
+<span><span class="st">    Immersion              1.000                               1.000    1.000    0.870    0.870</span></span>
+<span><span class="st">    Embodiment             0.602    0.094    6.412    0.000    0.418    0.786    0.393    0.393</span></span>
+<span><span class="st">    Emotion                0.688    0.075    9.156    0.000    0.540    0.835    0.589    0.589</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">Regressions:</span></span>
+<span><span class="st">                       Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper   Std.lv  Std.all</span></span>
+<span><span class="st">  Evaluation ~                                                                                </span></span>
+<span><span class="st">    Kind_of_exprnc        0.322    0.040    8.028    0.000    0.244    0.401    0.597    0.597</span></span>
+<span><span class="st">  Kind_of_experience ~                                                                        </span></span>
+<span><span class="st">    Quality               0.089    0.027    3.300    0.001    0.036    0.142    0.152    0.141</span></span>
+<span><span class="st">  Q1 ~                                                                                        </span></span>
+<span><span class="st">    Evaluation            1.382    0.160    8.630    0.000    1.068    1.696    0.435    0.497</span></span>
+<span><span class="st">    Q2                   -0.015    0.046   -0.318    0.750   -0.105    0.075   -0.015   -0.010</span></span>
+<span><span class="st">'</span></span></code></pre></div>
+<p>
+It can be observed that all latent variables, except Q2 fit well.
+This can be seen in the P(&gt;|z|) or Std.all columns.
+When looking at the regression it can be observed that Q2 doesn’t play any role for the specification of Q1.</p>
+<p></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># summary(semfit1, standardized = TRUE, rsquare = TRUE, ci = T)</span></span>
+<span><span class="va">reg</span> <span class="op">&lt;-</span> <span class="st">'</span></span>
+<span><span class="st">Group 2 [Disliking]:</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">Latent Variables:</span></span>
+<span><span class="st">                        Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper   Std.lv  Std.all</span></span>
+<span><span class="st">  Evaluation =~                                                                                </span></span>
+<span><span class="st">    Q47                    1.000                               1.000    1.000    0.568    0.787</span></span>
+<span><span class="st">    Q48                    0.988    0.049   20.044    0.000    0.892    1.085    0.561    0.761</span></span>
+<span><span class="st">    Q49                   -0.742    0.067  -11.033    0.000   -0.874   -0.610   -0.421   -0.420</span></span>
+<span><span class="st">  Immersion =~                                                                                 </span></span>
+<span><span class="st">    Q33                    1.000                               1.000    1.000    0.617    0.837</span></span>
+<span><span class="st">    Q35                    1.027    0.040   25.803    0.000    0.949    1.105    0.633    0.854</span></span>
+<span><span class="st">    Q31                    0.775    0.059   13.041    0.000    0.659    0.892    0.478    0.467</span></span>
+<span><span class="st">  Embodiment =~                                                                                </span></span>
+<span><span class="st">    Q37                    1.000                               1.000    1.000    0.766    0.901</span></span>
+<span><span class="st">    Q39                    0.904    0.044   20.712    0.000    0.818    0.989    0.692    0.800</span></span>
+<span><span class="st">    Q41                    0.413    0.059    6.989    0.000    0.298    0.529    0.317    0.261</span></span>
+<span><span class="st">  Emotion =~                                                                                   </span></span>
+<span><span class="st">    Q43                    1.000                               1.000    1.000    1.287    1.000</span></span>
+<span><span class="st">  Kind_of_experience =~                                                                        </span></span>
+<span><span class="st">    Immersion              1.000                               1.000    1.000    0.940    0.940</span></span>
+<span><span class="st">    Embodiment             0.917    0.058   15.852    0.000    0.804    1.031    0.694    0.694</span></span>
+<span><span class="st">    Emotion                0.664    0.086    7.766    0.000    0.497    0.832    0.299    0.299</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">Regressions:</span></span>
+<span><span class="st">                       Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper   Std.lv  Std.all</span></span>
+<span><span class="st">  Evaluation ~                                                                                </span></span>
+<span><span class="st">    Kind_of_exprnc        0.840    0.051   16.573    0.000    0.740    0.939    0.857    0.857</span></span>
+<span><span class="st">  Kind_of_experience ~                                                                        </span></span>
+<span><span class="st">    Quality               0.205    0.017   12.108    0.000    0.172    0.238    0.354    0.453</span></span>
+<span><span class="st">  Q1 ~                                                                                        </span></span>
+<span><span class="st">    Evaluation            1.517    0.109   13.914    0.000    1.303    1.731    0.861    0.523</span></span>
+<span><span class="st">    Q2                   -0.142    0.044   -3.190    0.001   -0.229   -0.055   -0.142   -0.098</span></span>
+<span><span class="st">'</span></span></code></pre></div>
+<p></p>
+<p>As far as the second part of our dataset is concerned, it can be observed that all latent variables fit well.
+Again, Q2 doesn’t contribute much to the global result.</p>
+<p>Overall, the model suggests that <code>Evaluation</code> is a relevant predictor for Q1.
+Moreover, <code>Evaluation</code> is predicted by <code>Kind_of_experience</code> and
+<code>Immersion</code> is the strongest contributor in Liking and Disliking groups.</p>
+<p>In the Liking group, <code>Emotion</code> contributes more than <code>Embodiment</code>, while in Disliking, <code>Embodiment</code> contributes more than <code>Emotion.</code>
+Quality has less an impact in the Liking group, compared to the Disliking group.</p>
+<p>Overall, in the Liking group Immersion and Emotion are strong predictors, while in the Disliking group, Immersion and Embodiment and Quality are strong. When they like the music, subjects are more emotionally touched. When they dislike the music, subjects seem to be overall less emotionally touched. They seem to refer more consistently to the quality of the music as source of disliking.</p>
+<!-- Figure \@ref(fig:chapListenerSEMgraphmodel5) shows the model with estimates added. -->
+<!-- ```{r chapListenerSEMgraphmodel5, echo=FALSE, fig.cap='Graph of the SEM model', fig.show="hold", message=FALSE, warning=FALSE, out.width='100%'} -->
+<!--   knitr::include_graphics("Figures/chapListener_SEMgraph_model5.png") -->
+<!-- # \@ref(fig:chapListenerSEMgraphmodel5) -->
+<!-- ``` -->
+<!-- The performance tests suggest that the model could be improved. -->
+<!-- Let us try by handling `Experience` differently, and do more pruning.  -->
+<!-- Below we have a sparse model with `Evaluation` and `Experience` as latent variables. `Experience` is now reduced to immersive indicators, no embodiment, nor emotional experiences. It is linked with `Evaluation` and Quality, and  -->
+<!-- Q1 is linked to `Evaluation` and Quality.  -->
+<!-- ```{r chapListenermodel2} -->
+<!-- model_2 <- ' -->
+<!-- Evaluation =~ Q47 + Q48           -->
+<!-- Experience =~ Q33 + Q35 + Q31  -->
+<!-- Evaluation ~ Experience -->
+<!-- Quality ~ Experience -->
+<!-- Q1 ~ Evaluation  + Quality       -->
+<!-- ' -->
+<!-- ``` -->
+<!-- The model performs pretty well and it passes the test for measurement invariance. -->
+<!-- ```{r chapListenermodel2performance} -->
+<!-- semfit1 <- lavaan::sem(model_2, data = Data, group = "Q57",  meanstructure = TRUE) -->
+<!-- #summary(semfit1, standardized = TRUE, rsquare = TRUE) -->
+<!-- model_performance(semfit1, metrics = c( "Chi2", "AGFI", "CFI", "RMSEA", "SRMR", "AIC")) -->
+<!-- semfit2 <- lavaan::sem(model_2, data = Data, group = "Q57",  meanstructure = TRUE, group.equal = c("loadings"))  -->
+<!-- semfit3 <- lavaan::sem(model_2, data = Data, group = "Q57", meanstructure = TRUE, group.equal = c("loadings", "intercepts"))  -->
+<!-- comparefit <- compareFit(semfit1,semfit2,semfit3, nested = FALSE) -->
+<!-- summary(comparefit) -->
+<!-- ``` -->
+<!-- When inspecting the regressions, similar conclusions can be drawn:  -->
+<!-- `Evaluation` is again the more dominant contributor to Q1, and Quality is more important for Disliking than for Liking. -->
+<!-- The influence of Experience on Evaluation is higher than on Quality, and the influences are higher in Disliking than in Liking (see the Std.all). -->
+<!-- ```{r chapListenermodel2regressions} -->
+<!--  # summary(semfit1, standardized = TRUE, rsquare = TRUE, ci = T) -->
+<!-- reg <- ' -->
+<!-- Group 1 [Liking]: -->
+<!-- Regressions: -->
+<!--                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all -->
+<!--   Evaluation ~                                                           -->
+<!--     Experience        0.252    0.029    8.638    0.000    0.507    0.507 -->
+<!--   Quality ~                                                              -->
+<!--     Experience        0.199    0.057    3.470    0.001    0.132    0.142 -->
+<!--   Q1 ~                                                                   -->
+<!--     Evaluation        1.215    0.167    7.279    0.000    0.400    0.459 -->
+<!--     Quality           0.071    0.031    2.273    0.023    0.071    0.075 -->
+<!-- Group 2 [Disliking]:  -->
+<!-- Regressions: -->
+<!--                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all -->
+<!--   Evaluation ~                                                           -->
+<!--     Experience        0.765    0.040   19.327    0.000    0.825    0.825 -->
+<!--   Quality ~                                                              -->
+<!--     Experience        0.880    0.075   11.806    0.000    0.549    0.429 -->
+<!--   Q1 ~                                                                   -->
+<!--     Evaluation        1.374    0.115   11.971    0.000    0.794    0.477 -->
+<!--     Quality           0.185    0.043    4.276    0.000    0.185    0.142 -->
+<!-- ' -->
+<!-- ``` -->
+</div>
+</div>
+<div id="predictions" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> Predictions<a class="anchor" aria-label="anchor" href="#predictions"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this and the following sections, we show that the model can be used for predictions.</p>
+<div id="j.s.-bach" class="section level3 unnumbered">
+<h3>J.S. Bach<a class="anchor" aria-label="anchor" href="#j.s.-bach"><i class="fas fa-link"></i></a>
+</h3>
+<p>In a first example, we’ll predict the listeners’ overall appreciation (Q1) of Bach pieces.
+Can we predict Q1 for Bach pieces, given a SEM trained with a dataset where Bach pieces have not been included?
+This can only happen if the SEM captures necessary information from other pieces, so that it can predict the Q1 for new pieces using the indicators Q47, Q48, Q33, Q35, Q31 and Quality. In other words, SEM has to generalize its input to Q1 so that it applies to Bach.</p>
+<p>To figure that out, a distinction is made between <em>training-data</em> and <em>test-data</em>.
+The training-data contain all data except the answers of 157 listeners who said something about Bach.
+The test-data contain only Bach pieces.
+Then, a SEM is trained with the training-data, and predictions are regenerated.</p>
+<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chapListenerBachPrediction">TABLE 3.2: </span><span id="tab:chapListenerBachPrediction">TABLE 3.3: </span>Prediction of Bach pieces, versus original data
+</caption>
+<thead><tr>
+<th style="text-align:right;">
+Q1_predict
+</th>
+<th style="text-align:right;">
+Q1_data
+</th>
+<th style="text-align:left;">
+LD
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+11.85773
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12.03539
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12.54679
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10.67253
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12.84084
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13.54249
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Liking
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>The model’s prediction is in <code>Q1_prediction</code>, the original data in <code>Q1_data</code>.
+The result is shown in
+figure <a href="chapListener.html#fig:chapListenerBachpred1">3.8</a>.
+The left figure shows scaled data, such that the correlation (<span class="math inline">\(cor = 0.95\)</span>) corresponds with the slope.</p>
+<div class="figure">
+<span style="display:block;" id="fig:chapListenerBachpred1"></span>
+<img src="Figures/chapListener_Bach_pred1.png" alt="Prediction of global appreciation of Bach pieces" width="49%"><img src="Figures/chapListener_Bach_pred1_nonscaled.png" alt="Prediction of global appreciation of Bach pieces" width="49%"><p class="caption">
+FIGURE 3.8: Prediction of global appreciation of Bach pieces
+</p>
+</div>
+<p>The model gives an accurate prediction of the global appreciation of Bach’s pieces.
+Apparently, Bach’s pieces are not always liked. A more in depth analysis would be needed to figure out whether this depends on particular music pieces.</p>
+</div>
+<div id="attributed-affects" class="section level3 unnumbered">
+<h3>Attributed affects<a class="anchor" aria-label="anchor" href="#attributed-affects"><i class="fas fa-link"></i></a>
+</h3>
+<p>In a second example, we look at the latent variables from the viewpoint of sad, relaxing, aggressive and happy music.
+These categories were introduced in figure <a href="chapListener.html#fig:chapListenerArousalValenceLikeDislike">3.5</a>.
+After prediction, figure <a href="chapListener.html#fig:chapListenerArousalValencepred">3.9</a> is created.
+It shows the distribution of 50 dots per latent variable and these latent variables are scaled from -2 to 2.
+The distributions reflect what each latent variable contributes to Q1 for sad, relaxing, aggressive and happy music.
+<code>Evaluation</code> and <code>Experience</code> display similar distributions, meaning that the appraisal about experiences depends on whether experiences have a high degree of immersion.</p>
+<p>The figure reveals that the distribution of relaxing, aggressive, and happy tends towards an unipolar scoring, with 96%, 82% and 78% of the counted dots at one side of <code>Evaluation.</code> This scoring is in agreement with the valence.
+High valence (relaxing and happy) get high scores, low valence (aggressive) gets low scores.
+However, the distribution of sad tends to be bi-polar with a balance of 62% having a negative evaluation.
+That means that 38% of the listeners, with a decisive opinion about the arousal-valence questions, had attributed high <code>Evaluation</code> to sad music and thus a high overall appreciation (Q1) because both are strongly correlated.</p>
+<div class="figure">
+<span style="display:block;" id="fig:chapListenerArousalValencepred"></span>
+<img src="Figures/chapListener_ArousalValence_pred.png" alt="Latent variables from SEM modelling and distributions for the category of happy,  aggressive, relaxing, and sad, as attributed by listeners" width="100%"><p class="caption">
+FIGURE 3.9: Latent variables from SEM modelling and distributions for the category of happy, aggressive, relaxing, and sad, as attributed by listeners
+</p>
+</div>
+</div>
+</div>
+<div id="discussion" class="section level2" number="3.11">
+<h2>
+<span class="header-section-number">3.11</span> Discussion<a class="anchor" aria-label="anchor" href="#discussion"><i class="fas fa-link"></i></a>
+</h2>
+<p>Overall, the model supports the assumed theory of music appreciation.
+Music appreciation rest mainly on the evaluation of pleasurable experiences and
+the attribution of quality plays a role depending on whether music is liked or disliked.</p>
+<p>The main findings are:
+- When a listener likes the music, then quality scores low, compared to the situation when a listener dislikes the music. This can be explained by the fact that the listener anticipates certain qualities in the music. In liked music, the qualities agree with the anticipation and therefore, their role is less prominent than when the qualities do not agree with the anticipation. State otherwise, when people dislike the music, it is attributed to the musical qualities, and not to their anticipation.</p>
+<ul>
+<li>The causes of appreciation are experiences. Immersion appears to be the most important consistent predictor, while embodiment and emotion have different roles depending on whether music is liked or not. This is somewhat surprising because the literature puts quite a lot of emphasis on emotion. Here we show that the experience of unity and absorption are more consistent and strong predictors, compared to felt emotions.</li>
+</ul>
+<p>The connection between quality and experience/evaluation may be intricate.
+A listener may find that the music is of high quality, for example due to its composition, its performance, and so on, but that the music doesn’t appeal to a pleasant feeling when played over the radio. Probably, it would get a low rating for appreciation.
+Interestingly, in our dataset we don’t have ansy such example of disaccordance between attributed quality and experience/evaluation.
+This may be due to the fact that listeners were asked to give an example of music they dislike when hearing over the radio, and then finding a rationale for the disliking. If listeners would have been asked to select a piece with high quality, and then rationalize whether that piece would be pleased when hearing over the radio, the situation might have been different.
+The reason why somebody doesn’t like to hear music over the radio may not be due to intrinsic musical qualities, but to context. This aspect probably needs further clarification in follow-up studies.</p>
+<p>Finally, what happens when listeners hear the same music repeatedly? Can they still experience reward when the anticipation-reward-motivation mechanism becomes saturated? Can music that is well-known still be rewarding? The theoretical model suggests an affirmative answer.
+Listeners may become entrained by the music. Similar to a locomotive pulling wagons, music propels the listener to a point where reward can be consistently experienced. The crux lies in its dynamic binding structure, known as <em>sonic moving forms</em> and their ability to dynamically shape anticipation through the melodic line, harmonic progression, rhythmic flow, tension, and resolution. Being entrained by the music, embodied experiences are anticipative. This feeling is potent, fostering a sense of control that is rewarding and, thus, pleasurable (see the illusion of reversed causality in chapter <a href="chapTheory.html#chapTheory">1</a>).</p>
+</div>
+<div id="conclusion-2" class="section level2" number="3.12">
+<h2>
+<span class="header-section-number">3.12</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter, we aimed at understanding the listeners’ appreciation of music using a questionnaire. A theoretical model based on the biology of motivation and reward offers a background for a causal model (a DAG) which can be tested in a structural equation modelling (SEM) using the data from this questionnaire.
+The goal was to check which theory-inspired statistical model fits with the data.
+A successful fitting suggests that the (causal) theoretical model offers a plausible
+understanding for the listener’s appreciation.
+The results show that music can cause experiences in listeners and that immersion is an important experience contributing to appreciation, and all of this can be probed by questionnaires.</p>
+<p>However, such engagement is dynamic as it unfolds over time. Some aspects of this engagement would be <em>overt</em> when listeners move their body along with the rhythms or the melodic phrases, in a context of <em>embodied listening</em>, or when musicians actually perform and use gestures to encode their expression in sound. At that point, we deal with a time-varying context in which neurobiological mechanisms of reward, pleasure and wanting can be studied as music-movement relationships, such as in anticipation, sensorimotor control and entrainment. It’s another level of understanding that is assumed to connect to the neurobiological level, and more research is needed to figure out the details of this connection. In what follows, we fully concentrate on these time-related music-movement relationships.</p>
+</div>
+<div id="references-2" class="section level2" number="3.13">
+<h2>
+<span class="header-section-number">3.13</span> References<a class="anchor" aria-label="anchor" href="#references-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Jacobs et al. (in preparation)</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapModelling.html"><span class="header-section-number">2</span> Modelling</a></div>
+<div class="next"><a href="chapDancer.html"><span class="header-section-number">4</span> Dancer</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <h2>Provide your feedback</h2>
+    <!--<p>Now is a great time to provide feedback</p>-->
+        <ul class="list-unstyled">
+<!--<li><a href="https://forms.gle/nq9RmbxJyZXQgc948">Provide feedback (5 min)</a></li>--><li><a href="https://www.ugent.be/lw/kunstwetenschappen/ipem/en/services/asil">art and science interaction lab</a></li>
+        </ul>
+<hr>
+<nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapListener"><span class="header-section-number">3</span> Listener</a></li>
+<li><a class="nav-link" href="#workflow"><span class="header-section-number">3.1</span> Workflow</a></li>
+<li><a class="nav-link" href="#theory"><span class="header-section-number">3.2</span> Theory</a></li>
+<li>
+<a class="nav-link" href="#causal-model"><span class="header-section-number">3.3</span> Causal model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#directed-acyclic-graph-dag">Directed acyclic graph (DAG)</a></li>
+<li><a class="nav-link" href="#confounding-variables">Confounding variables</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#questionnaire"><span class="header-section-number">3.4</span> Questionnaire</a></li>
+<li><a class="nav-link" href="#survey"><span class="header-section-number">3.5</span> Survey</a></li>
+<li>
+<a class="nav-link" href="#inspect-the-data"><span class="header-section-number">3.6</span> Inspect the data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#appreciation">Appreciation</a></li>
+<li><a class="nav-link" href="#participants">Participants</a></li>
+<li><a class="nav-link" href="#affect-attribution">Affect attribution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#preparing-analysis"><span class="header-section-number">3.7</span> Preparing analysis</a></li>
+<li>
+<a class="nav-link" href="#structural-equation-modelling"><span class="header-section-number">3.8</span> Structural equation modelling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#model">Model</a></li>
+<li><a class="nav-link" href="#covariance-matrix">Covariance matrix</a></li>
+<li><a class="nav-link" href="#cfa-and-regression">CFA and regression</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dataset-and-sem"><span class="header-section-number">3.9</span> Dataset and SEM</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#measurement-invariance">Measurement invariance</a></li>
+<li><a class="nav-link" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#predictions"><span class="header-section-number">3.10</span> Predictions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#j.s.-bach">J.S. Bach</a></li>
+<li><a class="nav-link" href="#attributed-affects">Attributed affects</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#discussion"><span class="header-section-number">3.11</span> Discussion</a></li>
+<li><a class="nav-link" href="#conclusion-2"><span class="header-section-number">3.12</span> Conclusion</a></li>
+<li><a class="nav-link" href="#references-2"><span class="header-section-number">3.13</span> References</a></li>
+</ul>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR/blob/main/04_chapListener.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR/edit/main/04_chapListener.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>render book</strong>" was written by ML. It was last built on 2024-01-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
