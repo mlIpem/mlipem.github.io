@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 8 Two finger tappers | render book</title>
-<meta name="author" content="ML">
+<title>Chapter 8 Two finger tappers | Exploring music interactions, with R</title>
+<meta name="author" content="Marc Leman">
 <meta name="description" content="This chapter is a follow-up of the previous chapter. We now apply the dynamic model to analyse human finger tapping data. Our primary objective is to figure out whether two persons’ synchronized...">
 <meta name="generator" content="bookdown 0.39 with bs4_book()">
-<meta property="og:title" content="Chapter 8 Two finger tappers | render book">
+<meta property="og:title" content="Chapter 8 Two finger tappers | Exploring music interactions, with R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.ugent.be/chapTappers2.html">
 <meta property="og:image" content="https://www.ugent.be/images/cover.png">
 <meta property="og:description" content="This chapter is a follow-up of the previous chapter. We now apply the dynamic model to analyse human finger tapping data. Our primary objective is to figure out whether two persons’ synchronized...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 8 Two finger tappers | render book">
+<meta name="twitter:title" content="Chapter 8 Two finger tappers | Exploring music interactions, with R">
 <meta name="twitter:description" content="This chapter is a follow-up of the previous chapter. We now apply the dynamic model to analyse human finger tapping data. Our primary objective is to figure out whether two persons’ synchronized...">
 <meta name="twitter:image" content="https://www.ugent.be/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,7 +51,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h2>
-        <a href="index.html" title="">render book</a>
+        <a href="index.html" title="">Exploring music interactions, with R</a>
       </h2>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -74,6 +74,7 @@
 <li><a class="" href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers – dynamic system</a></li>
 <li><a class="active" href="chapTappers2.html"><span class="header-section-number">8</span> Two finger tappers</a></li>
 <li><a class="" href="chapConclusion.html"><span class="header-section-number">9</span> Conclusion</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -87,9 +88,10 @@
 </h1>
 <p>This chapter is a follow-up of the previous chapter. We now apply the dynamic model to analyse human finger tapping data. Our primary objective is to figure out whether two persons’ synchronized tapping becomes influenced, or entrained, by seeing each other tapping.</p>
 <p>We define entrainment in terms of a set of non-linear equations, as specified in the previous chapter.
-With regression modelling, we estimate the coupling strength and phase delay parameters of these easuations, for each individual performance. The parameters gives us insight in the entrainment of these individual dyadic performances (two persons tapping). Using averages of parameters, it is possible to get a view on the entrainment of a population of dyads. As the parameters define the dynamic model, we can always generate the phase-functions. As a bonus, we show that the modelling can nicely explain earlier findings based on smooth regression and recurrence analysis.</p>
+With regression modelling, we estimate the coupling strength and phase delay parameters of these equations, for each individual performance. The parameters gives us insight in the entrainment of these individual dyadic performances (two persons tapping).</p>
+<p>Then, using averages of parameters, it is possible to get a view on the entrainment of a population of dyads. As the parameters define the dynamic model, we can always generate the phase-functions and as a bonus, we show that the modelling can nicely explain earlier findings based on smooth regression and recurrence analysis.</p>
 <p>The code can be found in the following scripts for data preparation and plotting, modelling and plotting, and contrast analysis:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_00_Initialization.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_01_Functions.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers2/chapTappers2_02_DataPreparation.R"</span><span class="op">)</span></span>
@@ -133,13 +135,13 @@ When the value of the phase delay parameter is positive it means anticipation, o
 <span class="header-section-number">8.2</span> Setup<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are now ready to have a look at the tapping data from the experiment described in Rosso et al. (2023). We thereby limit ourselves to the uncoupled (U) and coupled (C) conditions of that experiment.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We are not including the conditions involving perspective taking, the so-called: swap conditions where subjects see the partner’s arm as their own arm, or their own arm as the partner’s arm.
-The U and C conditions are the socalled normal conditions, which apply to what people see in the natural condition, namely, the arm of the other person is seen from a second person perspective, then own arm from the first person perspective.&lt;/p&gt;"><sup>17</sup></a></p>
+The U and C conditions are the socalled normal conditions, which apply to what people see in the natural condition, namely, the arm of the other person is seen from a second person perspective, then own arm from the first person perspective.&lt;/p&gt;"><sup>29</sup></a></p>
 <p>The experimental setup implements the drifting metronomes paradigm. In the <em>uncoupled</em> condition (U), subjects are requested to tap in sync with the metronome heard through headphones at 600 ms and 610 ms. In the <em>coupled</em> condition (C) subject 1 hears 600 ms and sees the hand of subject 2, presumably tapping at 610 ms, and subject 2 hears 610 ms and sees the hand of subject 1, presumably tapping at 600 ms. This creates an <em>incongruency</em> and the subjects’ syncing may be influenced by seeing the partner tapping.</p>
 <div id="raw-tapping-data" class="section level3 unnumbered">
 <h3>Raw tapping data<a class="anchor" aria-label="anchor" href="#raw-tapping-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>Figure <a href="chapTappers2.html#fig:chapTappers2RawAll">8.1</a> shows the raw tapping data of all dyads in the two conditions.
-The finger tap times are subtracted from the metronome tick times, and represented as a proportion of the metronome tick intervals giving <em>phase</em>. We show the (rotated) phase in the interval <span class="math inline">\([-pi,+pi]\)</span>.
+The finger tap times are subtracted from the metronome tick times, and represented as a proportion of the metronome tick intervals giving <em>phase</em>. We show the (rotated) phase in the interval <span class="math inline">\([-\pi,+\pi]\)</span>.
 Subjects have zero relative phase when they tap exactly at the time of a tick.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapTappers2RawAll"></span>
@@ -369,7 +371,7 @@ ks2m2
 </tbody>
 </table></div>
 <p>[[[[[
-In what follows, we work with models having <span class="math inline">\(Rhat &gt; 1.05\)</span> for all parameters<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The Rhat function in &lt;code&gt;rstan&lt;/code&gt; (the R interface to the Stan engine) produces the R-hat convergence diagnostic, which compares the between- and within-chain estimates for model parameters and other univariate quantities of interest. If chains have not mixed well (ie, the between- and within-chain estimates don’t agree), R-hat is larger than 1. We use four chains by default and using the model if R-hat is less than 1.05 for all parameters, as recommended in the &lt;code&gt;rstan&lt;/code&gt; package.&lt;/p&gt;"><sup>18</sup></a>.
+In what follows, we work with models having <span class="math inline">\(Rhat &gt; 1.05\)</span> for all parameters<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The Rhat function in &lt;code&gt;rstan&lt;/code&gt; (the R interface to the Stan engine) produces the R-hat convergence diagnostic, which compares the between- and within-chain estimates for model parameters and other univariate quantities of interest. If chains have not mixed well (ie, the between- and within-chain estimates don’t agree), R-hat is larger than 1. We use four chains by default and using the model if R-hat is less than 1.05 for all parameters, as recommended in the &lt;code&gt;rstan&lt;/code&gt; package.&lt;/p&gt;"><sup>30</sup></a>.
 Using this criterium, we found that 6.8% of the models did not fully converge.
 In what follows, we work with fully converged models, which are 354 out of the fitted 380 models.</p>
 Table XXXX gives a list of the models that fail the <span class="math inline">\(Rhat &gt; 1.05\)</span> criterion.
@@ -819,48 +821,6 @@ Our model thus assumes that the start is around zero, but here it is around 2 or
 FIGURE 8.14: Estimated phase delay in the coupled condition (C), dyad 1, cycle 5
 </p>
 </div>
-<!-- relative phase | instantaneous period -->
-<!-- -|- -->
-<!-- ![\label{fig:Fitted1PUdyad1cycle5}](Figures/Tapping_1PU/Fitted_015_aug_tap_1PU_dyad_1_cycle_5.pdf){width=300px} |![](Figures/Tapping_1PU/Fitted_015_aug_tap_1PU_dyad_1_cycle_5_InstPeriod.pdf){width=300px} -->
-<!-- Finally, we show an overview graph of the instantaneous period of all cycles -->
-<!-- ```{r chapTappers2real1cs8, echo=FALSE, fig.align='center', fig.asp=.75, fig.cap='Instantaneous period of dyad 9, conditions U,C and s1, s2', message=FALSE, warning=FALSE, out.width='100%', fig.show = "hold"} -->
-<!--   knitr::include_graphics(c("Figures/chapTappers2_InstantaneousPeriods.png")) -->
-<!-- # \@ref(fig:chapTappers2real1cs8) -->
-<!-- ``` -->
-<!-- ### Outliers {-} -->
-<!-- We are now ready to check the models manually to make sure that the fit between tapping data and predicted phase-function (i.e., the posterior predictive distribution at each sample) looks reasonable. The main criterion is that the timing of the tapping events should lay within the vicinity of the prediction. The rationale for a manual check is that tapping may go terribly wrong in a performance. When the tapping data are bad, the model can encounter difficulties and convergence may go wrong, probalby due to the priors we set. The goal of the manual check is to delete performances that shown a sign of interaction break down. -->
-<!-- Table \@ref(tab:chapTappersTableModelsManualSelected) gives an overview of the successful models per condition. -->
-<!-- Overall, the results reveal that some dyads show more problematic performance than other dyads. -->
-<!-- Closer inspection reveals that bad fitting is often due to large variance, or some drift that is not compatible with the other subject's tapping so that no fitting could take place. -->
-<!-- Using a threshold of $> 1/4$ bad ODE-models (n) per dyad ($=n>10$), dyad_1, dyad_6, and dyad_14 pop out. -->
-<!-- The best dyads, say $< 1/8$ bad ODE-models per dyad ($=n<5$) are:  -->
-<!-- dyad_2, dyad_8, dyad_9, dyad_12, dyad_15, dyad_17, and dyad_19. -->
-<!-- Then, when looking at the bad models per condition -->
-<!-- it can be observed that U has 26 and C has 22 bad performances not taken into account. -->
-<!-- That means that we are left with 332 successful models. -->
-<!-- ```{r chapTappersTableModelsManualSelected, echo=FALSE, fig.align='center',  message=FALSE, warning=FALSE, fig.show = "hold"} -->
-<!--   Tab <- readRDS(file = "Data/chapTappers2_TableModelsManualSelected.rds") %>% -->
-<!--   rename(condition_U = condition_1PU, condition_C = condition_2PC) -->
-<!--   knitr::kable(Tab, booktabs=T, label = NA,  -->
-<!--              caption = paste("Model success")) %>% -->
-<!--   kable_styling("striped", font_size = 11) -->
-<!-- # \@ref(tab:chapTappersTableModelsManualSelected) -->
-<!-- ``` -->
-<!-- Table \ref{tab:Table1} gives a general idea of the posterior distributions per condition (summed over subjects), using high density intervals (hdi). -->
-<!-- \begin{table}[h] -->
-<!-- \begin{tabular}{l|lll} -->
-<!-- Condition & 25\% HDI & 50\% HDI & 75\% HDI\\\hline -->
-<!-- 1PU & {}[0.99, 1.00] & {}[0.97, 1.00] & {}[0.91, 1.00]\\ -->
-<!-- 2PU & {}[0.99, 1.00] & {}[0.96, 1.00] & {}[0.86, 1.00]\\ -->
-<!-- 1PC & {}[0.45, 0.54] & {}[0.45, 0.72] & {}[0.45, 0.92]\\ -->
-<!-- 2PC & {}[0.45, 0.52] & {}[0.45, 0.66] & {}[0.45, 0.90]\\ -->
-<!-- \end{tabular} -->
-<!-- \centering -->
-<!-- \caption{\label{tab:Table1} High density interval of both subjects per condition} -->
-<!-- \end{table} -->
-<!-- This overview of the coupling strengths shows a high coupling strength for U (about 50% in [0.96,1]),  -->
-<!-- and a medium coupling strength for C (about 50% in [0.45,0.7]), suggesting that the modelling makes a difference between the two conditions, even is the same ODE-system architecture is applied to both. -->
-<!-- The data shown in table \@ref(tab:chapTappers2data1) contain all successful models. -->
 </div>
 </div>
 <div id="regression-2" class="section level2" number="8.4">
@@ -878,7 +838,7 @@ The latter implies that cycles within each dyad are modeled as a random variable
 <p>For the coupling strength parameters, a beta link function can be used, with flat priors.
 We also check whether a mixture of beta functions would actually work better than a distributional model (form_K02).
 Thus we have the syntax of two models specified as:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">form_K00</span> <span class="op">=</span> <span class="fu">bf</span><span class="op">(</span><span class="va">parameter</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span><span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span>,</span>
 <span>     <span class="va">phi</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">+</span><span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span><span class="op">)</span></span>
 <span>  </span>
@@ -888,12 +848,12 @@ Thus we have the syntax of two models specified as:</p>
 <span>               <span class="va">phi1</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span>,</span>
 <span>               <span class="va">phi2</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The first model is a distributional model with mean and variance fitted. The second model is also a distributional model but based on a mixture of beta functions. Accordingly two means and variances are fitted. The models can be compared using <code>loo_compare()</code> which checks the log pointwise predictive density between two models (<code>elpd_diff</code>). A higher value indicates that model K02 is better at predicting the data.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chapTappers2.html#cb38-1" tabindex="-1"></a>Model comparisons<span class="sc">:</span></span>
-<span id="cb38-2"><a href="chapTappers2.html#cb38-2" tabindex="-1"></a>        elpd_diff se_diff</span>
-<span id="cb38-3"><a href="chapTappers2.html#cb38-3" tabindex="-1"></a>fit_K02   <span class="fl">0.0</span>       <span class="fl">0.0</span>  </span>
-<span id="cb38-4"><a href="chapTappers2.html#cb38-4" tabindex="-1"></a>fit_K00 <span class="sc">-</span><span class="fl">63.3</span>      <span class="fl">12.7</span> </span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="chapTappers2.html#cb39-1" tabindex="-1"></a>Model comparisons<span class="sc">:</span></span>
+<span id="cb39-2"><a href="chapTappers2.html#cb39-2" tabindex="-1"></a>        elpd_diff se_diff</span>
+<span id="cb39-3"><a href="chapTappers2.html#cb39-3" tabindex="-1"></a>fit_K02   <span class="fl">0.0</span>       <span class="fl">0.0</span>  </span>
+<span id="cb39-4"><a href="chapTappers2.html#cb39-4" tabindex="-1"></a>fit_K00 <span class="sc">-</span><span class="fl">63.3</span>      <span class="fl">12.7</span> </span></code></pre></div>
 <p>For phase delays we use a similar model assuming a gaussian distribution.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">form_D00</span> <span class="op">=</span> <span class="fu">bf</span><span class="op">(</span><span class="va">parameter</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span>,</span>
 <span>                <span class="va">sigma</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span>  <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1181,20 +1141,13 @@ Dyad_8 is the one where one subjects doesn’t entrain while the other subject i
 FIGURE 8.16: Estimated coupling strength per dyad
 </p>
 </div>
-<!-- The means are given by -->
-<!-- ```{r chapTappers2_means, echo=FALSE} -->
-<!-- Df <- readRDS(file = "Data/chapTappers2_EstimatedParameters_perDyad") -->
-<!-- df <- Df %>% group_by(condition, names) %>% summarize(mean = mean(.epred)) -->
-<!--  knitr::kable(df, caption = "Means of coupling strength per subject in condition", booktabs=T, label = NA ) %>% -->
-<!--   kable_styling("striped", font_size = 11) -->
-<!-- ``` -->
 <p>In a similar way, the phase delays can be calculated per dyad. If we would like to generate the phase functions per dyad we would need them. However, we will limit ourselves to generating the phase functions for the entire dyad population.</p>
 </div>
 <div id="generating-phase-functions" class="section level3 unnumbered">
 <h3>Generating phase functions<a class="anchor" aria-label="anchor" href="#generating-phase-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>We are interested in the coupled condition (C) and we plug the associated coupling strength values of table <a href="chapTappers2.html#tab:chapTappers2modelK00contrasts">8.4</a> (<span class="math inline">\(ks1m1\)</span> and <span class="math inline">\(ks2m2\)</span>) into the dynamic equations defined in the previous chapter. This is shown here.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dydt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">parms</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">parms</span><span class="op">)</span><span class="op">)</span>, <span class="op">{</span></span>
 <span>    <span class="va">dm1</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="fl">1000</span><span class="op">/</span><span class="fl">600</span></span>
@@ -1261,7 +1214,7 @@ FIGURE 8.16: Estimated coupling strength per dyad
 FIGURE 8.17: Generated phase-functions of average dyad interaction. (Top panel) Relative phase. (Middle panel) Instantaneous frequency. (Bottom panel) instantaneous frequency difference
 </p>
 </div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># \@ref(fig:chapTappers2dynEq2)</span></span></code></pre></div>
 <p>The results are shown in figure <a href="chapTappers2.html#fig:chapTappers2dynEq2">8.17</a>.
 The top panel shows a relative phase representation, similar to figure <a href="chapTappers2.html#fig:chapTappersSmoothRegression">8.3</a>.
@@ -1274,37 +1227,23 @@ For that reason, it may be of interest to generate two subsequent cycles.</p>
 <div id="summary" class="section level3 unnumbered">
 <h3>Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h3>
-<p>To summarize how we obtain this result, started from discrete dyadic tapping data and for each of the 380 performances, we estimated the parameters of a dynamical system. We worked with the models that converged on the Stan engine where our dynamic models perform the calculation.</p>
-<p>Using the estimated parameters we can generate continuous functions that fit the discrete tapping data. Such functions can also be generated using averages of the parameters, and that’s what we did in figure @ref(fig:chapTappers2_dynEq2). The phase-functions can be represented as relative phase functions, as instantaneous frequency or instantaneous period. Finally, we can produce an instantaneous frequency difference plot. The relative phase plot is similar to the smooth regression solution. The instantaneous frequency difference plot is similar to a recurrence analysis.</p>
+<p>To summarize how we obtain this result, we started from discrete dyadic tapping data and for each of the 380 performances, we estimated the parameters of a dynamical system. We worked with models that converged on the Stan engine where our dynamic models perform the calculation.</p>
+<p>Using the estimated parameters we can generate continuous functions that fit the discrete tapping data. Such functions can also be generated using averages of the parameters, and that’s what we did in figure @ref(fig:chapTappers2_dynEq2). The phase-functions can be represented as relative phase, as instantaneous frequency or instantaneous period Finally, we can produce an instantaneous frequency difference. As these functions represent the average of all dyads, they show high similarity with smooth regression solutions and recurrence analysis performed on the entire population.</p>
 <p>The hypothesis that the uncoupled condition (U) has a higher adherence coupling strength than the coupled condition (C) is confirmed, showing contrast (U &gt; C) of 23% (see <code>d12</code> in table <a href="chapTappers2.html#tab:chapTappers2modelK00contrasts">8.4</a>). The adherence coupling strength in the uncoupled condition is close to <span class="math inline">\(ks1m1 = .86\)</span> and <span class="math inline">\(ks2m2 = .87\)</span>, while in the coupled condition it is close to <span class="math inline">\(ks1m1 = 0.69\)</span> and <span class="math inline">\(ks2m2 =  0.59\)</span>.
 This result implies that two subjects coupled by seeing each other tapping, have a dramatic reduction of about 1/4 in adherence coupling strength, despite the request to adhere to the own metronome. This implies a considerable entrainment coupling strength (defined as <span class="math inline">\(1-k\)</span>) to the other subject.</p>
 <p>Apparently, on average (over all dyads) subject <span class="math inline">\(s2\)</span> has a lower coupling strength of about 10% to the own metronome <span class="math inline">\(m2\)</span>, compared to <span class="math inline">\(s1\)</span> and <span class="math inline">\(m1\)</span> in the coupled condition (C).
-In the uncoupled condition (C), the coupling strength <span class="math inline">\(k\)</span> is not exactly 100%, meaning that there is some spurious entrainment detected due to some fluctuation in the data. However, no difference exists between <span class="math inline">\(s1\)</span> and <span class="math inline">\(s2\)</span>.
-Therefore, it is plausible that in the coupled condition (C), <span class="math inline">\(s1\)</span> is in the advantage.</p>
+In the uncoupled condition (C), the coupling strength <span class="math inline">\(k\)</span> is not exactly 100%, meaning that there is some spurious entrainment detected due to fluctuation in tapping. Here, no difference exists between <span class="math inline">\(s1\)</span> and <span class="math inline">\(s2\)</span>.
+Therefore, it is plausible that in the coupled condition (C), <span class="math inline">\(s1\)</span> is in the advantage due to the tapping speed.</p>
 </div>
 </div>
-<div id="discussion-4" class="section level2" number="8.5">
+<div id="conclusion-7" class="section level2" number="8.5">
 <h2>
-<span class="header-section-number">8.5</span> Discussion<a class="anchor" aria-label="anchor" href="#discussion-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.5</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-7"><i class="fas fa-link"></i></a>
 </h2>
-<p>Overall, the non-linear modelling gives a detailed account of entrainment dynamics in terms of phase flow in a causal system, helpful to better understand the theoretical concepts.</p>
-<p>Entrainment is often explained by as an error-correction mechanism or a dynamic mechanism.
-In our modelling, both concepts are actually included in the dynamic model.
-The role of error-correction is inherent in the equations that govern the dynamics.
-The dynamic depends on the error terms (<span class="math inline">\(\epsilon\)</span>) and therefore, the modelling shows that predictive coding (with error-correction) and dynamic flow go together.</p>
-<p>Condition U is an interesting test of the modelling approach. Despite the absence of any coupling to the other subject, the dynamic model does assume coupling to the other subject. If any coupling is detected it is either due to a disfunction of the model, or a spurious correlations in the data.
-We believe that spurious correlations are found.</p>
-</div>
-<div id="conclusion-7" class="section level2" number="8.6">
-<h2>
-<span class="header-section-number">8.6</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-7"><i class="fas fa-link"></i></a>
-</h2>
-<p>In this chapter, we explored how audio-based synchronization can be entrained by seeing a partner synchronizing at another frequency. This influence is due to incongruency between observations. The finger tapping data suggest that our brain strives towards congruence, overriding the intended audio-based synchronization.</p>
-<p>The result implies that entrainment is a extremely powerful phenomenon.
-Accordingly, it is believed to play a crucial role in activities that require joint collaboration, such as in music playing. In such a context, entrainment fosters co-regulation, and the entrainment-capacity can be an added value to a dynamic adaptation of activities.</p>
-<p>The important conclusion is that entrainment is an influence that cannot be resisted.
-As a component of co-regulation it may highly facilitate the creation and maintenance of self-augmented interaction states.</p>
-<p>In this chapter we showed that from tapping data of dyads, we can extract the coupling strength, thus quantifying the notion of entrainment. Statistical modeling helped us to capture a dynamic in terms of the control parameters (coupling strength and phase delay) of a system that describes the causal flow in timing. This ends our journey in non-linear regression.</p>
+<p>In this chapter, we explored how synchronized finger tapping can be entrained by seeing a partner tapping differently. The fact that non-voluntary entrainment can override the intended audio-based synchronization shows that entrainment is a extremely powerful phenomenon.</p>
+<p>Apparently, entrainment is hard to resist. It seems as if the brain is determined to solve incongruent feedback, to such a degree that resistance to entrainment might require a specific training targetted at neglecting cause of incongruency.</p>
+<p>Entrainment is believed to play a crucial role in activities that require joint collaboration, such as in music playing. In that context, entrainment is an added value to a dynamic adaptation of activities. Entrainment fits well with the idea of self-augmented interaction, where it can be seen as a facilitator that stirrs the interaction.</p>
+<p>We showed that entrainment can be understood, basically, as a control of competing dynamic forces, informed by hearing (voluntary) or seeing (non-voluntary). Statistical modeling helped us to capture entrainment holistically, that is, as parameters (coupling strength and phase delay) of a dynamic system that describes the causal flow in timing. This ends our journey in non-linear regression.</p>
 
 </div>
 </div>
@@ -1352,8 +1291,7 @@ As a component of co-regulation it may highly facilitate the creation and mainte
 <li><a class="nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#discussion-4"><span class="header-section-number">8.5</span> Discussion</a></li>
-<li><a class="nav-link" href="#conclusion-7"><span class="header-section-number">8.6</span> Conclusion</a></li>
+<li><a class="nav-link" href="#conclusion-7"><span class="header-section-number">8.5</span> Conclusion</a></li>
 </ul>
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -1370,7 +1308,7 @@ As a component of co-regulation it may highly facilitate the creation and mainte
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>render book</strong>" was written by ML. It was last built on 2024-01-06.</p>
+    <p>"<strong>Exploring music interactions, with R</strong>" was written by Marc Leman. It was last built on 2024-06-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 Violin player | render book</title>
-<meta name="author" content="ML">
-<meta name="description" content="While the previous chapter looked at what music does with dancers, this chapter looks at what violinists do with music. Imagine an orchestra and its string section. Typically, the members of the...">
+<title>Chapter 5 Violin player | Exploring music interactions, with R</title>
+<meta name="author" content="Marc Leman">
+<meta name="description" content="While in the previous chapter we looked at what music does with dancers during a performance, here we look at what violinists do with music during a performance. Imagine an orchestra and its...">
 <meta name="generator" content="bookdown 0.39 with bs4_book()">
-<meta property="og:title" content="Chapter 5 Violin player | render book">
+<meta property="og:title" content="Chapter 5 Violin player | Exploring music interactions, with R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.ugent.be/chapViolinist.html">
 <meta property="og:image" content="https://www.ugent.be/images/cover.png">
-<meta property="og:description" content="While the previous chapter looked at what music does with dancers, this chapter looks at what violinists do with music. Imagine an orchestra and its string section. Typically, the members of the...">
+<meta property="og:description" content="While in the previous chapter we looked at what music does with dancers during a performance, here we look at what violinists do with music during a performance. Imagine an orchestra and its...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 Violin player | render book">
-<meta name="twitter:description" content="While the previous chapter looked at what music does with dancers, this chapter looks at what violinists do with music. Imagine an orchestra and its string section. Typically, the members of the...">
+<meta name="twitter:title" content="Chapter 5 Violin player | Exploring music interactions, with R">
+<meta name="twitter:description" content="While in the previous chapter we looked at what music does with dancers during a performance, here we look at what violinists do with music during a performance. Imagine an orchestra and its...">
 <meta name="twitter:image" content="https://www.ugent.be/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h2>
-        <a href="index.html" title="">render book</a>
+        <a href="index.html" title="">Exploring music interactions, with R</a>
       </h2>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -74,6 +74,7 @@
 <li><a class="" href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers – dynamic system</a></li>
 <li><a class="" href="chapTappers2.html"><span class="header-section-number">8</span> Two finger tappers</a></li>
 <li><a class="" href="chapConclusion.html"><span class="header-section-number">9</span> Conclusion</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -85,7 +86,7 @@
 <h1>
 <span class="header-section-number">5</span> Violin player<a class="anchor" aria-label="anchor" href="#chapViolinist"><i class="fas fa-link"></i></a>
 </h1>
-<p>While the previous chapter looked at what music does with dancers, this chapter looks at what violinists do with music.
+<p>While in the previous chapter we looked at what music does with dancers during a performance, here we look at what violinists do with music during a performance.
 Imagine an orchestra and its string section. Typically, the members of the string section, the violinists, have their bowing movements going up and down in synchronized manner, so that they appear as one single organism moving together. Less experienced violinists have to learn how to play in sync with the principal violinist of the section. They need to learn the bowing gestures as well as the particular expression associated with it.</p>
 <p>Now, imagine an audiovisual play-along system with a visual representation of the principal violinist of the orchestra as teacher-avatar. Wouldn’t that be a cool system to train with, for a violinist? And what happens if the teacher-avatar would be visible in 3D, with a Hololens? Would that be of any benefit to learning?</p>
 <p>The ultimate goal of the present chapter is to check the effectiveness of a 3D play-back system for learning to play in an orchestra, compared to a 2D play-back system.
@@ -655,8 +656,8 @@ FIGURE 5.3: Data of four pieces in two conditions
 <p>Differences between 2D and 3D are subtle but some things can already be observed by visual inspection. For example, in the first column (piece F1), first row (condition 2D), there are quite some dots above 2 in the 2D condition, whereas only a few dots above 2 in the 3D condition. This suggests a better alignment in 3D. However, in the second column (piece F2), at about 75 seconds, it looks as if the higher logPD values occur in 3D, compared to 2D.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapViolinistF1score"></span>
-<img src="Figures/chapViolinist_Score_F1.jpg" alt="Data of four pieces in two conditions" width="100%"><p class="caption">
-FIGURE 5.4: Data of four pieces in two conditions
+<img src="Figures/chapViolinist_Score_F1.jpg" alt="Score excerpt of the first piece (F1), with time indication in seconds." width="100%"><p class="caption">
+FIGURE 5.4: Score excerpt of the first piece (F1), with time indication in seconds.
 </p>
 </div>
 </div>
@@ -665,13 +666,13 @@ FIGURE 5.4: Data of four pieces in two conditions
 <span class="header-section-number">5.5</span> Smooth regression<a class="anchor" aria-label="anchor" href="#smooth-regression-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>Having our focus on the performance over time, we develop an analysis based on smooth regression. In that approach, we estimate the similarity/synchronization metric in terms of smooths over time. These smooths represent a floating mean and variance over time.
-The smooth regression can be described in terms of a GAM-syntax, which is the lme4-syntax extended with the syntax used in the R-package <code>mgcv</code> for GAM analysis:</p>
+The smooth regression can be specified as follows:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">form</span> <span class="op">=</span> <span class="fu">bf</span><span class="op">(</span><span class="va">logPD</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">condition</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">time</span>,k<span class="op">=</span><span class="fl">30</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>            <span class="fu">s</span><span class="op">(</span><span class="va">time</span>,by<span class="op">=</span><span class="va">condition</span>,k<span class="op">=</span><span class="fl">30</span><span class="op">)</span> <span class="op">+</span>  <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subject</span> <span class="op">+</span> <span class="va">trial</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">fam</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This expression says that <code>logPD</code> is modeled by a general intercept (represented by “1”) for the two levels of <code>condition</code> (2D, 3D), and a smooth over <code>time</code> for the levels of <code>condition</code>, using a basis of 30 splines. Each value of <code>logPD</code> at a certain point in time is a weighted sum of the spline basis functions. Furthermore, <code>trial</code> and <code>subject</code> are defined as group-level variables, whose variance is extracted such that the estimates for the other variables don’t contain this variance. Given the fact that both PD and 1-R show a Poisson-like distribution, we take the log and apply scaling such that the mean of all data is zero. This allows us to apply a gaussian link function of calculated mean and variance to the data.</p>
-<p>This smooth regression is implemented in the R-package <code>brms</code>. This modelling comes with a very high computational cost, due to the algorithms for optimization. Alternatively, the R-package <code>mgcv</code> can be used. However, <code>brms</code> is more flexible than <code>mgcv</code> as it offers a better grip on the fitted model.</p>
+<p>This smooth regression is implemented in the R-package <code>brms</code> but it comes with a very high computational cost, due to the algorithms for optimization. Alternatively, the R-package <code>mgcv</code> can be used. However, <code>brms</code> is more flexible than <code>mgcv</code> as it offers a better grip on the fitted model.</p>
 <p>Based on the fitted model using <code>brms</code>, we extract samples from the posterior. In particular, we generate a <em>posterior predictive distribution</em> and a <em>posterior difference distribution</em>, similar to the way we did it in chapter <a href="chapDancer.html#chapDancer">4</a>. The posterior predictive distribution can be generated using a newly defined data grid in which <code>time</code> is sampled, say at .5 seconds, and all other variables in the model are accordingly sampled. This entire posterior prediction contains one posterior predictive distribution per specified time point, and we can then easily extract the distributions for the 2D and 3D condition and subtract them to get the posterior difference distribution.</p>
 <p>The probability mass above or below zero can be calculated and used in support of the difference in posterior predictive distribution (2D - 3D). A probability mass of 90% above zero would give strong support for 2D being distinct from 3D. Note that we will have this posterior at each time instance, so that the performance in 2D versus 3D can be contrasted over time. Obviously, we can also summarize them over time intervals.</p>
 <p>To summarize the steps: (i) run the smooth regression model, (ii) generate a model-based prediction using a dataset with a counterfactual time (e.g. sampling at every .5 seconds), (iii) contrast 2D and 3D predictions at each sampled time.</p>
@@ -686,8 +687,8 @@ The smooth regression can be described in terms of a GAM-syntax, which is the lm
 </h3>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapViolinistPDdiff1"></span>
-<img src="Figures/chapViolinist_Diff_model_F1.png" alt="Piece F1 with audio (top panel), logPD and posterior predictions for 2D and 3D conditions (middle panel), and posterior difference of 2D and 3D (bottom panel). Vertical lines show the regions of interest" width="100%"><p class="caption">
-FIGURE 5.5: Piece F1 with audio (top panel), logPD and posterior predictions for 2D and 3D conditions (middle panel), and posterior difference of 2D and 3D (bottom panel). Vertical lines show the regions of interest
+<img src="Figures/chapViolinist_Diff_model_F1.png" alt="Piece F1 with audio (top panel), logPD and posterior predictions for 2D and 3D conditions (middle panel), and posterior difference of 2D and 3D (bottom panel). Vertical lines show the regions of interest." width="100%"><p class="caption">
+FIGURE 5.5: Piece F1 with audio (top panel), logPD and posterior predictions for 2D and 3D conditions (middle panel), and posterior difference of 2D and 3D (bottom panel). Vertical lines show the regions of interest.
 </p>
 </div>
 <p>Figure <a href="chapViolinist.html#fig:chapViolinistPDdiff1">5.5</a> shows audio and posterior distributions of the first piece used in this experiment.
@@ -700,7 +701,7 @@ At each point in time, 1000 samples are randomly drawn from the (2D, 3D) posteri
 Note that in this calculation the entire distribution is used, rather than the CI-25% shown in the middle panel.
 This calculation is then applied to all points in time, leading to the <em>posterior difference distribution</em> with its its CI-90%.
 The red dots on the horizontal line (at 2D-3D = 0), just indicate whether data samples are available at that point in time.</p>
-<p>Note that the <em>posterior difference distribution</em> is possible because it is based on the smooths from the <em>posterior predictive distribution</em>. A distribution based on data points (rather than smooths) would face the problem that bow strokes have no common onset and offset. And therefore, they cannot be compared. The smooth allows the contrast!
+<p>Note that the <em>posterior difference distribution</em> is possible because it is based on the smooths from the <em>posterior predictive distribution</em>. A distribution based on data points (rather than smooths) would face the problem that bow strokes have no common onset and offset. And therefore, they cannot be compared. The smooth allows for the contrast!
 As in the previous chapter, the key trick is to define a new data grid with counterfactual time, and then use the model that generalizes over time to extract the samples. The R-code is based on the following expressions:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">newdat</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span> <span class="fu">data_grid</span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">time_begin</span>, <span class="va">time_end</span>,by<span class="op">=</span><span class="fl">.5</span><span class="op">)</span><span class="op">)</span></span>
@@ -1095,9 +1096,9 @@ It suffices here to say that it is based on a continuous comparison of the bowin
 FIGURE 5.9: Piece F1 with audio (top panel), logPD and posterior predictions (middle panel), and posterior difference of 2D and 3D. Vertical lines show the regions of interest
 </p>
 </div>
-<p>Here we clearly see that the contrast is in favour of 3D, except for passages that indicate rest. They indicate that at those points, no difference can be made between 2D and 3D. Ideally, student and teacher don’t move the bow and therefore, they are most in sync at those points. See the second panel where the log(1-R) measure is lowest in regions where no audio occurs.</p>
-<p>Figures <a href="chapViolinist.html#fig:GUSO2A2model2conditionspieceF2a">5.10</a> and <a href="chapViolinist.html#fig:GUSO2A2model2conditionspieceF2b">5.11</a> allows a comparison of the two metrics.
-The top panel shows a similar trend in the sense that at the beginning 3D offers a better synchronization than 2D. However, towards the end the role are reversed and 2D offers a better synchronization than 3D. The reason may be due to the fact that the score is different towards the end. Accordingly, this type of analysis calls for a deeper musicological analysis based on additional score analysis. This book is not the place to provide such analysis. We merely show that some representation of the music performance may be of interest for future work to be done in this domain.</p>
+<p>Here we clearly see that the contrast is in favour of 3D, except for passages that indicate rest. They indicate that at those points, no difference can be made between 2D and 3D. Ideally, student and teacher don’t move the bow and therefore, they are most in sync at those points, so the contrast is zero. See the second panel where the log(1-R) measure is lowest in regions where no audio occurs.</p>
+<p>Figures <a href="chapViolinist.html#fig:GUSO2A2model2conditionspieceF2a">5.10</a> and <a href="chapViolinist.html#fig:GUSO2A2model2conditionspieceF2b">5.11</a> show the two metrics next to each other, now applied to the second piece (F2).
+The top panel shows a similar trend in the sense that at the beginning of the piece, 3D offers a better synchronization than 2D. However, towards the end of the piece, the roles are reversed and 2D offers a better synchronization than 3D. The reason may be due to the fact that the score is different towards the end. Accordingly, this type of analysis calls for a deeper musicological analysis based on additional score analysis. This book is not the place to provide such analysis. We merely show that some statistical representation of the music performance may be of interest for future work to be done in this domain.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:GUSO2A2model2conditionspieceF2a"></span>
 <img src="Figures/chapViolinist_Diff_model_F2.png" alt="Comparison of Procustus metric for piece F2" width="100%"><p class="caption">
@@ -1133,12 +1134,8 @@ With this result, one may wonder whether the cost of a Hololens and addition equ
 It is possible to zoom in on sections, and get specific answers about whether the 2D or 3D teacher-avatar condition works better in those sections.
 The main idea is that statistical modelling allows for predictions over equally sampled times, whereas the data from condition 2D are not necessarily happing at the same time with the data of condition 3D.</p>
 <p>Clearly, there are many things to improve in this study. First of all, more subjects are needed, and within subject comparisons offer a better way than the somewhat complicated design of this study. Performance analysis remains difficult due to the many uncontrolled parameters.</p>
-</div>
-<div id="references-4" class="section level2" number="5.10">
-<h2>
-<span class="header-section-number">5.10</span> References<a class="anchor" aria-label="anchor" href="#references-4"><i class="fas fa-link"></i></a>
-</h2>
-<p>Campo et al. (2023a, 2023b, 2024)</p>
+<!-- ## References -->
+<!-- Campo et al. (2023a, 2023b, 2024) -->
 
 </div>
 </div>
@@ -1170,7 +1167,6 @@ The main idea is that statistical modelling allows for predictions over equally 
 <li><a class="nav-link" href="#continuous-metric"><span class="header-section-number">5.7</span> Continuous metric</a></li>
 <li><a class="nav-link" href="#discussion-1"><span class="header-section-number">5.8</span> Discussion</a></li>
 <li><a class="nav-link" href="#conclusion-4"><span class="header-section-number">5.9</span> Conclusion</a></li>
-<li><a class="nav-link" href="#references-4"><span class="header-section-number">5.10</span> References</a></li>
 </ul>
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -1187,7 +1183,7 @@ The main idea is that statistical modelling allows for predictions over equally 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>render book</strong>" was written by ML. It was last built on 2024-01-06.</p>
+    <p>"<strong>Exploring music interactions, with R</strong>" was written by Marc Leman. It was last built on 2024-06-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
