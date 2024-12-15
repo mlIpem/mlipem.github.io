@@ -1,1 +1,1 @@
-*Exploring music interaction with R* is about understanding the complex dynamic behind values, created with music, that affect humans in a positive way. It is based on R (and Stan), a statistical programming language that has powerful data processing and visualization capabilities. The book focuses on timing aspects of these interactions. It will interest readers interested in extending their knowledge in human interaction and skills in statistical modelling."
+
