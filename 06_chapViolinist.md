@@ -1,21 +1,24 @@
-# Violin player {#chapViolinist}
+# Violin player visual feedback {#chapViolinist}
 
-While in the previous chapter we looked at what music does with dancers during a performance, here we look at what violinists do with music during a performance. 
+While in the previous chapter we looked at the effect of musical structure on the micro-timing of dancers during a solo-dance, here we look at the effect of visual feedback on instrumental learning.^[Thanks to input and feedback from A. Campo and A. Michalko]
+
 Imagine an orchestra and its string section. Typically, the members of the string section, the violinists, have their bowing movements going up and down in synchronized manner, so that they appear as one single organism moving together. Less experienced violinists have to learn how to play in sync with the principal violinist of the section. They need to learn the bowing gestures as well as the particular expression associated with it. 
 
 Now, imagine an audiovisual play-along system with a visual representation of the principal violinist of the orchestra as teacher-avatar. Wouldn't that be a cool system to train with, for a violinist? And what happens if the teacher-avatar would be visible in 3D, with a Hololens? Would that be of any benefit to learning?
 
 The ultimate goal of the present chapter is to check the effectiveness of a 3D play-back system for learning to play in an orchestra, compared to a 2D play-back system. 
-However, to figure that out is not an easy matter, due the small number of participants in this study and their different level of musical experience.
-Owing to these and other reasons, this chapter is highly exploratory. 
-Yet it shows the flexibility of Bayesian statistical modelling, even when focusing on individual musicians. 
-Something that could be useful in future projects, when more data about performance would be available.
+To figure that out is not an easy matter, due the entire setup and resources available. Typically, we deal with a small number of participants and different levels of musical experience.
 
-The modelling techniques introduced in the previous chapter are partly repeated in the present chapter. Data for this chapter can be found in Campo et al. (2023a, 2023b), with software available at Campo et al. (2024).
+Owing to these and other reasons, not at least the novelty and highly technical character of the study, this chapter is highly exploratory. 
+It shows the flexibility of Bayesian statistical modelling is studies were time is important, even when focusing on individual musicians. 
+
+Learning to perform as a violinist in an orchestra is a multifaceted process that involves structured practice, anticipatory behavior, collaborative engagement, and continuous feedback. These elements work together to create a self-augmented interaction, where the violinist's skills and abilities are continually enhanced through their engagement with the orchestra. 
+
+The modelling techniques introduced in the previous chapter are partly repeated in the present chapter. Data for this chapter can be found in Campo et al. (2023a, 2023b), with software available at Campo et al. (2024). See also Michalko et al. (submitted).
 The code can be found in the following scripts for data preparation and plotting, modelling and plotting, and contrast analysis and plotting:
 
 
-```r
+``` r
 source("Code/chapAll_00_Initialization.R")
 source("Code/chapAll_01_Functions.R")
 source("Code/chapViolinist/chapViolinist_02_DataPreparation.R")
@@ -56,13 +59,7 @@ However, conditions apply to different pieces (F1, F2, F3, F4), with F1 and F2 f
 and one for the principal violinist of the second violin players. 
 The structure is shown in the table below.
 
-Unfortunately, this design does not allow us to check conditions per student and per piece. as students played one piece in 2D and another piece in 3D.
-However, for each piece, we can compare students playing with 2D with students playing with 3D.
-For example, for piece F1, we have student P004, P006 and P009 playing in the 2D condition and we have student P001, P002, and P0010 playing in the 3D condition.
-Moreover, each subject played four trials, spread over four weeks.
-The two groups, formed by condition, can be compared per piece. 
-
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapViolinistDesign1)Experimental design</caption>
  <thead>
   <tr>
@@ -185,6 +182,12 @@ The two groups, formed by condition, can be compared per piece.
 </tbody>
 </table>
 
+Unfortunately, this design does not allow us to check conditions per student and per piece. as students played one piece in 2D and another piece in 3D.
+However, for each piece, we can compare students playing with 2D with students playing with 3D.
+For example, for piece F1, we have student P004, P006 and P009 playing in the 2D condition and we have student P001, P002, and P0010 playing in the 3D condition.
+Moreover, each subject played four trials, spread over four weeks.
+The two groups, formed by condition, can be compared per piece. 
+
 Eleven subjects is not much. The reason is that experiments are very time-consuming and that subjects, such as those who play in an orchestra, are few and sometimes hard to find, especially for participation in longitudinal studies. Nevertheless, thanks to the four trials, which we consider here as repeated measures, we are just on the border of having enough statistical power.
 
 
@@ -193,12 +196,14 @@ Eleven subjects is not much. The reason is that experiments are very time-consum
 A study has already been published in Campo et al. (2023a) and the bowing gesture events can be downloaded from Campo et al. (2023b) with software available at Campo et al. (2024).
 Here we focus on aspects of statistical modelling that are not explicitly contained in the above publications.
 
-The metric comes from the publicly available dataset (Campo.etal_2023a). It describes the similarity of student and teacher in terms of *events*, that is, the identification of a bowing gesture and the subsequent calculation of a bowing similarity feature between student and teacher. The similarity feature is based on the *Procustus distance (PD)*, which quantifies the extent of deformation needed to transform one gesture into the other gesture. It is based on the scaling, rotating, and translating of the student's bowing gesture. Smaller PD values indicate greater similarity between bowing gestures. A detailed description of the metric can be found in (Campo.etal_2023). To facilitate the statistical fitting, we use the scaled log of PD and call it log_PD. Note that in some cases was is hard to define bowing events. Accordingly, several passages could not be taken into account in the analysis.
+Our data comes from the publicly available dataset (Campo et al., 2023a). It describes the similarity of student and teacher in terms of *events*, that is, the identification of a bowing gesture and the subsequent calculation of a bowing similarity feature between student and teacher. The similarity feature is based on the *Procustus distance (PD)*, which quantifies the extent of deformation needed to transform one gesture into the other gesture. It is based on the scaling, rotating, and translating of the student's bowing gesture. Smaller PD values indicate greater similarity between bowing gestures. 
+
+To facilitate the statistical fitting, we use the scaled log of PD and call it log_PD. Note that in some cases it was is hard to define bowing events. Accordingly, several passages could not be taken into account in the analysis.
 We use the dataset specified in the following table.
 The original dataset also contains motion capture, audio, and questionnaire data from violinists. 
 
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapViolinistDesign2)Data with procustus distance (PD)</caption>
  <thead>
   <tr>
@@ -282,6 +287,7 @@ The original dataset also contains motion capture, audio, and questionnaire data
   </tr>
 </tbody>
 </table>
+
 The first three columns contain the metrics of the Procustus Distance, `PD`, its (scaled) logarithm `logPD`. 
 The columns `startIndex` and `endIndex` contain the start and end times of a bowing gesture in seconds.
 The sample times are indicated in `time` and bowing gestures are sampled every .3 seconds.
@@ -297,7 +303,7 @@ Interestingly, difference between 2D and 3D are mainly seen at higher values, wh
 The dotted lines show the medians for each condition. It looks as if 3D is lower than 2D.
 
 <div class="figure" style="text-align: center">
-<img src="Figures/chapViolinist_PD_NewData_p1_hist.png" alt="Density of PD for 2D and 3D" width="100%" /><img src="Figures/chapViolinist_PD_NewData_p2_hist.png" alt="Density of PD for 2D and 3D" width="100%" />
+<img src="Figures/chapViolinist_PD_NewData_p1_hist.png" alt="Density of PD for 2D and 3D" width="49%" /><img src="Figures/chapViolinist_PD_NewData_p2_hist.png" alt="Density of PD for 2D and 3D" width="49%" />
 <p class="caption">(\#fig:chapViolinistPDhist)Density of PD for 2D and 3D</p>
 </div>
 
@@ -331,7 +337,7 @@ Having our focus on the performance over time, we develop an analysis based on s
 The smooth regression can be specified as follows:
 
 
-```r
+``` r
 form = bf(logPD ~ 1 + condition + s(time,k=30) + 
             s(time,by=condition,k=30) +  (1 | subject + trial))
 fam = gaussian()
@@ -340,10 +346,9 @@ fam = gaussian()
 This expression says that `logPD` is modeled by a general intercept (represented by “1”) for the two levels of `condition` (2D, 3D), and a smooth over `time` for the levels of `condition`, using a basis of 30 splines. Each value of `logPD` at a certain point in time is a weighted sum of the spline basis functions. Furthermore, `trial` and `subject` are defined as group-level variables, whose variance is extracted such that the estimates for the other variables don’t contain this variance. Given the fact that both PD and 1-R show a Poisson-like distribution, we take the log and apply scaling such that the mean of all data is zero. This allows us to apply a gaussian link function of calculated mean and variance to the data.
 
 
-This smooth regression is implemented in the R-package `brms` but it comes with a very high computational cost, due to the algorithms for optimization. Alternatively, the R-package `mgcv` can be used. However, `brms` is more flexible than `mgcv` as it offers a better grip on the fitted model.  
+This smooth regression is implemented in the R-package `brms` but it comes with a high computational cost, due to the algorithms for optimization. Alternatively, the R-package `mgcv` can be used. However, `brms` is more flexible than `mgcv` as it offers a better grip on the fitted model.  
 
-
-Based on the fitted model using `brms`, we extract samples from the posterior. In particular, we generate a *posterior predictive distribution* and a *posterior difference distribution*, similar to the way we did it in chapter \@ref(chapDancer). The posterior predictive distribution can be generated using a newly defined data grid in which `time` is sampled, say at .5 seconds, and all other variables in the model are accordingly sampled. This entire posterior prediction contains one posterior predictive distribution per specified time point, and we can then easily extract the distributions for the 2D and 3D condition and subtract them to get the posterior difference distribution.
+Based on the fitted model using `brms`, we extract samples from the posterior. In particular, we generate a *posterior predictive distribution* and a *posterior difference distribution*, similar to the way we did it in chapter \@ref(chapDancer). The posterior predictive distribution can be generated using a newly defined data grid in which `time` is sampled, say at .5 seconds, and all other variables in the model are accordingly sampled. This entire posterior prediction contains one posterior predictive distribution per specified time point, and we can then easily extract the distributions for the 2D and 3D condition and subtract them to get the posterior difference distribution. 
 
 The probability mass above or below zero can be calculated and used in support of the difference in posterior predictive distribution (2D - 3D). A probability mass of 90% above zero would give strong support for 2D being distinct from 3D. Note that we will have this posterior at each time instance, so that the performance in 2D versus 3D can be contrasted over time. Obviously, we can also summarize them over time intervals. 
 
@@ -360,31 +365,35 @@ As we compare performances with a visual scene in 2D with those in 3D, we develo
 <p class="caption">(\#fig:chapViolinistPDdiff1)Piece F1 with audio (top panel), logPD and posterior predictions for 2D and 3D conditions (middle panel), and posterior difference of 2D and 3D (bottom panel). Vertical lines show the regions of interest.</p>
 </div>
 Figure \@ref(fig:chapViolinistPDdiff1) shows audio and posterior distributions of the first piece used in this experiment.
-The top panel shows the audio waveform of the teacher's performance. We use it here mainly as a reference. The blocks, marked by vertical lines, show the relevant sections where bow gesture events could be identified. The gray zones show the zones that were bowing gesture events could not be easily defined. Therefore, these events have been deleted in the analysis.
+The top panel shows the audio waveform of the teacher's performance. We use it here mainly as a reference, to check rests and fragments that could not be analysed because bow gestures could not be identified. The blocks, marked by vertical lines, show the relevant sections where bow gesture events could be identified. The gray zones show the zones that were bowing gesture events could not be easily defined. Therefore, these events have been deleted in the analysis.
 
 The middle panel shows the logPD of the bowing gestures of the 2D and 3D performances for all subjects and trials in this piece, see the above table.
 The smooths (2D in gray, 3D in ocre) show the *posterior predictive distribution* calculated at each .5 seconds, indicating the mean and its uncertainty for each condition over subjects.
 Note that the smooths show only 25% of the distribution's probability mass (the critical interval at 25%, or CI-25%). Taking CI-90% would have resulted in too much overlap and a less clear picture.
 
 The bottom panel shows the *posterior difference distribution*. 
-At each point in time, 1000 samples are randomly drawn from the (2D, 3D) posterior predictive distributions. Then, for each draw, the number from $2D$ and the number from $3D$ are subtracted (as in: $2D-3D$), giving 1000 new values used to build a new distribution, called the *posterior difference distribution*. 
+At each point in time, 1000 samples are randomly drawn from the (2D, 3D) posterior predictive distributions. Then, for each draw, the number from $2D$ and the corresponding number from $3D$ are subtracted (as in: $2D-3D$), giving 1000 new values used to build a new distribution, called the *posterior difference distribution*. 
 Note that in this calculation the entire distribution is used, rather than the CI-25% shown in the middle panel.
+
 This calculation is then applied to all points in time, leading to the *posterior difference distribution* with its its CI-90%. 
 The red dots on the horizontal line (at 2D-3D = 0), just indicate whether data samples are available at that point in time.
 
 Note that the *posterior difference distribution* is possible because it is based on the smooths from the *posterior predictive distribution*. A distribution based on data points (rather than smooths) would face the problem that bow strokes have no common onset and offset. And therefore, they cannot be compared. The smooth allows for the contrast! 
-As in the previous chapter, the key trick is to define a new data grid with counterfactual time, and then use the model that generalizes over time to extract the samples. The R-code is based on the following expressions:
+
+As in the previous chapter, the key trick is to define a new data grid with counterfactual time, and then use the model that generalizes over time to extract the samples. The R-code is based on the following expressions (see: `Code/chapViolinist/chapViolinist_05_ModelPlotting.R```):
 
 
-```r
+``` r
 newdat <- data %>% data_grid(time = seq(time_begin, time_end,by=.5))
 post_pred_distr <- epred_draws(fit, newdat, scale = "response", re_formula = NA) 
 ```
 
-We can now check the probability direction at each sampled time for any defined interval over time.
+Given this approach, we can check the probability direction at each sampled time for any defined interval over time.
 If, at a certain point in time, this gray band is completely above zero, then, there is a strong support for 3D having a lower logPD than 2D, which means: 3D offers better alignment with the teacher.
+
 If this gray band is completely below zero, then there is a strong support for 2D having a lower logPD value than 3D, which means: 2D offers a better alignment with the teacher.
 If it crosses zero, then it depends on how much of the probability mass is different from zero. If it is still 70%, one could argue for a very weak trend, but 50% would certainly indicate no difference.
+
 In short,  when the gray band is above zero it is possible to conclude that the student's bowing gestures are better lined up with the 3D teacher's bowing gestures, confirming the theory that parallax might offer a distinctive feedback on the sensorimotor control needed for bowing. 
 
 The bottom panel shows a contrast analysis per time point.
@@ -411,12 +420,12 @@ A distribution of these two blocks can be plotted with density plots, as shown i
 As mentioned, it can be concluded that there is a contrast in condition for block 1 but not for block 2.
 
 <div class="figure" style="text-align: center">
-<img src="Figures/chapViolinist_ContrastBlock_1.png" alt="Contrast of block1 [3.6,26]s" width="100%" />
+<img src="Figures/chapViolinist_ContrastBlock_1.png" alt="Contrast of block1 [3.6,26]s" width="49%" />
 <p class="caption">(\#fig:chapViolinistContrastblock1a)Contrast of block1 [3.6,26]s</p>
 </div>
 
 <div class="figure" style="text-align: center">
-<img src="Figures/chapViolinist_ContrastBlock_2.png" alt="Contrast of block 2 [53,77]s" width="100%" />
+<img src="Figures/chapViolinist_ContrastBlock_2.png" alt="Contrast of block 2 [53,77]s" width="49%" />
 <p class="caption">(\#fig:chapViolinistContrastblock1b)Contrast of block 2 [53,77]s</p>
 </div>
 
@@ -424,12 +433,10 @@ Based on the posterior with smooths, it is possible to summarize the blocks over
 Table \@ref(tab:chapViolinistBlockContrasts1) shows the result.
 The label on the left indicates the piece and the selected interval in seconds, followed by the mean of the posterior difference distribution for PD, and its CI-95% as indicated by the min and max, followed by the probability of direction (pd).
 
-It can be observed that almost all contrasts are positive, suggesting that 2D has higher logPD values than 3D and thus 2D is overall less well aligned compared to 3D. However, the pd shows that only few sections have strong evidence for a contrast. A logPD difference of 0.5 is at least needed for strong evidence of a contrast. 
+It can be observed that almost all contrasts are positive, suggesting that 2D has higher logPD values than 3D and thus 2D is overall less well aligned compared to 3D. However, the pd shows that only few sections have strong evidence for a contrast. A logPD difference of 0.5 is at least needed for strong evidence of a contrast. The calculation is found in `Code/chapViolinist/chapViolinist_06_Contrasts.R`.
 
 
-
-
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapViolinistBlockContrasts1)Contrasts of in defined segments of different Pieces (F1,..,F4)</caption>
  <thead>
   <tr>
@@ -565,6 +572,7 @@ It can be observed that almost all contrasts are positive, suggesting that 2D ha
 
 
 Considering the block defined by $[3.6,38.7]s$, there is evidence in favor of a contrast. The value pd, of direction of probability, says that 96% of the distribution is above zero. And being above zero (with a logPD value of 1.00) means that in the 3D condition, the student's performance is much better aligned with the teacher.
+
 Considering the block defined by $[53,88]s$. Here there is no evidence for a contrast because the value of pd is 83%. One could argue that there is a trend but it is certainly not distinctive enough. In fact, a careful visual inspection of these blocks in \@ref(fig:chapViolinistPDdiff1) already suggested this result.
 Now we have it in numbers!
 
@@ -573,7 +581,7 @@ The overall conclusion is that the student's alignment with the teacher, in term
 At this point, a qualitative analysis of score and bow strokes would be needed.
 For example, at some time instances, especially when long notes are played at the ending of a block, the difference is suddenly more prominent. Score and associated performance analysis would be needed to further investigate the origin of sudden (dis)alignments between student and teacher.
 
-The major point made here is methodological. The above analysis illustrates the flexibility of the statistical modelling approach and this flexibility is of great value for future work in this domain.
+The major point made in this chapter is methodological. The above analysis illustrates the flexibility of the statistical modelling approach and this flexibility is of great value for future work in this domain.
 
 ### Individual violinists {-}
 
@@ -591,18 +599,20 @@ Each line represents the smooth over the data per trial, for subject P009 only.
 ## Continuous metric
 
 In what follows, we show some results with a different metric.
-The metric will be discussed in more detail in the next chapter (chapter \@ref(chapExoskeletons)).
-It suffices here to say that it is based on a continuous comparison of the bowing movements, using using time differences between student and teacher captured as relative phase. This metric is ignorant of bowing gesture events because it is a continuous metric. It is likely that passages in which both the bowing of the teacher and student are at rest shows the highest synchronization. Obviously, these passages of rest can be easily extracted from  the audio. 
+The metric itself will be discussed in more detail in the next chapter (chapter \@ref(chapExoskeletons)).
+
+It suffices here to say that it is based on a continuous comparison of the bowing movements, using using time differences between student and teacher captured as relative phase. The metric is ignorant of bowing gesture events because it is a continuous metric. That's an advantage. The disadvantage is that passages in which both the bowing of the teacher and student are at rest shows the highest synchronization because they don't differ in timing. Obviously, these passages of rest can be easily extracted from the audio and should be taken into account to mark the performance. 
 
 
 <div class="figure" style="text-align: center">
 <img src="Figures/chapViolinist_GUSO2_A2model_2conditions_piece_F1.rds.png" alt="Piece F1 with audio (top panel), logPD and posterior predictions (middle panel), and posterior difference of 2D and 3D. Vertical lines show the regions of interest" width="100%" />
 <p class="caption">(\#fig:GUSO2A2model2conditionspieceF1)Piece F1 with audio (top panel), logPD and posterior predictions (middle panel), and posterior difference of 2D and 3D. Vertical lines show the regions of interest</p>
 </div>
-Here we clearly see that the contrast is in favour of 3D, except for passages that indicate rest. They indicate that at those points, no difference can be made between 2D and 3D. Ideally, student and teacher don't move the bow and therefore, they are most in sync at those points, so the contrast is zero. See the second panel where the log(1-R) measure is lowest in regions where no audio occurs.
+In figure \@ref(fig:GUSO2A2model2conditionspieceF1) we clearly see that the contrast (lowest panel) is in favour of 3D, except for passages that indicate rest. They indicate that at those points, no difference can be made between 2D and 3D. Ideally, student and teacher don't move the bow and therefore, they are most in sync at those points, so the contrast is zero. See the second panel where the log(1-R) measure is lowest in regions where no audio occurs.
 
-Figures \@ref(fig:GUSO2A2model2conditionspieceF2a) and \@ref(fig:GUSO2A2model2conditionspieceF2b) show the two metrics next to each other, now applied to the second piece (F2).
-The top panel shows a similar trend in the sense that at the beginning of the piece, 3D offers a better synchronization than 2D. However, towards the end of the piece, the roles are reversed and 2D offers a better synchronization than 3D. The reason may be due to the fact that the score is different towards the end. Accordingly, this type of analysis calls for a deeper musicological analysis based on additional score analysis. This book is not the place to provide such analysis. We merely show that some statistical representation of the music performance may be of interest for future work to be done in this domain.
+Figures \@ref(fig:GUSO2A2model2conditionspieceF2a) and \@ref(fig:GUSO2A2model2conditionspieceF2b) show the two metrics (Procustus and relative phase) next to each other, now applied to the second piece (F2).
+
+At the beginning of the piece, 3D offers a better synchronization than 2D. However, towards the end of the piece, the roles are reversed and 2D offers a better synchronization than 3D. We see this trend reflected in both figures. The reason may be due to the fact that the score is different towards the end. Accordingly, this type of analysis calls for a deeper musicological analysis based on additional score analysis. This book is not the place to provide such analysis. We merely show that some statistical representation of the music performance may be of interest for future work to be done in this domain.
 
 <div class="figure" style="text-align: center">
 <img src="Figures/chapViolinist_Diff_model_F2.png" alt="Comparison of Procustus metric for piece F2" width="100%" />
@@ -617,7 +627,7 @@ The top panel shows a similar trend in the sense that at the beginning of the pi
 
 ## Discussion
 
-Several noteworthy aspects merit attention when discussing teachers and their bow gestures. These gestures vary in expressiveness, ranging from those that effectively convey a clear intention to those that are less expressive and fail to effectively communicate the intended message. At times, a gesture may be readily anticipated and comprehended by the student, facilitating synchronization between teacher and student. However, there are instances when the gesture is unprepared, resulting in diminished anticipation and understanding on the part of the student.
+Several noteworthy aspects merit attention when discussing teachers and their bow gestures. These gestures vary in expressiveness, ranging from those that effectively convey a clear intention to those that are less expressive and fail to effectively communicate the intended message. At times, a gesture may be readily anticipated and comprehended by the student, facilitating synchronization between teacher and student. However, there are instances when the gesture is unprepared, plausibly resulting in diminished anticipation and understanding on the part of the student.
 
 Treating all gestures equally, irrespective of their level of anticipation,  -- as we do in the modelling -- could potentially impact the analysis and interpretation of specific effects. Difference in the teachers' expressiveness can consequently result in disparate communicative values, influencing how students perceive and respond to gestures.
 
@@ -633,13 +643,12 @@ Primarily, this chapter demonstrates the efficacy of smooth regression and the a
 
 Overall, we found a trend in favor of 3D, at least for piece F1. 
 The ability to use parallax seems to help in particular circumstances related to the difficulty of the playing. However, 2D may offer already a decent good visual perception opportunity that is sufficient to control the bowing gestures.
+
 With this result, one may wonder whether the cost of a Hololens and addition equipment needed to play along with the teacher-avatar is really worth the effort. We merely see at least a trend in favour of 3D, which is in line with the suggestion that parallax is an important feature of the visual modality in order to work as feedback for the control of bowing gestures.
 
 Nevertheless, the analysis illustrates the flexibility of smooth regression in Bayesian statistics.
-It is possible to zoom in on sections, and get specific answers about whether the 2D or 3D teacher-avatar condition works better in those sections. 
-The main idea is that statistical modelling allows for predictions over equally sampled times, whereas the data from condition 2D are not necessarily happing at the same time with the data of condition 3D.
-
-Clearly, there are many things to improve in this study. First of all, more subjects are needed, and within subject comparisons offer a better way than the somewhat complicated design of this study. Performance analysis remains difficult due to the many uncontrolled parameters.
+It is possible to zoom in on sections, and get specific answers about whether on or the other condition works better in those sections. 
+The main idea is that statistical modelling allows for predictions over equally sampled times. This is useful when events from one condition are not necessarily happing at the same time of events of another condition, and you want to compare both conditions assuming that there is correlation over time at short time intervals.
 
 <!-- ## References -->
 <!-- Campo et al. (2023a, 2023b, 2024) -->

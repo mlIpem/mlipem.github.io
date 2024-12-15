@@ -1,18 +1,19 @@
-# Two violin players {#chapExoskeletons}
+# Two violin players' haptic feedback{#chapExoskeletons}
 
-In this chapter, we study the effect of auditory, visual and haptic modalities on music playing, going beyond the single listener, dancer, musician. Finally, we look at *mutual* interactions between musicians!
+In this chapter^[Thanks to A. Michalko and A. Campo for their significant contribution to this and other related experiments in the CONBOTS project. See Michałko et al. (2024), Campo et al. (submitted)], we examine mutual interactions between musicians using futuristic equipment: exoskeletons. With these devices, we study the effect of haptics on music playing, in addition to the natural auditory and visual modalities.
 
-In a normal setting, two violinists playing rely on hearing and seeing each other, thus involving the auditory and visual modality to co-regulate their actions.
-However, when a violinist gets equipped with a exoskeleton, mounted around the right arm, it becomes possible to influence the bowing movements through forces exerted by the exoskeleton.
-These forces stimulate the sense of touch, or haptics.
-But what happens when two exoskeletons get connected? 
-Is it possible to test what the haptic modality can contribute to co-regulation, and compare it with the visual and auditory modality? Which modality provides the best feedback for synchronization? 
-Would the embodied connection through exoskeletons contribute to self-augmented interactions?
+In a typical setting, two violinists playing together rely on hearing and seeing each other, thus involving the auditory and visual modalities to co-regulate their actions. However, when a violinist is equipped with an exoskeleton mounted around the right arm, it becomes possible to influence the bowing movements through forces exerted by the exoskeleton, as if somehow aiding the arm movement of the violinist. These forces stimulate the sense of movement, or haptics.
+
+Consider what happens when two exoskeletons are connected. It is as if two violinists are helping each other move their arms. What would be the effect on their interaction?
+
+Would the haptic modality contribute to co-regulation? Is it as strong as the visual or auditory modalities? Which of the three modalities provides the best feedback for synchronization?
+
+Finally, we also consider whether the embodied connection through exoskeletons would contribute to self-augmented interactions. For example, by influencing each other's movements, it might be easier to achieve a desired synchronized interaction state.
 
 The code can be found in the following scripts for data preparation and plotting, modelling and plotting, and contrast analysis and plotting:
 
 
-```r
+``` r
 source("Code/chapAll_00_Initialization.R")
 source("Code/chapAll_01_Functions.R")
 source("Code/chapExoskeletons/chapExoskeletons_02_DataPreparation.R")
@@ -29,18 +30,18 @@ source("Code/chapExoskeletons/chapExoskeletons_06_Contrasts.R")
 <p class="caption">(\#fig:chapExoskeletonsTeacherStudent)(a) Teacher with exoskeleton and motion capture suit. (b) Student equipped with exoskeleton seeing a video for play-along</p>
 </div>
 
-Figure \@ref(fig:chapExoskeletonsTeacherStudent)
-shows a setup that is very similar to the setup of chapter \@ref(chapViolinist), in the sense that
-a student synchronizes the bowing gestures with a teacher.
-However, in this setup, both the teacher and the student are equipped with an exoskeleton, and the teacher is sending haptic information to the student. In other words, the student sees and feels the teacher. The question is whether the haptic information adds anything to the student.
-However, how interesting this may be, we skip that analysis, as we move to a next level of genuine bidirectionality.
+
+Let us first introduce the exoskeleton shown in figure \@ref(fig:chapExoskeletonsTeacherStudent). It depicts a violinist equipped with a robotic arm mounted on the right arm. The cap and suit are unrelated to this exoskeleton. The white dots are markers of the motion capture system, containing tiny mirrors that reflect the infrared light of surrounding cameras. This setup provides kinematic measurements in addition to the force measurements obtained through the exoskeleton.
+
+In this setup, the violinist imitates the movements of the teacher displayed on the screen. The configuration is similar to that discussed in chapter \@ref(chapViolinist), where a student synchronizes bowing gestures with a teacher. However, in this setup, both the teacher and the student are equipped with exoskeletons, and the teacher violinist transmits haptic information to the student violinist. In other words, the student both sees and feels the teacher's movements. The question is whether the haptic information enhances the student's learning experience. Campo et al. (submitted) demonstrate that haptic assistance indeed enhances learning outcomes.
 
 ## Bidirectional haptic feedback
 
-Indeed, it is possible to go one step further and consider what happens when two violinists have a haptic connection via exoskeletons, bi-directional. The latter means that both violinists feel and send haptic information to each other. The ultimate goal of [CONBOTS](https://www.conbots.eu)^[See the EU-project CONBOTS (CONnected through roBOTS, project nr. 871803, 2020-2024), https://www.conbots.eu.] was indeed to connect humans through exoskeletons, allowing for mutual haptic information exchange such that a common task can be executed. A common task could be: moving a heavy table, or playing a music piece, simple self-augmented interactions. 
+We go one step further and consider what happens when two violinists have a haptic connection via exoskeletons, bi-directional. The latter means that both violinists feel and send haptic information to each other. The ultimate goal of [CONBOTS](https://www.conbots.eu)^[See the EU-project CONBOTS (CONnected through roBOTS, project nr. 871803, 2020-2024), https://www.conbots.eu.] was indeed to connect humans through exoskeletons, allowing for mutual haptic information exchange such that a common task can be executed. A common task could be: moving a heavy table, or playing a music piece, simple self-augmented interactions. 
 
-The bi-directional connected exoskeletons realize a channel for mutual haptic feedback (= exoskeleton feedback) among violinist, for bowing movements.
+The bi-directional connected exoskeletons realize a channel for mutual haptic feedback (also called: exoskeleton feedback) among violinist, for bowing movements.
 Here, the question is whether exoskeleton feedback, or haptic control, is effective for playing a (polyphonic) music piece with synchronized bowing movements.
+
 The statistical modelling needed to figure out which modality, or combination of modalities, works best is based on techniques that have been explored throughout several chapters.
 This chapter is much of a rehearsal of the techniques, with some attention to signal conditioning, before statistical modelling is applied.
 
@@ -51,25 +52,19 @@ This chapter is much of a rehearsal of the techniques, with some attention to si
 
 ## Theory
 
-Two violinists playing together act in a co-regulated way, meaning that their sensory-motor control is coordinated through feedback which they receive from each others actions. 
-In a natural setting, violinists would co-regulate their synchronized bowing movements using auditory and visual sensing.
-The feedback control is then mediated through the audio-visual modalities, by hearing and seeing.
-This sensory-motor feedback via auditory and/or visual sensing is *indirect* (or mediated) because it involves the translation from one modality (audio, visual) to another modality (motor).
+Two violinists playing together act in a co-regulated way, meaning that their sensory-motor control is coordinated through feedback which they receive from each other's actions. In a natural setting, violinists would co-regulate their synchronized bowing movements using auditory and visual sensing. The feedback control is then mediated through the audio-visual modalities, by hearing and seeing. This sensory-motor feedback via auditory and/or visual sensing is indirect (or mediated) because it involves the translation from one modality (audio, visual) to another modality (motor).
 
-The hypothesis is that exoskeleton feedback through haptic control  offers an additional feedback control that is effective for co-regulated action (bowing movements) because the exoskeleton offers a *direct* (or non-mediated) sensory-motor feedback directly through impacting the muscle activity.
+The hypothesis is that exoskeleton feedback through haptic control offers an additional feedback mechanism that is effective for co-regulated action (bowing movements) because the exoskeleton provides direct (or non-mediated) sensory-motor feedback by directly impacting muscle activity.
 
-It can be assumed that direct (non-mediated) feedback is more effective than indirect (mediated) feedback.
+It can be assumed that direct (non-mediated) feedback is more effective than indirect (mediated) feedback because the latter consumes more cognitive resources.
 
-This is in any case a rather bold hypothesis.
-The demonstration of the effectiveness of exoskeleton feedback on co-regulated action would be a unique discovery with huge implications for domains in which movement synchronization via co-regulated sensory-motor control of joint actions is required.
+This is, in any case, a rather bold hypothesis. The demonstration of the effectiveness of exoskeleton feedback on co-regulated action would be a unique discovery with significant implications for domains requiring movement synchronization via co-regulated sensory-motor control of joint actions.
 
 ## Experiment 
 
-The good thing about this hypothesis is that it can be tested rather straightforwardly.
-This is how it can be done.
-To test the hypothesis, an experiment was set up with four conditions involving different feedback modalities.
+The advantage of this hypothesis is that it can be tested empirically. Here is how this can be done. To test the hypothesis, an experiment was designed with four conditions involving different feedback modalities.
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapExoskeletons1condi)Experimental setup</caption>
  <thead>
   <tr>
@@ -106,36 +101,42 @@ To test the hypothesis, an experiment was set up with four conditions involving 
   </tr>
 </tbody>
 </table>
+As the table suggests, `A` stands for auditory feedback, `AE` for auditory and exoskeleton feedback, `AV` for auditory and visual feedback, `AVE` for auditory, visual, and exoskeleton feedback. Note that in all conditions we have auditory feedback. Playing violin without auditory feedback would be rather weird and non-natural. 
 
-
-When the exoskeleton feedback is effective,  the synchronization of both violins can be characterized in terms of *synchronization strength* and *synchronization delay* (see chapter \@ref(chapModelling)).
-The *strength* of synchronization can be defined as the length of the average phase vector. It provides information about how well both violinists are synchronizing.
-The *delay* of synchronization can be defined as the angle of that average phase vector. It provides information about the preferred time delay between both violinists. 
-The *synchronization strength* and *synchronization delay* values can be extracted from bowing movements, using motion caption recording of the duet performances. 
-Regression modelling (based on the R-package `brms`) will be used to check whether conditions are different. 
 
 In total, 20 violin dyads participated in the study.
 
 ## Data
 In what follows, we highlight (i) signal conditioning, (ii) feature extraction, and (iii) statistical modelling.
 
+Our analysis strategy is based on the timing of both violins, measured through bowing movements.
+The timing of both violins, or more particularly, the relative timine of both violins can be characterized in terms of their phase synchronization.
+As discussed in chapter \@ref(chapModelling)) we can then make a distinction between
+*synchronization strength* and *synchronization delay*.
+The *strength* of synchronization provides information about how well both violinists are synchronizing.
+The *delay* of synchronization provides information about the preferred time delay between both violinists. 
+
+The relative timing can be extracted from bowing movements, using motion caption recording of the duet performances. 
+Regression modelling (based on the R-package `brms`) can be used to check whether conditions are different. 
+
+First we explain how the relevant timing information can be extracted from continuous movement signals.
+We first explain it verbally, then we show the code in R.
+
 ### Signal conditioning {-}
 
 Any raw input signal coming from a motion caption system needs to be processed and manipulated to prepare it for further statistical analysis, especially when dealing with phase, or relative time among musicians.
 
-The raw motion data of interest come from markers attached to the violin and to the violin bow. The data come from infra-red camera's who send infra-red light that is reflected by the small mirrors on the surface of the marker. Based on the reflected infra-red light, the motion caption system can determine the position of the marker in a system of coordinates X, Y and Z, at a rate of 120 samples per second.
+The raw motion data of interest come from markers attached to the violin and to the violin bow. The data come from infra-red camera's whose emitted infra-red light is reflected by the small mirrors on the surface of the marker. Based on the reflected infra-red light, the motion caption system can determine the position of each marker in a system of coordinates X, Y and Z, at a rate of 120 samples per second.
 
-To determine synchronization among two violinists it is useful to prepare the data such that it gives use the most efficient measure of synchronization.
+To determine synchronization among two violinists it is useful to prepare the data such that it gives the most efficient measure of synchronization.
 
-First we focus on the marker that is closest to the frog of the bow. 
-Let's call it the bow-marker. However, this marker alone is not enough.
-Any body movement, even moving without moving the bow, would move the bow-marker.
-Therefore, we need a relative movement based on the difference between the bow-marker and a marker on the violin, the violin-marker.
-We can then apply the following signal conditioning steps:
+Consider one violinist. We need to track the movement of the bow with respect to the violin. We attached one marker close to the frog of the bow, called the bow_marker. Additionally, we attached one marker on the violin in the direction where the bow moves, called the violin_marker. Clearly, recording the bow_marker alone is not sufficient because any movement of the body would translate to a movement of the bow_marker, even if the bow is not displaced relative to the violin. Therefore, we need to measure the relative movement based on the difference between the bow_marker and the violin_marker. Accordingly, when the body moves, the violin moves, and the bow can move relative to the violin.
+
+We can then apply the following:
 
 ### Filtering {-}
 
-As a first step, raw data are filtered because raw motion caption data of the X, Y and Z coordinates may contain small irregularities, or even missing data, due to measurement. Raw data should therefore be impeded and filtered (smoothed). Luckily our data don't contain missing values and so we just apply a filter, using the Nadaraya–Watson kernel regression estimate, with a bandwidth of .3. This filter is applied to all raw signals coming from a recorded performance. Here we use 3 coordinates from a bow-marker and 3 coordinates from a violin-marker, for 2 violinists. Accordingly, filtering is done on the 12 signals coming from the duet performances. The goal is now to reduce these 12 signals to only 2 signals, one per violinist, so that we can compare them in terms of synchronization.
+As a first step, raw data are smoothed (filtered) because raw motion caption data of the X, Y and Z coordinates may contain small irregularities, or even missing data, due to measurement. Luckily our data don't contain missing values and so we just apply a filter, using a Nadaraya–Watson kernel regression estimate, with a bandwidth of .3. This filter is applied to all raw signals coming from a recorded performance. Here we use 3 coordinates from a bow-marker and 3 coordinates from a violin-marker, for 2 violinists. Accordingly, filtering is done on the 12 signals coming from the duet performances. The goal is now to reduce these 12 signals to only 2 signals, one per violinist, so that we can compare them in terms of synchronization.
 
 <div class="figure" style="text-align: center">
 <img src="Figures/chapExoskeletons_Bow_Violin_markers.png" alt="Displacement signals at 120 sa/sec of the X, Y and Z dimension of bow-marker (left) and violin-marker (right) as provided by the mocap recording, with smoothed signal on top of each signal to avoid peaks" width="100%" />
@@ -224,6 +225,107 @@ The resulting CONBOTS_exo2_dataset `Dat` contains data from dyads, with the cond
 <!-- # \@ref(fig:chapExoskeletonOverview1) -->
 <!-- ``` -->
 
+Here we show the R code of the above steps.
+It is found in
+`Code/chapExoskeletons/chapExoskeletons_02_DataPreparation.R`.
+
+First we define two functions in R which we need for processing the signals.
+
+``` r
+################
+# Define a smooth function to run over raw mocap signals
+do_smooth <- function(D,Time){
+  print("--> in do_smooth() ")
+  Ds = ksmooth(Time, D, "normal", bandwidth = .3)$y
+  return(Ds)
+}
+# Define a principal component analysis and map the data to the first component
+do_pca <- function(D1,D2,D3){
+  cov_matrix <- cov(cbind(D1, D2, D3))
+  eigen_decomp <- eigen(cov_matrix)
+  sorted_indices <- order(eigen_decomp$values, decreasing = TRUE)
+  sorted_eigenvectors <- eigen_decomp$vectors[, sorted_indices]
+  max_variance_index <- 1  # Assuming the first eigenvector has the max variance
+  selected_eigenvector <- sorted_eigenvectors[, max_variance_index]
+  # Project the original data onto the selected eigenvector
+  S <- cbind(D1, D2, D3) %*% selected_eigenvector
+  return(S)
+}
+#####################
+```
+
+
+Then we read in the raw data frame as they come from the motion caption device in our lab.
+
+``` r
+data <- readRDS("Data/df_bow_complete1.rds")
+head(data)
+```
+
+We then extract the relevant markers from the very raw data frame, just to be more clear about what we are going to process.
+
+
+``` r
+#####################
+Data <- data %>%
+  dplyr::select(Placeholder,Dyad,Block,
+         Trial,Condition,Tempo,Time, Expertise,
+         "BOW1_1 X", "BOW1_1 Y", "BOW1_1 Z",
+         "BOW2_1 X", "BOW2_1 Y", "BOW2_1 Z",
+         "VIOLIN1_3 X","VIOLIN1_3 Y","VIOLIN1_3 Z",
+         "VIOLIN2_3 X","VIOLIN2_3 Y","VIOLIN2_3 Z",
+  )
+```
+
+`Placeholder` is a unique identifier for each recording. In fact it already contains the information of the dyad, block, tiral, and condition (A, AE, AV, AVE) in one string. Tempo is either 100BPM or 72BPM. 
+
+In the following chunk we first calculate the smoothed signal of all signals, then we apply the PCA to extract one signal from three coordinate signals. It's the signal with the largest displacement.
+
+
+``` r
+Dat <- Data %>%
+  group_by(Placeholder) %>%
+  
+  mutate(
+    # 1. Smoothing
+    # bow-marker violinist 1, X,Y,Z
+    BX1 = do_smooth(`BOW1_1 X`,Time),
+    BY1 = do_smooth(`BOW1_1 Y`,Time), 
+    BZ1 = do_smooth(`BOW1_1 Z`,Time), 
+    # bow-marker violinist 2, X,Y,Z
+    BX2 = do_smooth(`BOW2_1 X`,Time),  
+    BY2 = do_smooth(`BOW2_1 Y`,Time), 
+    BZ2 = do_smooth(`BOW2_1 Z`,Time),
+    # violin-marker violinist 1, X,Y,Z
+    VX1 = do_smooth(`VIOLIN1_3 X`,Time), 
+    VY1 = do_smooth(`VIOLIN1_3 Y`,Time), 
+    VZ1 = do_smooth(`VIOLIN1_3 Z`,Time),
+    # violin-marker violinist 2, X,Y,Z
+    VX2 = do_smooth(`VIOLIN2_3 X`,Time), 
+    VY2 = do_smooth(`VIOLIN2_3 Y`,Time), 
+    VZ2 = do_smooth(`VIOLIN2_3 Z`,Time)   ,
+    # relative violin-bow-markers violinist 1
+    X1 = VX1 - BX1, Y1 = VY1 - BY1, Z1 = VZ1 - BZ1,
+    # relative violin-bow-markers violinist 1
+    X2 = VX2 - BX2, Y2 = VY2 - BY2, Z2 = VZ2 - BZ2,
+    
+    # 2. PCA
+    # get movement in the direction of largest variance
+    s1 = do_pca(X1,Y1,Z1),
+    s2 = do_pca(X2,Y2,Z2),
+    
+    # to ensure correct comparison among the 2 violinists
+    ss1 = scale(s1,scale= FALSE),
+    ss1 = ss1 * ifelse(ss1[1]>0,1,-1), # First value should be on top
+    
+    ss2 = scale(s2,scale= FALSE),
+    ss2 =  ss2 * ifelse(ss2[1]>0,1,-1), # First value should be on top
+  ) %>%
+  ungroup()
+```
+
+Accordingly, we obtain the data frame `Dat`.
+The code shown in `Code/chapExoskeletons/chapExoskeletons_03_DataPlotting.R` shows how the above figure have been made.
 
 ## Feature extraction
 
@@ -239,12 +341,36 @@ Given the conditioned movement signals for each violin, the *synchronization str
 The mean vector length $R$ is the *synchronization strength*. If the two violinists synchronize perfectly, then  $R=1$. (The variance of the synchronization strength is defined as $1-R$.) 
 The mean vector angle $\alpha$ is the *synchronization delay*, expressed in radians. If the two violinists have no delay, then $\alpha = 0$. If one of them goes systematically faster than the other, that would be reflected in an $\alpha = 0$ being higher or lower than zero. We expect it to be around zero.
 
+All this is done by the following code:
+
+``` r
+# Calculate hilbert signal and extract the instantaneous phase
+as1<- hilbert(datnow$ss1, 120)
+ps1 <- ifreq(as1, f=120,plot=FALSE)$p
+
+as2 <- hilbert(datnow$ss2, 120)
+ps2 <- ifreq(as2, f=120,plot=FALSE)$p
+
+# Unwrap the fase and calculate the difference, called relphase
+phi1 <- unwrap(ps1[,2])
+phi2 <- unwrap(ps2[,2])
+relphase <- phi1 - phi2
+
+# then extract mean vector, then vector length (Mod) and angle (Arg)
+V <- mean(exp(1i*relphase))
+R <- Mod(V)
+alpha <- Arg(V)
+abs_alpha <- abs(alpha)
+```
+
+Figure \@ref(fig:chapExoskeletonssubject12relphase) shows the calculated relative phase.
 
 <div class="figure" style="text-align: center">
 <img src="Figures/chapExoskeletons_subject_1_2_relphase.png" alt="(a) Upper panel: PCA-signal of two violins (blue and ocre). (b) Lower panel: relative phase." width="100%" />
 <p class="caption">(\#fig:chapExoskeletonssubject12relphase)(a) Upper panel: PCA-signal of two violins (blue and ocre). (b) Lower panel: relative phase.</p>
 </div>
-The feature extraction is applied to each trial, i.e., each melody played.
+
+This feature extraction is applied to each trial, i.e., each melody played.
 The resulting CONBOTS_exo2_dataset `Vector_Condition1234` contains the following factors:
 
 
@@ -280,7 +406,7 @@ Next we use a hierarchical distributional regression model allowing for flexible
 The specification of the model is:
 
 
-```r
+``` r
 form <- bf(response ~ Condition*Tempo + (1|Expertise:Dyad:Block)
 sigma ~ Condition*Tempo + (1|Expertise:Dyad:Block))
 fam <- "skew_normal"
@@ -290,7 +416,11 @@ The response (either the synchronization strength $R$, or the synchronization de
 Information about `Dyads` is nested in the sense that `Dyads` are either amateur, professional, or semiprofessional, and each `Dyad` performs in certain `Blocks.` That hierarchy is captured by the group-level predictor.
 The variance `sigma` is estimated using the same predictors.
 Given the slightly skewed distribution of the data, a `skew_normal` link function is used.
+The code is found in `Code/chapExoskeletons/chapExoskeletons_04_Modelling.R`.
+
+
 After fitting, the analysis can be based on contrast measures of the population-level and group-level predictions, as given by the posterior distributions.
+
 
 ## Model checking
 
@@ -304,7 +434,7 @@ A visual check of the modelling fitting shows that model simulations can predict
 
 ## Synchronization strengh R
 
-Posterior predictions for the synchronization strengh R are calculated and compared with the data, leaving out the effects of group-levels.
+Posterior predictions for the synchronization strength R are calculated and compared with the data, leaving out the effects of group-levels.
 
 <div class="figure">
 <img src="Figures/chapExoskeletons_fit_R.png" alt="Posterior predictions for R" width="100%" />
@@ -324,7 +454,7 @@ The following tables show calculated differences in more detail.
 
 ### Population-level effects model 1 (fit_R)
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapExoskeletons9model2feR)Contrasts population effects for alpha</caption>
  <thead>
   <tr>
@@ -446,7 +576,7 @@ The following tables show calculated differences in more detail.
 
 
 ### Group-level effects model 1 (fit_R): Expertise
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapExoskeletons10model1reER)Contrasts group effects (Expertise) for R</caption>
  <thead>
   <tr>
@@ -484,11 +614,11 @@ The following tables show calculated differences in more detail.
 
 
 There are no group-level effect for Expertise.
-Nevertheless, it may be of interest to the reader to see how we extracted the group-level distributions from the posterior. It's a bit technical, though. See the code in 07.
+Nevertheless, it may be of interest to the reader to see how we extracted the group-level distributions from the posterior. See code in in `Code/chapExoskeletons/chapExoskeletons_06_Contrasts.R`.
 
 ### Group-level effects model 1 (fit_R): Blocks
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:chapExoskeletons11model1reBR)Contrasts group effects (Blocks) for R</caption>
  <thead>
   <tr>
@@ -553,7 +683,7 @@ The values are centered closely around zero, suggesting no considerable phase de
 
 ### Population-level effects model 2 (synchronization delay log_abs_alpha)
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:model2fea)Contrasts population effects for alpha</caption>
  <thead>
   <tr>
@@ -676,7 +806,7 @@ The values are centered closely around zero, suggesting no considerable phase de
 
 ### Group-level effects model 2 (fit_log_abs_alpha): Expertise
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:model2reEa)Contrasts group effects (Expertise) for alpha</caption>
  <thead>
   <tr>
@@ -718,7 +848,7 @@ No effect.
 
 ### Group-level effects model 2 (fit_log_abs_alpha): Blocks
 
-<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:model2reBa)Contrasts group effects (Blocks) for alpha</caption>
  <thead>
   <tr>
@@ -768,16 +898,18 @@ No effect.
 </tbody>
 </table>
 
-No effect.
+No effect either.
 
 ## Discussion
 
-This chapter introduced an interactive context with two violin players.
-The analysis reveals a clear effect of the bi-directional feedback via exoskeletons on the synchronization of both violin bowing gestures.
+The analysis reveals an effect of the bi-directional feedback via exoskeletons on the synchronization of both violin bowing gestures, at least as far as movement is concerned.
 Conditions, ordered according to synchronization strength with $A \ll AV \ll AE \ll AVE$, reveal the importance of exoskeleton feedback. Conditions with exoskeletons have a better synchronization among violinists.
 
-It is quite remarkable indeed that the audio-visual condition is surpassed by the audio-haptic (AE) condition.
+It is quite remarkable indeed that movement synchronization in the audio-visual condition is surpassed by movement synchronization in the audio-haptic (AE) condition.
 The superiority of the AVE in synchronization delay may be due to its combination of three modalities, audio, visual, and haptic.
+
+However, timing analyses of audio, based on phase synchronization of the RMS (root mean square) audio signal, reveals that the observations are not retained.
+[[[[[Work THIS OUT]]]]]
 
 The exoskeleton feedback raises a number of interesting questions related to the role of anticipation and sensory-motor control, more particularly, the question whether exoskeleton feedback is an immediate control effect, or whether it has predictive capacity.
 
