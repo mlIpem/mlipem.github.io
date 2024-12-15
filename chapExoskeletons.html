@@ -4,25 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Two violin players | Exploring music interactions, with R</title>
+<title>Chapter 6 Two violin players’ haptic feedback | Exploring music interactions</title>
 <meta name="author" content="Marc Leman">
-<meta name="description" content="In this chapter, we study the effect of auditory, visual and haptic modalities on music playing, going beyond the single listener, dancer, musician. Finally, we look at mutual interactions between...">
-<meta name="generator" content="bookdown 0.39 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Two violin players | Exploring music interactions, with R">
+<meta name="description" content="In this chapter26, we examine mutual interactions between musicians using futuristic equipment: exoskeletons. With these devices, we study the effect of haptics on music playing, in addition to...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Two violin players’ haptic feedback | Exploring music interactions">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.ugent.be/chapExoskeletons.html">
-<meta property="og:image" content="https://www.ugent.be/images/cover.png">
-<meta property="og:description" content="In this chapter, we study the effect of auditory, visual and haptic modalities on music playing, going beyond the single listener, dancer, musician. Finally, we look at mutual interactions between...">
+<meta property="og:image" content="https://www.ugent.be/images/cover.jpeg">
+<meta property="og:description" content="In this chapter26, we examine mutual interactions between musicians using futuristic equipment: exoskeletons. With these devices, we study the effect of haptics on music playing, in addition to...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Two violin players | Exploring music interactions, with R">
-<meta name="twitter:description" content="In this chapter, we study the effect of auditory, visual and haptic modalities on music playing, going beyond the single listener, dancer, musician. Finally, we look at mutual interactions between...">
-<meta name="twitter:image" content="https://www.ugent.be/images/cover.png">
+<meta name="twitter:title" content="Chapter 6 Two violin players’ haptic feedback | Exploring music interactions">
+<meta name="twitter:description" content="In this chapter26, we examine mutual interactions between musicians using futuristic equipment: exoskeletons. With these devices, we study the effect of haptics on music playing, in addition to...">
+<meta name="twitter:image" content="https://www.ugent.be/images/cover.jpeg">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -51,7 +51,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h2>
-        <a href="index.html" title="">Exploring music interactions, with R</a>
+        <a href="index.html" title="">Exploring music interactions</a>
       </h2>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -67,34 +67,32 @@
 <li><a class="" href="preface.html">Preface</a></li>
 <li><a class="" href="chapTheory.html"><span class="header-section-number">1</span> Theory</a></li>
 <li><a class="" href="chapModelling.html"><span class="header-section-number">2</span> Modelling</a></li>
-<li><a class="" href="chapListener.html"><span class="header-section-number">3</span> Listener</a></li>
-<li><a class="" href="chapDancer.html"><span class="header-section-number">4</span> Dancer</a></li>
-<li><a class="" href="chapViolinist.html"><span class="header-section-number">5</span> Violin player</a></li>
-<li><a class="active" href="chapExoskeletons.html"><span class="header-section-number">6</span> Two violin players</a></li>
-<li><a class="" href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers – dynamic system</a></li>
-<li><a class="" href="chapTappers2.html"><span class="header-section-number">8</span> Two finger tappers</a></li>
+<li><a class="" href="chapListener.html"><span class="header-section-number">3</span> Listener appreciation</a></li>
+<li><a class="" href="chapDancer.html"><span class="header-section-number">4</span> Dancer synchronization</a></li>
+<li><a class="" href="chapViolinist.html"><span class="header-section-number">5</span> Violin player visual feedback</a></li>
+<li><a class="active" href="chapExoskeletons.html"><span class="header-section-number">6</span> Two violin players’ haptic feedback</a></li>
+<li><a class="" href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers’ entrainment (Part 1)</a></li>
+<li><a class="" href="chapTappers2.html"><span class="header-section-number">8</span> Two finger tappers’ entrainment (Part 2)</a></li>
 <li><a class="" href="chapConclusion.html"><span class="header-section-number">9</span> Conclusion</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR">View book source <i class="fab fa-gitlab"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/mlIpem/ExploringMusicInteractionWithR">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapExoskeletons" class="section level1" number="6">
 <h1>
-<span class="header-section-number">6</span> Two violin players<a class="anchor" aria-label="anchor" href="#chapExoskeletons"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Two violin players’ haptic feedback<a class="anchor" aria-label="anchor" href="#chapExoskeletons"><i class="fas fa-link"></i></a>
 </h1>
-<p>In this chapter, we study the effect of auditory, visual and haptic modalities on music playing, going beyond the single listener, dancer, musician. Finally, we look at <em>mutual</em> interactions between musicians!</p>
-<p>In a normal setting, two violinists playing rely on hearing and seeing each other, thus involving the auditory and visual modality to co-regulate their actions.
-However, when a violinist gets equipped with a exoskeleton, mounted around the right arm, it becomes possible to influence the bowing movements through forces exerted by the exoskeleton.
-These forces stimulate the sense of touch, or haptics.
-But what happens when two exoskeletons get connected?
-Is it possible to test what the haptic modality can contribute to co-regulation, and compare it with the visual and auditory modality? Which modality provides the best feedback for synchronization?
-Would the embodied connection through exoskeletons contribute to self-augmented interactions?</p>
+<p>In this chapter<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Thanks to A. Michalko and A. Campo for their significant contribution to this and other related experiments in the CONBOTS project. See Michałko et al. (2024), Campo et al. (submitted)&lt;/p&gt;"><sup>26</sup></a>, we examine mutual interactions between musicians using futuristic equipment: exoskeletons. With these devices, we study the effect of haptics on music playing, in addition to the natural auditory and visual modalities.</p>
+<p>In a typical setting, two violinists playing together rely on hearing and seeing each other, thus involving the auditory and visual modalities to co-regulate their actions. However, when a violinist is equipped with an exoskeleton mounted around the right arm, it becomes possible to influence the bowing movements through forces exerted by the exoskeleton, as if somehow aiding the arm movement of the violinist. These forces stimulate the sense of movement, or haptics.</p>
+<p>Consider what happens when two exoskeletons are connected. It is as if two violinists are helping each other move their arms. What would be the effect on their interaction?</p>
+<p>Would the haptic modality contribute to co-regulation? Is it as strong as the visual or auditory modalities? Which of the three modalities provides the best feedback for synchronization?</p>
+<p>Finally, we also consider whether the embodied connection through exoskeletons would contribute to self-augmented interactions. For example, by influencing each other’s movements, it might be easier to achieve a desired synchronized interaction state.</p>
 <p>The code can be found in the following scripts for data preparation and plotting, modelling and plotting, and contrast analysis and plotting:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_00_Initialization.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_01_Functions.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapExoskeletons/chapExoskeletons_02_DataPreparation.R"</span><span class="op">)</span></span>
@@ -109,28 +107,25 @@ Would the embodied connection through exoskeletons contribute to self-augmented 
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletonsTeacherStudent"></span>
 <img src="Figures/chapExoskeletons_TeacherStudent.png" alt="(a) Teacher with exoskeleton and motion capture suit. (b) Student equipped with exoskeleton seeing a video for play-along" width="100%"><p class="caption">
-FIGURE 6.1: (a) Teacher with exoskeleton and motion capture suit. (b) Student equipped with exoskeleton seeing a video for play-along
+Figure 6.1: (a) Teacher with exoskeleton and motion capture suit. (b) Student equipped with exoskeleton seeing a video for play-along
 </p>
 </div>
-<p>Figure <a href="chapExoskeletons.html#fig:chapExoskeletonsTeacherStudent">6.1</a>
-shows a setup that is very similar to the setup of chapter <a href="chapViolinist.html#chapViolinist">5</a>, in the sense that
-a student synchronizes the bowing gestures with a teacher.
-However, in this setup, both the teacher and the student are equipped with an exoskeleton, and the teacher is sending haptic information to the student. In other words, the student sees and feels the teacher. The question is whether the haptic information adds anything to the student.
-However, how interesting this may be, we skip that analysis, as we move to a next level of genuine bidirectionality.</p>
+<p>Let us first introduce the exoskeleton shown in figure <a href="chapExoskeletons.html#fig:chapExoskeletonsTeacherStudent">6.1</a>. It depicts a violinist equipped with a robotic arm mounted on the right arm. The cap and suit are unrelated to this exoskeleton. The white dots are markers of the motion capture system, containing tiny mirrors that reflect the infrared light of surrounding cameras. This setup provides kinematic measurements in addition to the force measurements obtained through the exoskeleton.</p>
+<p>In this setup, the violinist imitates the movements of the teacher displayed on the screen. The configuration is similar to that discussed in chapter <a href="chapViolinist.html#chapViolinist">5</a>, where a student synchronizes bowing gestures with a teacher. However, in this setup, both the teacher and the student are equipped with exoskeletons, and the teacher violinist transmits haptic information to the student violinist. In other words, the student both sees and feels the teacher’s movements. The question is whether the haptic information enhances the student’s learning experience. Campo et al. (submitted) demonstrate that haptic assistance indeed enhances learning outcomes.</p>
 </div>
 <div id="bidirectional-haptic-feedback" class="section level2" number="6.2">
 <h2>
 <span class="header-section-number">6.2</span> Bidirectional haptic feedback<a class="anchor" aria-label="anchor" href="#bidirectional-haptic-feedback"><i class="fas fa-link"></i></a>
 </h2>
-<p>Indeed, it is possible to go one step further and consider what happens when two violinists have a haptic connection via exoskeletons, bi-directional. The latter means that both violinists feel and send haptic information to each other. The ultimate goal of <a href="https://www.conbots.eu">CONBOTS</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See the EU-project CONBOTS (CONnected through roBOTS, project nr. 871803, 2020-2024), &lt;a href="https://www.conbots.eu" class="uri"&gt;https://www.conbots.eu&lt;/a&gt;.&lt;/p&gt;'><sup>21</sup></a> was indeed to connect humans through exoskeletons, allowing for mutual haptic information exchange such that a common task can be executed. A common task could be: moving a heavy table, or playing a music piece, simple self-augmented interactions.</p>
-<p>The bi-directional connected exoskeletons realize a channel for mutual haptic feedback (= exoskeleton feedback) among violinist, for bowing movements.
-Here, the question is whether exoskeleton feedback, or haptic control, is effective for playing a (polyphonic) music piece with synchronized bowing movements.
-The statistical modelling needed to figure out which modality, or combination of modalities, works best is based on techniques that have been explored throughout several chapters.
+<p>We go one step further and consider what happens when two violinists have a haptic connection via exoskeletons, bi-directional. The latter means that both violinists feel and send haptic information to each other. The ultimate goal of <a href="https://www.conbots.eu">CONBOTS</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See the EU-project CONBOTS (CONnected through roBOTS, project nr. 871803, 2020-2024), &lt;a href="https://www.conbots.eu" class="uri"&gt;https://www.conbots.eu&lt;/a&gt;.&lt;/p&gt;'><sup>27</sup></a> was indeed to connect humans through exoskeletons, allowing for mutual haptic information exchange such that a common task can be executed. A common task could be: moving a heavy table, or playing a music piece, simple self-augmented interactions.</p>
+<p>The bi-directional connected exoskeletons realize a channel for mutual haptic feedback (also called: exoskeleton feedback) among violinist, for bowing movements.
+Here, the question is whether exoskeleton feedback, or haptic control, is effective for playing a (polyphonic) music piece with synchronized bowing movements.</p>
+<p>The statistical modelling needed to figure out which modality, or combination of modalities, works best is based on techniques that have been explored throughout several chapters.
 This chapter is much of a rehearsal of the techniques, with some attention to signal conditioning, before statistical modelling is applied.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletons0foto"></span>
 <img src="Figures/chapExoskeletons_Shalan_Alhamwy_P1255694.jpg" alt="Violinists equipped with exoskeletons (photo: Shalan Alhamwy)" width="100%"><p class="caption">
-FIGURE 6.2: Violinists equipped with exoskeletons (photo: Shalan Alhamwy)
+Figure 6.2: Violinists equipped with exoskeletons (photo: Shalan Alhamwy)
 </p>
 </div>
 </div>
@@ -138,25 +133,19 @@ FIGURE 6.2: Violinists equipped with exoskeletons (photo: Shalan Alhamwy)
 <h2>
 <span class="header-section-number">6.3</span> Theory<a class="anchor" aria-label="anchor" href="#theory-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>Two violinists playing together act in a co-regulated way, meaning that their sensory-motor control is coordinated through feedback which they receive from each others actions.
-In a natural setting, violinists would co-regulate their synchronized bowing movements using auditory and visual sensing.
-The feedback control is then mediated through the audio-visual modalities, by hearing and seeing.
-This sensory-motor feedback via auditory and/or visual sensing is <em>indirect</em> (or mediated) because it involves the translation from one modality (audio, visual) to another modality (motor).</p>
-<p>The hypothesis is that exoskeleton feedback through haptic control offers an additional feedback control that is effective for co-regulated action (bowing movements) because the exoskeleton offers a <em>direct</em> (or non-mediated) sensory-motor feedback directly through impacting the muscle activity.</p>
-<p>It can be assumed that direct (non-mediated) feedback is more effective than indirect (mediated) feedback.</p>
-<p>This is in any case a rather bold hypothesis.
-The demonstration of the effectiveness of exoskeleton feedback on co-regulated action would be a unique discovery with huge implications for domains in which movement synchronization via co-regulated sensory-motor control of joint actions is required.</p>
+<p>Two violinists playing together act in a co-regulated way, meaning that their sensory-motor control is coordinated through feedback which they receive from each other’s actions. In a natural setting, violinists would co-regulate their synchronized bowing movements using auditory and visual sensing. The feedback control is then mediated through the audio-visual modalities, by hearing and seeing. This sensory-motor feedback via auditory and/or visual sensing is indirect (or mediated) because it involves the translation from one modality (audio, visual) to another modality (motor).</p>
+<p>The hypothesis is that exoskeleton feedback through haptic control offers an additional feedback mechanism that is effective for co-regulated action (bowing movements) because the exoskeleton provides direct (or non-mediated) sensory-motor feedback by directly impacting muscle activity.</p>
+<p>It can be assumed that direct (non-mediated) feedback is more effective than indirect (mediated) feedback because the latter consumes more cognitive resources.</p>
+<p>This is, in any case, a rather bold hypothesis. The demonstration of the effectiveness of exoskeleton feedback on co-regulated action would be a unique discovery with significant implications for domains requiring movement synchronization via co-regulated sensory-motor control of joint actions.</p>
 </div>
 <div id="experiment-2" class="section level2" number="6.4">
 <h2>
 <span class="header-section-number">6.4</span> Experiment<a class="anchor" aria-label="anchor" href="#experiment-2"><i class="fas fa-link"></i></a>
 </h2>
-<p>The good thing about this hypothesis is that it can be tested rather straightforwardly.
-This is how it can be done.
-To test the hypothesis, an experiment was set up with four conditions involving different feedback modalities.</p>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<p>The advantage of this hypothesis is that it can be tested empirically. Here is how this can be done. To test the hypothesis, an experiment was designed with four conditions involving different feedback modalities.</p>
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:chapExoskeletons1condi">TABLE 6.1: </span>Experimental setup
+<span id="tab:chapExoskeletons1condi">Table 6.1: </span>Experimental setup
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -231,11 +220,7 @@ yes
 </tr>
 </tbody>
 </table></div>
-<p>When the exoskeleton feedback is effective, the synchronization of both violins can be characterized in terms of <em>synchronization strength</em> and <em>synchronization delay</em> (see chapter <a href="chapModelling.html#chapModelling">2</a>).
-The <em>strength</em> of synchronization can be defined as the length of the average phase vector. It provides information about how well both violinists are synchronizing.
-The <em>delay</em> of synchronization can be defined as the angle of that average phase vector. It provides information about the preferred time delay between both violinists.
-The <em>synchronization strength</em> and <em>synchronization delay</em> values can be extracted from bowing movements, using motion caption recording of the duet performances.
-Regression modelling (based on the R-package <code>brms</code>) will be used to check whether conditions are different.</p>
+<p>As the table suggests, <code>A</code> stands for auditory feedback, <code>AE</code> for auditory and exoskeleton feedback, <code>AV</code> for auditory and visual feedback, <code>AVE</code> for auditory, visual, and exoskeleton feedback. Note that in all conditions we have auditory feedback. Playing violin without auditory feedback would be rather weird and non-natural.</p>
 <p>In total, 20 violin dyads participated in the study.</p>
 </div>
 <div id="data-2" class="section level2" number="6.5">
@@ -243,26 +228,33 @@ Regression modelling (based on the R-package <code>brms</code>) will be used to 
 <span class="header-section-number">6.5</span> Data<a class="anchor" aria-label="anchor" href="#data-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>In what follows, we highlight (i) signal conditioning, (ii) feature extraction, and (iii) statistical modelling.</p>
+<p>Our analysis strategy is based on the timing of both violins, measured through bowing movements.
+The timing of both violins, or more particularly, the relative timine of both violins can be characterized in terms of their phase synchronization.
+As discussed in chapter <a href="chapModelling.html#chapModelling">2</a>) we can then make a distinction between
+<em>synchronization strength</em> and <em>synchronization delay</em>.
+The <em>strength</em> of synchronization provides information about how well both violinists are synchronizing.
+The <em>delay</em> of synchronization provides information about the preferred time delay between both violinists.</p>
+<p>The relative timing can be extracted from bowing movements, using motion caption recording of the duet performances.
+Regression modelling (based on the R-package <code>brms</code>) can be used to check whether conditions are different.</p>
+<p>First we explain how the relevant timing information can be extracted from continuous movement signals.
+We first explain it verbally, then we show the code in R.</p>
 <div id="signal-conditioning" class="section level3 unnumbered">
 <h3>Signal conditioning<a class="anchor" aria-label="anchor" href="#signal-conditioning"><i class="fas fa-link"></i></a>
 </h3>
 <p>Any raw input signal coming from a motion caption system needs to be processed and manipulated to prepare it for further statistical analysis, especially when dealing with phase, or relative time among musicians.</p>
-<p>The raw motion data of interest come from markers attached to the violin and to the violin bow. The data come from infra-red camera’s who send infra-red light that is reflected by the small mirrors on the surface of the marker. Based on the reflected infra-red light, the motion caption system can determine the position of the marker in a system of coordinates X, Y and Z, at a rate of 120 samples per second.</p>
-<p>To determine synchronization among two violinists it is useful to prepare the data such that it gives use the most efficient measure of synchronization.</p>
-<p>First we focus on the marker that is closest to the frog of the bow.
-Let’s call it the bow-marker. However, this marker alone is not enough.
-Any body movement, even moving without moving the bow, would move the bow-marker.
-Therefore, we need a relative movement based on the difference between the bow-marker and a marker on the violin, the violin-marker.
-We can then apply the following signal conditioning steps:</p>
+<p>The raw motion data of interest come from markers attached to the violin and to the violin bow. The data come from infra-red camera’s whose emitted infra-red light is reflected by the small mirrors on the surface of the marker. Based on the reflected infra-red light, the motion caption system can determine the position of each marker in a system of coordinates X, Y and Z, at a rate of 120 samples per second.</p>
+<p>To determine synchronization among two violinists it is useful to prepare the data such that it gives the most efficient measure of synchronization.</p>
+<p>Consider one violinist. We need to track the movement of the bow with respect to the violin. We attached one marker close to the frog of the bow, called the bow_marker. Additionally, we attached one marker on the violin in the direction where the bow moves, called the violin_marker. Clearly, recording the bow_marker alone is not sufficient because any movement of the body would translate to a movement of the bow_marker, even if the bow is not displaced relative to the violin. Therefore, we need to measure the relative movement based on the difference between the bow_marker and the violin_marker. Accordingly, when the body moves, the violin moves, and the bow can move relative to the violin.</p>
+<p>We can then apply the following:</p>
 </div>
 <div id="filtering" class="section level3 unnumbered">
 <h3>Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
 </h3>
-<p>As a first step, raw data are filtered because raw motion caption data of the X, Y and Z coordinates may contain small irregularities, or even missing data, due to measurement. Raw data should therefore be impeded and filtered (smoothed). Luckily our data don’t contain missing values and so we just apply a filter, using the Nadaraya–Watson kernel regression estimate, with a bandwidth of .3. This filter is applied to all raw signals coming from a recorded performance. Here we use 3 coordinates from a bow-marker and 3 coordinates from a violin-marker, for 2 violinists. Accordingly, filtering is done on the 12 signals coming from the duet performances. The goal is now to reduce these 12 signals to only 2 signals, one per violinist, so that we can compare them in terms of synchronization.</p>
+<p>As a first step, raw data are smoothed (filtered) because raw motion caption data of the X, Y and Z coordinates may contain small irregularities, or even missing data, due to measurement. Luckily our data don’t contain missing values and so we just apply a filter, using a Nadaraya–Watson kernel regression estimate, with a bandwidth of .3. This filter is applied to all raw signals coming from a recorded performance. Here we use 3 coordinates from a bow-marker and 3 coordinates from a violin-marker, for 2 violinists. Accordingly, filtering is done on the 12 signals coming from the duet performances. The goal is now to reduce these 12 signals to only 2 signals, one per violinist, so that we can compare them in terms of synchronization.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletonsBowViolinmarkers1"></span>
 <img src="Figures/chapExoskeletons_Bow_Violin_markers.png" alt="Displacement signals at 120 sa/sec of the X, Y and Z dimension of bow-marker (left) and violin-marker (right) as provided by the mocap recording, with smoothed signal on top of each signal to avoid peaks" width="100%"><p class="caption">
-FIGURE 6.3: Displacement signals at 120 sa/sec of the X, Y and Z dimension of bow-marker (left) and violin-marker (right) as provided by the mocap recording, with smoothed signal on top of each signal to avoid peaks
+Figure 6.3: Displacement signals at 120 sa/sec of the X, Y and Z dimension of bow-marker (left) and violin-marker (right) as provided by the mocap recording, with smoothed signal on top of each signal to avoid peaks
 </p>
 </div>
 <p>Figure <a href="chapExoskeletons.html#fig:chapExoskeletonsBowViolinmarkers1">6.3</a> shows the X, Y and Z axis for one single bow-marker and one single violin-marker. The horizontal axis is time in seconds, the vertical axis is displacement in millimeter. It’s hard to see, but the red color is the original signal and the grey color is the filtered signal. Due to filtering, some red extremes become smoother. As we work with time, we try to avoid deformation of the signal. We follow the original as much as possible.</p>
@@ -277,14 +269,14 @@ Given the filtered coordinates (Xs1,Ys1,Zs1 and Xs2,Ys2,Zs2) the direction of th
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletonsPCAextracted"></span>
 <img src="Figures/chapExoskeletons_PCA_extracted.png" alt="PCA-extracted signal (gray) compared to the original X, Y, Z signals (red)" width="100%"><p class="caption">
-FIGURE 6.4: PCA-extracted signal (gray) compared to the original X, Y, Z signals (red)
+Figure 6.4: PCA-extracted signal (gray) compared to the original X, Y, Z signals (red)
 </p>
 </div>
 <p>Figure <a href="chapExoskeletons.html#fig:chapExoskeletonss1s2A">6.5</a> shows the extracted signal of two violin players in a dyad, during one performance, over time, and as correlated.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletonss1s2A"></span>
 <img src="Figures/chapExoskeletons_s1s2_time.png" alt="Comparing the extracted bowing gesture movements of two violin players, (left) over time, (right) as correlated" width="49%"><img src="Figures/chapExoskeletons_s1s2.png" alt="Comparing the extracted bowing gesture movements of two violin players, (left) over time, (right) as correlated" width="49%"><p class="caption">
-FIGURE 6.5: Comparing the extracted bowing gesture movements of two violin players, (left) over time, (right) as correlated
+Figure 6.5: Comparing the extracted bowing gesture movements of two violin players, (left) over time, (right) as correlated
 </p>
 </div>
 <p>The resulting CONBOTS_exo2_dataset <code>Dat</code> contains data from dyads, with the conditioned signals s1 and s2 that form the basis for further feature extraction.</p>
@@ -338,6 +330,90 @@ FIGURE 6.5: Comparing the extracted bowing gesture movements of two violin playe
 <!--   knitr::include_graphics("Figures/chapExoskeletons_DataPlotting_p1.png") -->
 <!-- # \@ref(fig:chapExoskeletonOverview1) -->
 <!-- ``` -->
+<p>Here we show the R code of the above steps.
+It is found in
+<code>Code/chapExoskeletons/chapExoskeletons_02_DataPreparation.R</code>.</p>
+<p>First we define two functions in R which we need for processing the signals.</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">################</span></span>
+<span><span class="co"># Define a smooth function to run over raw mocap signals</span></span>
+<span><span class="va">do_smooth</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">D</span>,<span class="va">Time</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"--&gt; in do_smooth() "</span><span class="op">)</span></span>
+<span>  <span class="va">Ds</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ksmooth.html">ksmooth</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">D</span>, <span class="st">"normal"</span>, bandwidth <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span><span class="op">$</span><span class="va">y</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">Ds</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co"># Define a principal component analysis and map the data to the first component</span></span>
+<span><span class="va">do_pca</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">D1</span>,<span class="va">D2</span>,<span class="va">D3</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">cov_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">D1</span>, <span class="va">D2</span>, <span class="va">D3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">eigen_decomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eigen.html">eigen</a></span><span class="op">(</span><span class="va">cov_matrix</span><span class="op">)</span></span>
+<span>  <span class="va">sorted_indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">eigen_decomp</span><span class="op">$</span><span class="va">values</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="va">sorted_eigenvectors</span> <span class="op">&lt;-</span> <span class="va">eigen_decomp</span><span class="op">$</span><span class="va">vectors</span><span class="op">[</span>, <span class="va">sorted_indices</span><span class="op">]</span></span>
+<span>  <span class="va">max_variance_index</span> <span class="op">&lt;-</span> <span class="fl">1</span>  <span class="co"># Assuming the first eigenvector has the max variance</span></span>
+<span>  <span class="va">selected_eigenvector</span> <span class="op">&lt;-</span> <span class="va">sorted_eigenvectors</span><span class="op">[</span>, <span class="va">max_variance_index</span><span class="op">]</span></span>
+<span>  <span class="co"># Project the original data onto the selected eigenvector</span></span>
+<span>  <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">D1</span>, <span class="va">D2</span>, <span class="va">D3</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">selected_eigenvector</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#####################</span></span></code></pre></div>
+<p>Then we read in the raw data frame as they come from the motion caption device in our lab.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/df_bow_complete1.rds"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<p>We then extract the relevant markers from the very raw data frame, just to be more clear about what we are going to process.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#####################</span></span>
+<span><span class="va">Data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Placeholder</span>,<span class="va">Dyad</span>,<span class="va">Block</span>,</span>
+<span>         <span class="va">Trial</span>,<span class="va">Condition</span>,<span class="va">Tempo</span>,<span class="va">Time</span>, <span class="va">Expertise</span>,</span>
+<span>         <span class="st">"BOW1_1 X"</span>, <span class="st">"BOW1_1 Y"</span>, <span class="st">"BOW1_1 Z"</span>,</span>
+<span>         <span class="st">"BOW2_1 X"</span>, <span class="st">"BOW2_1 Y"</span>, <span class="st">"BOW2_1 Z"</span>,</span>
+<span>         <span class="st">"VIOLIN1_3 X"</span>,<span class="st">"VIOLIN1_3 Y"</span>,<span class="st">"VIOLIN1_3 Z"</span>,</span>
+<span>         <span class="st">"VIOLIN2_3 X"</span>,<span class="st">"VIOLIN2_3 Y"</span>,<span class="st">"VIOLIN2_3 Z"</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><code>Placeholder</code> is a unique identifier for each recording. In fact it already contains the information of the dyad, block, tiral, and condition (A, AE, AV, AVE) in one string. Tempo is either 100BPM or 72BPM.</p>
+<p>In the following chunk we first calculate the smoothed signal of all signals, then we apply the PCA to extract one signal from three coordinate signals. It’s the signal with the largest displacement.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Dat</span> <span class="op">&lt;-</span> <span class="va">Data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Placeholder</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    <span class="co"># 1. Smoothing</span></span>
+<span>    <span class="co"># bow-marker violinist 1, X,Y,Z</span></span>
+<span>    BX1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW1_1 X`</span>,<span class="va">Time</span><span class="op">)</span>,</span>
+<span>    BY1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW1_1 Y`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    BZ1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW1_1 Z`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    <span class="co"># bow-marker violinist 2, X,Y,Z</span></span>
+<span>    BX2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW2_1 X`</span>,<span class="va">Time</span><span class="op">)</span>,  </span>
+<span>    BY2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW2_1 Y`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    BZ2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`BOW2_1 Z`</span>,<span class="va">Time</span><span class="op">)</span>,</span>
+<span>    <span class="co"># violin-marker violinist 1, X,Y,Z</span></span>
+<span>    VX1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN1_3 X`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    VY1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN1_3 Y`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    VZ1 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN1_3 Z`</span>,<span class="va">Time</span><span class="op">)</span>,</span>
+<span>    <span class="co"># violin-marker violinist 2, X,Y,Z</span></span>
+<span>    VX2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN2_3 X`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    VY2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN2_3 Y`</span>,<span class="va">Time</span><span class="op">)</span>, </span>
+<span>    VZ2 <span class="op">=</span> <span class="fu">do_smooth</span><span class="op">(</span><span class="va">`VIOLIN2_3 Z`</span>,<span class="va">Time</span><span class="op">)</span>   ,</span>
+<span>    <span class="co"># relative violin-bow-markers violinist 1</span></span>
+<span>    X1 <span class="op">=</span> <span class="va">VX1</span> <span class="op">-</span> <span class="va">BX1</span>, Y1 <span class="op">=</span> <span class="va">VY1</span> <span class="op">-</span> <span class="va">BY1</span>, Z1 <span class="op">=</span> <span class="va">VZ1</span> <span class="op">-</span> <span class="va">BZ1</span>,</span>
+<span>    <span class="co"># relative violin-bow-markers violinist 1</span></span>
+<span>    X2 <span class="op">=</span> <span class="va">VX2</span> <span class="op">-</span> <span class="va">BX2</span>, Y2 <span class="op">=</span> <span class="va">VY2</span> <span class="op">-</span> <span class="va">BY2</span>, Z2 <span class="op">=</span> <span class="va">VZ2</span> <span class="op">-</span> <span class="va">BZ2</span>,</span>
+<span>    </span>
+<span>    <span class="co"># 2. PCA</span></span>
+<span>    <span class="co"># get movement in the direction of largest variance</span></span>
+<span>    s1 <span class="op">=</span> <span class="fu">do_pca</span><span class="op">(</span><span class="va">X1</span>,<span class="va">Y1</span>,<span class="va">Z1</span><span class="op">)</span>,</span>
+<span>    s2 <span class="op">=</span> <span class="fu">do_pca</span><span class="op">(</span><span class="va">X2</span>,<span class="va">Y2</span>,<span class="va">Z2</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="co"># to ensure correct comparison among the 2 violinists</span></span>
+<span>    ss1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">s1</span>,scale<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    ss1 <span class="op">=</span> <span class="va">ss1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ss1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">&gt;</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># First value should be on top</span></span>
+<span>    </span>
+<span>    ss2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">s2</span>,scale<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    ss2 <span class="op">=</span>  <span class="va">ss2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ss2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">&gt;</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># First value should be on top</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Accordingly, we obtain the data frame <code>Dat</code>.
+The code shown in <code>Code/chapExoskeletons/chapExoskeletons_03_DataPlotting.R</code> shows how the above figure have been made.</p>
 </div>
 </div>
 <div id="feature-extraction" class="section level2" number="6.6">
@@ -353,13 +429,33 @@ FIGURE 6.5: Comparing the extracted bowing gesture movements of two violin playe
 The mean vector length <span class="math inline">\(R\)</span> is the <em>synchronization strength</em>. If the two violinists synchronize perfectly, then <span class="math inline">\(R=1\)</span>. (The variance of the synchronization strength is defined as <span class="math inline">\(1-R\)</span>.)
 The mean vector angle <span class="math inline">\(\alpha\)</span> is the <em>synchronization delay</em>, expressed in radians. If the two violinists have no delay, then <span class="math inline">\(\alpha = 0\)</span>. If one of them goes systematically faster than the other, that would be reflected in an <span class="math inline">\(\alpha = 0\)</span> being higher or lower than zero. We expect it to be around zero.</p></li>
 </ul>
+<p>All this is done by the following code:</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate hilbert signal and extract the instantaneous phase</span></span>
+<span><span class="va">as1</span><span class="op">&lt;-</span> <span class="fu">hilbert</span><span class="op">(</span><span class="va">datnow</span><span class="op">$</span><span class="va">ss1</span>, <span class="fl">120</span><span class="op">)</span></span>
+<span><span class="va">ps1</span> <span class="op">&lt;-</span> <span class="fu">ifreq</span><span class="op">(</span><span class="va">as1</span>, f<span class="op">=</span><span class="fl">120</span>,plot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">p</span></span>
+<span></span>
+<span><span class="va">as2</span> <span class="op">&lt;-</span> <span class="fu">hilbert</span><span class="op">(</span><span class="va">datnow</span><span class="op">$</span><span class="va">ss2</span>, <span class="fl">120</span><span class="op">)</span></span>
+<span><span class="va">ps2</span> <span class="op">&lt;-</span> <span class="fu">ifreq</span><span class="op">(</span><span class="va">as2</span>, f<span class="op">=</span><span class="fl">120</span>,plot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">p</span></span>
+<span></span>
+<span><span class="co"># Unwrap the fase and calculate the difference, called relphase</span></span>
+<span><span class="va">phi1</span> <span class="op">&lt;-</span> <span class="fu">unwrap</span><span class="op">(</span><span class="va">ps1</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">phi2</span> <span class="op">&lt;-</span> <span class="fu">unwrap</span><span class="op">(</span><span class="va">ps2</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">relphase</span> <span class="op">&lt;-</span> <span class="va">phi1</span> <span class="op">-</span> <span class="va">phi2</span></span>
+<span></span>
+<span><span class="co"># then extract mean vector, then vector length (Mod) and angle (Arg)</span></span>
+<span><span class="va">V</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">1i</span><span class="op">*</span><span class="va">relphase</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/complex.html">Mod</a></span><span class="op">(</span><span class="va">V</span><span class="op">)</span></span>
+<span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/complex.html">Arg</a></span><span class="op">(</span><span class="va">V</span><span class="op">)</span></span>
+<span><span class="va">abs_alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span></span></code></pre></div>
+<p>Figure <a href="chapExoskeletons.html#fig:chapExoskeletonssubject12relphase">6.6</a> shows the calculated relative phase.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:chapExoskeletonssubject12relphase"></span>
 <img src="Figures/chapExoskeletons_subject_1_2_relphase.png" alt="(a) Upper panel: PCA-signal of two violins (blue and ocre). (b) Lower panel: relative phase." width="100%"><p class="caption">
-FIGURE 6.6: (a) Upper panel: PCA-signal of two violins (blue and ocre). (b) Lower panel: relative phase.
+Figure 6.6: (a) Upper panel: PCA-signal of two violins (blue and ocre). (b) Lower panel: relative phase.
 </p>
 </div>
-<p>The feature extraction is applied to each trial, i.e., each melody played.
+<p>This feature extraction is applied to each trial, i.e., each melody played.
 The resulting CONBOTS_exo2_dataset <code>Vector_Condition1234</code> contains the following factors:</p>
 <pre><code>## 'data.frame':    480 obs. of  12 variables:
 ##  $ R          : num  0.591 0.871 0.957 0.898 0.88 ...
@@ -388,14 +484,15 @@ The resulting CONBOTS_exo2_dataset <code>Vector_Condition1234</code> contains th
 </h2>
 <p>Next we use a hierarchical distributional regression model allowing for flexible modeling of the entire distribution of the response variable, using nesting of groups, and relaxing assumptions of variance among groups.
 The specification of the model is:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapExoskeletons.html#cb27-1" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">bf</span>(response <span class="sc">~</span> Condition<span class="sc">*</span>Tempo <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Expertise<span class="sc">:</span>Dyad<span class="sc">:</span>Block)</span>
-<span id="cb27-2"><a href="chapExoskeletons.html#cb27-2" tabindex="-1"></a>sigma <span class="sc">~</span> Condition<span class="sc">*</span>Tempo <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Expertise<span class="sc">:</span>Dyad<span class="sc">:</span>Block))</span>
-<span id="cb27-3"><a href="chapExoskeletons.html#cb27-3" tabindex="-1"></a>fam <span class="ot">&lt;-</span> <span class="st">"skew_normal"</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="chapExoskeletons.html#cb50-1" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">bf</span>(response <span class="sc">~</span> Condition<span class="sc">*</span>Tempo <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Expertise<span class="sc">:</span>Dyad<span class="sc">:</span>Block)</span>
+<span id="cb50-2"><a href="chapExoskeletons.html#cb50-2" tabindex="-1"></a>sigma <span class="sc">~</span> Condition<span class="sc">*</span>Tempo <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Expertise<span class="sc">:</span>Dyad<span class="sc">:</span>Block))</span>
+<span id="cb50-3"><a href="chapExoskeletons.html#cb50-3" tabindex="-1"></a>fam <span class="ot">&lt;-</span> <span class="st">"skew_normal"</span></span></code></pre></div>
 <p>The response (either the synchronization strength <span class="math inline">\(R\)</span>, or the synchronization delay <span class="math inline">\(\alpha\)</span>) is modeled with the predictors <code>Condition</code> and <code>Tempo</code>, in interaction.
 Information about <code>Dyads</code> is nested in the sense that <code>Dyads</code> are either amateur, professional, or semiprofessional, and each <code>Dyad</code> performs in certain <code>Blocks.</code> That hierarchy is captured by the group-level predictor.
 The variance <code>sigma</code> is estimated using the same predictors.
 Given the slightly skewed distribution of the data, a <code>skew_normal</code> link function is used.
-After fitting, the analysis can be based on contrast measures of the population-level and group-level predictions, as given by the posterior distributions.</p>
+The code is found in <code>Code/chapExoskeletons/chapExoskeletons_04_Modelling.R</code>.</p>
+<p>After fitting, the analysis can be based on contrast measures of the population-level and group-level predictions, as given by the posterior distributions.</p>
 </div>
 <div id="model-checking" class="section level2" number="6.8">
 <h2>
@@ -405,7 +502,7 @@ After fitting, the analysis can be based on contrast measures of the population-
 <div class="figure">
 <span style="display:block;" id="fig:chapExoskeletons6modelchecking1"></span>
 <img src="Figures/chapExoskeletons_fit_R_pp_check.png" alt="Posterior prediction check, (left) R, (right) alpha" width="50%"><img src="Figures/chapExoskeletons_fit_alpha_pp_check.png" alt="Posterior prediction check, (left) R, (right) alpha" width="50%"><p class="caption">
-FIGURE 6.7: Posterior prediction check, (left) R, (right) alpha
+Figure 6.7: Posterior prediction check, (left) R, (right) alpha
 </p>
 </div>
 </div>
@@ -413,11 +510,11 @@ FIGURE 6.7: Posterior prediction check, (left) R, (right) alpha
 <h2>
 <span class="header-section-number">6.9</span> Synchronization strengh R<a class="anchor" aria-label="anchor" href="#synchronization-strengh-r"><i class="fas fa-link"></i></a>
 </h2>
-<p>Posterior predictions for the synchronization strengh R are calculated and compared with the data, leaving out the effects of group-levels.</p>
+<p>Posterior predictions for the synchronization strength R are calculated and compared with the data, leaving out the effects of group-levels.</p>
 <div class="figure">
 <span style="display:block;" id="fig:chapExoskeletons8postpredR"></span>
 <img src="Figures/chapExoskeletons_fit_R.png" alt="Posterior predictions for R" width="100%"><p class="caption">
-FIGURE 6.8: Posterior predictions for R
+Figure 6.8: Posterior predictions for R
 </p>
 </div>
 <p>Figure <a href="chapExoskeletons.html#fig:chapExoskeletons8postpredR">6.8</a> shows the modelling in comparison with the data. Each dot represents a performance.
@@ -432,9 +529,9 @@ There is weak evidence that 72 BPM has higher R than 100 BPM.</p>
 <h3>
 <span class="header-section-number">6.9.1</span> Population-level effects model 1 (fit_R)<a class="anchor" aria-label="anchor" href="#population-level-effects-model-1-fit_r"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:chapExoskeletons9model2feR">TABLE 6.2: </span>Contrasts population effects for alpha
+<span id="tab:chapExoskeletons9model2feR">Table 6.2: </span>Contrasts population effects for alpha
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -716,9 +813,9 @@ AV-AVE_ 100BPM
 <h3>
 <span class="header-section-number">6.9.2</span> Group-level effects model 1 (fit_R): Expertise<a class="anchor" aria-label="anchor" href="#group-level-effects-model-1-fit_r-expertise"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:chapExoskeletons10model1reER">TABLE 6.3: </span>Contrasts group effects (Expertise) for R
+<span id="tab:chapExoskeletons10model1reER">Table 6.3: </span>Contrasts group effects (Expertise) for R
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -792,15 +889,15 @@ Prof-Semiprof
 </tbody>
 </table></div>
 <p>There are no group-level effect for Expertise.
-Nevertheless, it may be of interest to the reader to see how we extracted the group-level distributions from the posterior. It’s a bit technical, though. See the code in 07.</p>
+Nevertheless, it may be of interest to the reader to see how we extracted the group-level distributions from the posterior. See code in in <code>Code/chapExoskeletons/chapExoskeletons_06_Contrasts.R</code>.</p>
 </div>
 <div id="group-level-effects-model-1-fit_r-blocks" class="section level3" number="6.9.3">
 <h3>
 <span class="header-section-number">6.9.3</span> Group-level effects model 1 (fit_R): Blocks<a class="anchor" aria-label="anchor" href="#group-level-effects-model-1-fit_r-blocks"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:chapExoskeletons11model1reBR">TABLE 6.4: </span>Contrasts group effects (Blocks) for R
+<span id="tab:chapExoskeletons11model1reBR">Table 6.4: </span>Contrasts group effects (Blocks) for R
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -917,7 +1014,7 @@ B1-B6
 <div class="figure">
 <span style="display:block;" id="fig:chapExoskeletons12posteriorpredictionsAlpha"></span>
 <img src="Figures/chapExoskeletons_fit_alpha.png" alt="Posterior predictions of R" width="100%"><p class="caption">
-FIGURE 6.9: Posterior predictions of R
+Figure 6.9: Posterior predictions of R
 </p>
 </div>
 <p>The vertical axis shows alpha (in radians), the horizontal axis shows again the four conditions with values for tempo at 72 BPM and at 100 BPM.
@@ -927,9 +1024,9 @@ The values are centered closely around zero, suggesting no considerable phase de
 <h3>
 <span class="header-section-number">6.10.1</span> Population-level effects model 2 (synchronization delay log_abs_alpha)<a class="anchor" aria-label="anchor" href="#population-level-effects-model-2-synchronization-delay-log_abs_alpha"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:model2fea">TABLE 6.5: </span>Contrasts population effects for alpha
+<span id="tab:model2fea">Table 6.5: </span>Contrasts population effects for alpha
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1211,9 +1308,9 @@ AV-AVE_ 100BPM
 <h3>
 <span class="header-section-number">6.10.2</span> Group-level effects model 2 (fit_log_abs_alpha): Expertise<a class="anchor" aria-label="anchor" href="#group-level-effects-model-2-fit_log_abs_alpha-expertise"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:model2reEa">TABLE 6.6: </span>Contrasts group effects (Expertise) for alpha
+<span id="tab:model2reEa">Table 6.6: </span>Contrasts group effects (Expertise) for alpha
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1292,9 +1389,9 @@ Prof-Semiprof
 <h3>
 <span class="header-section-number">6.10.3</span> Group-level effects model 2 (fit_log_abs_alpha): Blocks<a class="anchor" aria-label="anchor" href="#group-level-effects-model-2-fit_log_abs_alpha-blocks"><i class="fas fa-link"></i></a>
 </h3>
-<div class="inline-table"><table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:model2reBa">TABLE 6.7: </span>Contrasts group effects (Blocks) for alpha
+<span id="tab:model2reBa">Table 6.7: </span>Contrasts group effects (Blocks) for alpha
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1401,18 +1498,19 @@ B1-B6
 </tr>
 </tbody>
 </table></div>
-<p>No effect.</p>
+<p>No effect either.</p>
 </div>
 </div>
 <div id="discussion-2" class="section level2" number="6.11">
 <h2>
 <span class="header-section-number">6.11</span> Discussion<a class="anchor" aria-label="anchor" href="#discussion-2"><i class="fas fa-link"></i></a>
 </h2>
-<p>This chapter introduced an interactive context with two violin players.
-The analysis reveals a clear effect of the bi-directional feedback via exoskeletons on the synchronization of both violin bowing gestures.
+<p>The analysis reveals an effect of the bi-directional feedback via exoskeletons on the synchronization of both violin bowing gestures, at least as far as movement is concerned.
 Conditions, ordered according to synchronization strength with <span class="math inline">\(A \ll AV \ll AE \ll AVE\)</span>, reveal the importance of exoskeleton feedback. Conditions with exoskeletons have a better synchronization among violinists.</p>
-<p>It is quite remarkable indeed that the audio-visual condition is surpassed by the audio-haptic (AE) condition.
+<p>It is quite remarkable indeed that movement synchronization in the audio-visual condition is surpassed by movement synchronization in the audio-haptic (AE) condition.
 The superiority of the AVE in synchronization delay may be due to its combination of three modalities, audio, visual, and haptic.</p>
+<p>However, timing analyses of audio, based on phase synchronization of the RMS (root mean square) audio signal, reveals that the observations are not retained.
+[[[[[Work THIS OUT]]]]]</p>
 <p>The exoskeleton feedback raises a number of interesting questions related to the role of anticipation and sensory-motor control, more particularly, the question whether exoskeleton feedback is an immediate control effect, or whether it has predictive capacity.</p>
 </div>
 <div id="conclusion-5" class="section level2" number="6.12">
@@ -1428,8 +1526,8 @@ This is an interesting finding in view of our self-augmented interaction hypothe
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="chapViolinist.html"><span class="header-section-number">5</span> Violin player</a></div>
-<div class="next"><a href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers – dynamic system</a></div>
+<div class="prev"><a href="chapViolinist.html"><span class="header-section-number">5</span> Violin player visual feedback</a></div>
+<div class="next"><a href="chapTappers1.html"><span class="header-section-number">7</span> Two finger tappers’ entrainment (Part 1)</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <h2>Provide your feedback</h2>
     <!--<p>Now is a great time to provide feedback</p>-->
@@ -1439,7 +1537,7 @@ This is an interesting finding in view of our self-augmented interaction hypothe
 <hr>
 <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapExoskeletons"><span class="header-section-number">6</span> Two violin players</a></li>
+<li><a class="nav-link" href="#chapExoskeletons"><span class="header-section-number">6</span> Two violin players’ haptic feedback</a></li>
 <li><a class="nav-link" href="#unidirectional-haptic-feedback"><span class="header-section-number">6.1</span> Unidirectional haptic feedback</a></li>
 <li><a class="nav-link" href="#bidirectional-haptic-feedback"><span class="header-section-number">6.2</span> Bidirectional haptic feedback</a></li>
 <li><a class="nav-link" href="#theory-3"><span class="header-section-number">6.3</span> Theory</a></li>
@@ -1473,8 +1571,8 @@ This is an interesting finding in view of our self-augmented interaction hypothe
 </ul>
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR/blob/main/07_chapExoskeletons.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
-          <li><a id="book-edit" href="https://github.ugent.be/mleman/ExploringMusicInteractionsWithR/edit/main/07_chapExoskeletons.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+<li><a id="book-source" href="https://github.com/mlIpem/ExploringMusicInteractionWithR/blob/main/07_chapExoskeletons.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mlIpem/ExploringMusicInteractionWithR/edit/main/07_chapExoskeletons.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1486,7 +1584,7 @@ This is an interesting finding in view of our self-augmented interaction hypothe
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Exploring music interactions, with R</strong>" was written by Marc Leman. It was last built on 2024-06-26.</p>
+    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

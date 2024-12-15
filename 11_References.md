@@ -57,10 +57,11 @@ Campo, A., Michałko, A., Van Kerrebroeck, B., and Leman, M. (2023b).
 Dataset for the assessment of presence and performance in an augmented reality environment for motor imitation learning: A case-study on violinists. Data in Brief 51 109663.
 https://10.1016/j.chb.2023.107810
 
-Campo,A., Van Kerrebroeck, B., Leman, M. (2024).
+Campo, A., Van Kerrebroeck, B., Leman, M. (2024).
 MC-AR — A software suite for comparative mocap analysis in an augmented reality environment
 Software Impacts 19 100605. https://doi.org/10.1016/j.dib.2023.109663.
 
+Campo, A. et al. (submitted). Haptic Feedback in Violin Education: A Case Study of Robotic Exoskeleton-Mediated Motor Learning.
 
 Carpenter, B. (2018). Predator-Prey Population Dynamics: 
 the Lotka-Volterra model in Stan.
@@ -82,6 +83,9 @@ Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., & Rubin, D.
 
 Gesmann, M., and Morris, J. Hierarchical Compartmental Reserving Models. Casualty Actuarial Society, CAS Research Papers, 19 Aug. 2020, https://www.casact.org/sites/default/files/2021-02/compartmental-reserving-models-gesmannmorris0820.pdf
 
+
+Hallam, S. and Himonides, E. (2022). The power of music. An exploration of the evidence. Open book publishers.
+
 Kruschke, J. K. (2015). Doing Bayesian Data Analysis: A Tutorial with R, JAGS, and Stan (2nd ed.). Academic Press.
 
 
@@ -95,7 +99,11 @@ Leman, M. (2016). The expressive moment: How interaction (with music) shapes hum
 
 McElreath, R. (2020). Statistical Rethinking: A Bayesian Course with Examples in R and Stan (2nd ed.). CRC Press. See https://github.com/rmcelreath/stat_rethinking_2020.
 
+Michałko, A., Di Stefano, N., Campo, A. and Leman, M. (2024). Enhancing human-human
+musical interaction through kinesthetic haptic feedback using wearable exoskeletons: theoretical foundations, validation scenarios, and limitations. Frontiers in Psychology. 15:1327992. https://doi.org/10.3389/fpsyg.2024.1327992
 
+
+Michałko, A., Six, J., Campo, A., Van Kerrebroeck, B., Pokric, M., Leman, M. (submitted). Amateur Violin practice in augmented reality: Exploring user’s behaviour and experience.
 
 Repp, B., Su, YH (2013). Sensorimotor synchronization: A review of recent research (2006–2012). Psychonomic Bulletin & Review 20, 403–452. https://doi.org/10.3758/s13423-012-0371-2
 
@@ -111,6 +119,8 @@ Rosso, M., Maes, P.J. & Leman, M. (2021). Modality-specific attractor dynamics i
 Rosso, M., Van Kerrebroeck, B., Maes, P-J & Leman, M. (2023). Embodied perspective taking enhances interpersonal synchronization. A body-swap study. iScience. (accepted)
 
 Rosso, M., Maes PJ. & Leman, M. (in preparation). (Tentative title) Estimating coupling and phase delay parameters of entrainment in a body-swap study.
+
+Russell JA. (1980). A circumplex model of affect. Journal of Personality and Social Psychology. 1980;39:1161–1178. doi: 10.1037//0022-3514.79.2.286.
 
 Schneider, A. (2018a). Pitch and pitch perception. In Springer Handbook of Systematic Musicology (pp. 605-686). Springer, Berlin, Heidelberg.
 
