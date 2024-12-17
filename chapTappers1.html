@@ -90,14 +90,14 @@
 In the restricted context of finger tapping this influence can be formulated as follows:
 Would my own tapping be affected by seeing another person tapping at a different speed?
 And would the other person be influence by me?</p>
-<p>To analyse data about two persons interacting this way, previous studies used methods such as cross-correlation, cross-recurrence analysis, quantification analysis, delay-coupled oscillators, among others<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For a review, see Demos &amp;amp; Palmer, 2023. For an approach based on Kuramoto models, see Heggli et al., 2019).&lt;/p&gt;"><sup>28</sup></a>.</p>
+<p>To analyse data about two persons interacting this way, previous studies used methods such as cross-correlation, cross-recurrence analysis, quantification analysis, delay-coupled oscillators, among others<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For a review, see Demos &amp;amp; Palmer, 2023. For an approach based on Kuramoto models, see Heggli et al., 2019).&lt;/p&gt;"><sup>26</sup></a>.</p>
 <p>In this chapter, however, we explore the <em>state-space model</em>, a mathematical representation of a dynamic system allowing the description of an evolution of internal states over time. This discription is based on a state equation that defines the transition of states, for example by means of differential, or difference, equations. The internal states are linked to observations by means of an observation equation which would, for example, add some fluctuation noise to the states.
 The internal states of a system containing two persons tapping, could represent the tapping frequency, tapping period, or tapping phase at any moment. Adding fluctuation noise at discrete tapping events would be due to human sensorimotor variability, giving rise to observations. Basically that state-space model offers a toolbox for studing such mutual influences in finger tapping interactions.</p>
 <p>We’ll study this state-space model from two perspectives. Firstly, from model to observations, using defined parameters we solve the state equation and generate observations by adding noise.
 Secondly, from observations to model, by estimating the parameters and solving a likelihood function based on the state-space model (state and observation equations).</p>
-<p>To solve the likelihood equation, we use Stan<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://mc-stan.org" class="uri"&gt;https://mc-stan.org&lt;/a&gt;&lt;/p&gt;'><sup>29</sup></a>, a probabilistic programming language based on Markov chain Monte Carlo (MCMC) sampling algorithms. Note that Stan is also the engine beneath <code>brms</code>, the package used in previous chapters. Here we address that engine directly.</p>
+<p>To solve the likelihood equation, we use Stan<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://mc-stan.org" class="uri"&gt;https://mc-stan.org&lt;/a&gt;&lt;/p&gt;'><sup>27</sup></a>, a probabilistic programming language based on Markov chain Monte Carlo (MCMC) sampling algorithms. Note that Stan is also the engine beneath <code>brms</code>, the package used in previous chapters. Here we address that engine directly.</p>
 <p>The code is contained in:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_00_Initialization.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_01_Functions.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers/chapTappers_02_DataPreparation.R"</span><span class="op">)</span></span>
@@ -107,9 +107,9 @@ Secondly, from observations to model, by estimating the parameters and solving a
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers/chapTappers_05_ModelPlotting.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers/chapTappers_06_Evaluation.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers/chapTappers_07_EvaluationPlotting.R"</span><span class="op">)</span></span></code></pre></div>
-<div id="theory-4" class="section level2" number="7.1">
+<div id="theory-3" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">7.1</span> Theory<a class="anchor" aria-label="anchor" href="#theory-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Theory<a class="anchor" aria-label="anchor" href="#theory-3"><i class="fas fa-link"></i></a>
 </h2>
 <p>The theoretical background for this chapter is based on two concepts: entrainment and dynamic systems.</p>
 <div id="entrainment-1" class="section level3 unnumbered">
@@ -155,7 +155,7 @@ But before we do that we need to know what exactly we want to model.</p>
 </h3>
 <p>The <em>drifting metronomes</em> paradigm, developed in (Rosso et al., 2021, 2023), is a peculiar experimental design to uncover entrainment, by controlling for incongruency. Here is how it works.</p>
 <p>Two subjects engage in synchronized tapping while listening to a metronome through headphones. The metronomes are slightly detuned in tempo, so that their phase drifts. In particular, one metronome tics every 600 ms, while the other tics every 610 ms. Initially, the metronomes start ticking together (in-phase), but as time evolves, the tics become wider apart (out-phasing), eventually reaching an anti-phase state before their ticking comes closer in time again (in-phasing). When the cycle is completed, the metronomes have one tic exactly together. One complete outphasing and inphasing cycle takes <span class="math inline">\(36.6\)</span> seconds (<span class="math inline">\(= 600 * 610/ 10\)</span>). The subjects are asked to perform 10 such cycles in a row during one performance. They are instructed to follow the metronome they hear through the headphones.</p>
-<p>The conditions of interest are: (i) not seeing each other and (ii) seeing each other.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Note that in the original experiment, there are 4 conditions. The two other conditions control the perspective of looking. Using VR, subjects saw their own arm ticking from a second perspective, or they saw the partner’s arm ticking as their own arm. However, here we don’t consider these perspective swapping conditions.&lt;/p&gt;"><sup>30</sup></a></p>
+<p>The conditions of interest are: (i) not seeing each other and (ii) seeing each other.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Note that in the original experiment, there are 4 conditions. The two other conditions control the perspective of looking. Using VR, subjects saw their own arm ticking from a second perspective, or they saw the partner’s arm ticking as their own arm. However, here we don’t consider these perspective swapping conditions.&lt;/p&gt;"><sup>28</sup></a></p>
 <p>Rosso et al. (2023) found that the subjects’ tapping behavior was influenced by seeing each other tapping, despite the instruction to follow their own metronome. In other words, visual coupling between the individuals led to an entrainment effect on tapping behavior, even if the task implied anti-entrainment (or resistence to entrainment). This suggests that incongruent visual cues from the partner’s tapping can be particularly strong, overriding the intended synchronization with the metronome they heard.</p>
 <p>Our interest is to offer a causal explanation of this phenomenon. Our goal is to build a state-space model of entrainment, using a few control parameters that govern the causal flow among interacting units.</p>
 </div>
@@ -336,7 +336,7 @@ However, we prefer to include them in the specifications of the state-space mode
 </h3>
 <p>At this point it is instructive to calculate some states using the state equation.
 First we define an R function called <code>dydt, which contains the state equation.</code></p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define dydt</span></span>
 <span><span class="va">dydt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">parms</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">parms</span><span class="op">)</span><span class="op">)</span>, <span class="op">{</span></span>
@@ -365,7 +365,7 @@ But first we have to specify some parameters.
 In particular, we set the coupling strength to <code>ks1m1 = .9, ks2m2 = .7</code>, while phase delays are zero.
 The initial values of our states, which is at time <span class="math inline">\(0\)</span>, are all zero.
 The states (<code>solution</code>) are then differentiated in order to obtain the instantaneous frequency from the phase.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define time points</span></span>
 <span><span class="va">dt</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span></span>
 <span><span class="va">time_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36.6</span>, by <span class="op">=</span> <span class="va">dt</span><span class="op">)</span></span>
@@ -421,7 +421,7 @@ It marks the fact that the tapping is more in line with <span class="math inline
 <p>In a similar way, it is possible to calculate the error terms for <span class="math inline">\(s2\)</span> based on the pulling forces of the metronome and the partner subject.</p>
 <p>Next we show the phase, just to illustrate that there is not much to see because phase is increasing continuously and phase fluctuation is minimal with respect to this increase.
 We show the code to show the details of how phase is treated.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cbPalette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#56B4E9"</span>,<span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>,<span class="st">"#E69F00"</span>,<span class="st">"#D55E00"</span><span class="op">)</span></span>
 <span><span class="va">Solution</span> <span class="op">%&gt;%</span> <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m1</span>,<span class="va">s1</span>,<span class="va">m2</span>,<span class="va">s2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span> <span class="va">time</span>,y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span>,size<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -439,7 +439,7 @@ Figure 7.5: Phase of all units
 </div>
 <p>An alternative representation is the <em>instantaneous period</em>, with period on the vertical axis.
 It’s the inverse of the instantaneous frequency, which we obtain by differentiating the phase. Accordingly, with <span class="math inline">\(ks1m1 = ks2m2 = 1\)</span>, subjects follow their metronomes and therefore the instantaneous period of their tapping is on 600 ms and 610 ms. Note that the blue curves (from <span class="math inline">\(s1\)</span>) are the reversed curves from those in figure <a href="chapTappers1.html#fig:chapTappersSol1">7.4</a>.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">do_period</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span>,<span class="va">dt</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">return</span> <span class="op">=</span> <span class="fl">2000</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="va">dt</span><span class="op">/</span><span class="va">value</span></span>
 <span><span class="op">}</span></span>
@@ -465,7 +465,7 @@ Figure 7.6: Instantaneous periods. The columns show five different values of ks1
 <p>The figure reveals that the blue curves (representing the instantaneous period of <span class="math inline">\(s1\)</span>) become slightly more pronounced and shifted when there is a mutual influence due to <span class="math inline">\(ks2m2 = .75\)</span>.</p>
 <p>Next, we show the relative phase, rather than the instantaneous period.
 As the phase is continuously increasing it is more practical to look at the phase relative to the metronome, and rotate the axis such that the interval covers <span class="math inline">\([-\pi,+\pi]\)</span>.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">do_rotate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">return</span> <span class="op">=</span>  <span class="op">(</span><span class="op">(</span><span class="va">value</span> <span class="op">+</span> <span class="va">pi</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">)</span><span class="op">-</span><span class="va">pi</span></span>
 <span><span class="op">}</span></span>
@@ -491,7 +491,7 @@ Figure 7.7: Relative phase of s1 and s2. The columns show five different values 
 </div>
 <p>This viewpoint is of interest when phase delays enter the picture.
 The next figure shows the relative phase with phase delays, when <span class="math inline">\(ds1m1 = ds2m2 = 1\)</span>.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set the time points</span></span>
 <span><span class="va">Solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">dt</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span></span>
@@ -599,7 +599,7 @@ ds1m1 &amp;. &amp;. &amp;. \\
 <div id="running-a-simulation-app" class="section level3 unnumbered">
 <h3>Running a simulation app<a class="anchor" aria-label="anchor" href="#running-a-simulation-app"><i class="fas fa-link"></i></a>
 </h3>
-<p>Equation <a href="chapTappers1.html#eq:chapTappersequation1">(7.2)</a> is non-linear and therefore it is useful to explore it with simulations. We refer to a shiny application <a href="http://odetappers.shinyapps.io/odetappers2/">here</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://odetappers.shinyapps.io/odetappers2/" class="uri"&gt;http://odetappers.shinyapps.io/odetappers2/&lt;/a&gt;&lt;/p&gt;'><sup>31</sup></a>, which readers may explore.
+<p>Equation <a href="chapTappers1.html#eq:chapTappersequation1">(7.2)</a> is non-linear and therefore it is useful to explore it with simulations. We refer to a shiny application <a href="http://odetappers.shinyapps.io/odetappers2/">here</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://odetappers.shinyapps.io/odetappers2/" class="uri"&gt;http://odetappers.shinyapps.io/odetappers2/&lt;/a&gt;&lt;/p&gt;'><sup>29</sup></a>, which readers may explore.
 Given the above explanation, we believe that the tool is self-explanatory.</p>
 <!-- <iframe src="http://odetappers.shinyapps.io/odetappers2/" width="750" height="1000"></iframe> -->
 </div>
@@ -618,7 +618,7 @@ But let’s first try to generate these observations.</p>
 <h3>Constraints in parameters<a class="anchor" aria-label="anchor" href="#constraints-in-parameters"><i class="fas fa-link"></i></a>
 </h3>
 <p>Based on the <em>drifting metronomes</em> paradigm, in which subjects are asked to tap along with the metronome heard through their headphones, we assume that most subjects will indeed be able to adhere to their own metronome. This implies that the coupling strength <span class="math inline">\(ks1m1\)</span> and <span class="math inline">\(ks2m2\)</span> will be rarely &lt; .4 because in that case they actually follow the partner (as illustrated in the above figures). Furthermore, we assume for testing purposes that both subjects have the same distribution of coupling strength. Accordingly, we first generate coupling strength values for subject 1. Then we reshuffle these values and assign coupling strength values to subject 2.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># distribution of coupling strengths</span></span>
 <span><span class="va">K1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>ks1m1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">K1</span> <span class="op">&lt;-</span> <span class="va">K1</span> <span class="op">%&gt;%</span> <span class="fu">mutate</span><span class="op">(</span>ks2m2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">ks1m1</span><span class="op">)</span> <span class="op">)</span></span>
@@ -692,10 +692,10 @@ ds2s1
 1
 </td>
 <td style="text-align:right;">
-0.7693370
+0.6455531
 </td>
 <td style="text-align:right;">
-0.8206874
+0.4230806
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -715,10 +715,10 @@ ds2s1
 2
 </td>
 <td style="text-align:right;">
-0.4432156
+0.6984740
 </td>
 <td style="text-align:right;">
-0.7436556
+0.6079990
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -738,10 +738,10 @@ ds2s1
 3
 </td>
 <td style="text-align:right;">
-0.4896106
+0.8727492
 </td>
 <td style="text-align:right;">
-0.7474882
+0.5293605
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -761,10 +761,10 @@ ds2s1
 4
 </td>
 <td style="text-align:right;">
-0.8211646
+0.8479384
 </td>
 <td style="text-align:right;">
-0.4432156
+0.7939373
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -784,10 +784,10 @@ ds2s1
 5
 </td>
 <td style="text-align:right;">
-0.6092224
+0.9276688
 </td>
 <td style="text-align:right;">
-0.8211646
+0.8727492
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -807,10 +807,10 @@ ds2s1
 6
 </td>
 <td style="text-align:right;">
-0.7207477
+0.7925921
 </td>
 <td style="text-align:right;">
-0.6092224
+0.4571697
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -830,10 +830,10 @@ ds2s1
 7
 </td>
 <td style="text-align:right;">
-0.8790674
+0.8420224
 </td>
 <td style="text-align:right;">
-0.8564115
+0.6455531
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -853,10 +853,10 @@ ds2s1
 8
 </td>
 <td style="text-align:right;">
-0.6941948
+0.5129494
 </td>
 <td style="text-align:right;">
-0.3822063
+0.8420224
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -876,10 +876,10 @@ ds2s1
 9
 </td>
 <td style="text-align:right;">
-0.4777498
+0.6521709
 </td>
 <td style="text-align:right;">
-0.4896106
+0.9404425
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -899,10 +899,10 @@ ds2s1
 10
 </td>
 <td style="text-align:right;">
-0.5706142
+0.6079990
 </td>
 <td style="text-align:right;">
-0.8404672
+0.6521709
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -922,10 +922,10 @@ ds2s1
 11
 </td>
 <td style="text-align:right;">
-0.3718727
+0.9777629
 </td>
 <td style="text-align:right;">
-0.8790674
+0.7628611
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -945,10 +945,10 @@ ds2s1
 12
 </td>
 <td style="text-align:right;">
-0.7474882
+0.4230806
 </td>
 <td style="text-align:right;">
-0.7693370
+0.9276688
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -968,10 +968,10 @@ ds2s1
 13
 </td>
 <td style="text-align:right;">
-0.5636438
+0.8346470
 </td>
 <td style="text-align:right;">
-0.8472846
+0.9777629
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -991,10 +991,10 @@ ds2s1
 14
 </td>
 <td style="text-align:right;">
-0.8564115
+0.4571697
 </td>
 <td style="text-align:right;">
-0.7207477
+0.5129494
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1014,10 +1014,10 @@ ds2s1
 15
 </td>
 <td style="text-align:right;">
-0.8206874
+0.7628611
 </td>
 <td style="text-align:right;">
-0.6536444
+0.8346470
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1037,10 +1037,10 @@ ds2s1
 16
 </td>
 <td style="text-align:right;">
-0.8404672
+0.7593002
 </td>
 <td style="text-align:right;">
-0.3718727
+0.7593002
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1060,10 +1060,10 @@ ds2s1
 17
 </td>
 <td style="text-align:right;">
-0.8472846
+0.5720099
 </td>
 <td style="text-align:right;">
-0.4777498
+0.8479384
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1083,10 +1083,10 @@ ds2s1
 18
 </td>
 <td style="text-align:right;">
-0.7436556
+0.9404425
 </td>
 <td style="text-align:right;">
-0.5706142
+0.5720099
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1106,10 +1106,10 @@ ds2s1
 19
 </td>
 <td style="text-align:right;">
-0.3822063
+0.5293605
 </td>
 <td style="text-align:right;">
-0.6941948
+0.7925921
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1129,10 +1129,10 @@ ds2s1
 20
 </td>
 <td style="text-align:right;">
-0.6536444
+0.7939373
 </td>
 <td style="text-align:right;">
-0.5636438
+0.6984740
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -1152,16 +1152,16 @@ ds2s1
 21
 </td>
 <td style="text-align:right;">
-0.7693370
+0.6455531
 </td>
 <td style="text-align:right;">
-0.8206874
+0.4230806
 </td>
 <td style="text-align:right;">
-1.0572549
+0.9722978
 </td>
 <td style="text-align:right;">
-0.0227570
+0.4116613
 </td>
 <td style="text-align:right;">
 0
@@ -1175,16 +1175,16 @@ ds2s1
 22
 </td>
 <td style="text-align:right;">
-0.4432156
+0.6984740
 </td>
 <td style="text-align:right;">
-0.7436556
+0.6079990
 </td>
 <td style="text-align:right;">
-0.2041107
+0.2624670
 </td>
 <td style="text-align:right;">
-0.2312711
+0.3590835
 </td>
 <td style="text-align:right;">
 0
@@ -1198,16 +1198,16 @@ ds2s1
 23
 </td>
 <td style="text-align:right;">
-0.4896106
+0.8727492
 </td>
 <td style="text-align:right;">
-0.7474882
+0.5293605
 </td>
 <td style="text-align:right;">
-0.5231752
+0.1911164
 </td>
 <td style="text-align:right;">
-0.5317493
+0.4767901
 </td>
 <td style="text-align:right;">
 0
@@ -1221,16 +1221,16 @@ ds2s1
 24
 </td>
 <td style="text-align:right;">
-0.8211646
+0.8479384
 </td>
 <td style="text-align:right;">
-0.4432156
+0.7939373
 </td>
 <td style="text-align:right;">
-0.5317493
+0.3590835
 </td>
 <td style="text-align:right;">
-1.1885649
+1.0933573
 </td>
 <td style="text-align:right;">
 0
@@ -1244,16 +1244,16 @@ ds2s1
 25
 </td>
 <td style="text-align:right;">
-0.6092224
+0.9276688
 </td>
 <td style="text-align:right;">
-0.8211646
+0.8727492
 </td>
 <td style="text-align:right;">
-0.6770100
+0.4266300
 </td>
 <td style="text-align:right;">
-0.3595058
+0.3257800
 </td>
 <td style="text-align:right;">
 0
@@ -1267,16 +1267,16 @@ ds2s1
 26
 </td>
 <td style="text-align:right;">
-0.7207477
+0.7925921
 </td>
 <td style="text-align:right;">
-0.6092224
+0.4571697
 </td>
 <td style="text-align:right;">
-0.2312711
+-0.0863051
 </td>
 <td style="text-align:right;">
-0.2794046
+0.1474698
 </td>
 <td style="text-align:right;">
 0
@@ -1290,16 +1290,16 @@ ds2s1
 27
 </td>
 <td style="text-align:right;">
-0.8790674
+0.8420224
 </td>
 <td style="text-align:right;">
-0.8564115
+0.6455531
 </td>
 <td style="text-align:right;">
-0.1927987
+0.6394168
 </td>
 <td style="text-align:right;">
-1.0572549
+0.7833259
 </td>
 <td style="text-align:right;">
 0
@@ -1313,16 +1313,16 @@ ds2s1
 28
 </td>
 <td style="text-align:right;">
-0.6941948
+0.5129494
 </td>
 <td style="text-align:right;">
-0.3822063
+0.8420224
 </td>
 <td style="text-align:right;">
-1.1885649
+0.9722101
 </td>
 <td style="text-align:right;">
-0.3711596
+1.1333591
 </td>
 <td style="text-align:right;">
 0
@@ -1336,16 +1336,16 @@ ds2s1
 29
 </td>
 <td style="text-align:right;">
-0.4777498
+0.6521709
 </td>
 <td style="text-align:right;">
-0.4896106
+0.9404425
 </td>
 <td style="text-align:right;">
-0.2624700
+0.1474698
 </td>
 <td style="text-align:right;">
-0.2624700
+0.1911164
 </td>
 <td style="text-align:right;">
 0
@@ -1359,16 +1359,16 @@ ds2s1
 30
 </td>
 <td style="text-align:right;">
-0.5706142
+0.6079990
 </td>
 <td style="text-align:right;">
-0.8404672
+0.6521709
 </td>
 <td style="text-align:right;">
-0.4390953
+0.4767901
 </td>
 <td style="text-align:right;">
-0.4086298
+0.4266300
 </td>
 <td style="text-align:right;">
 0
@@ -1382,16 +1382,16 @@ ds2s1
 31
 </td>
 <td style="text-align:right;">
-0.3718727
+0.9777629
 </td>
 <td style="text-align:right;">
-0.8790674
+0.7628611
 </td>
 <td style="text-align:right;">
--0.0274899
+0.7833259
 </td>
 <td style="text-align:right;">
-0.6644882
+0.9722978
 </td>
 <td style="text-align:right;">
 0
@@ -1405,16 +1405,16 @@ ds2s1
 32
 </td>
 <td style="text-align:right;">
-0.7474882
+0.4230806
 </td>
 <td style="text-align:right;">
-0.7693370
+0.9276688
 </td>
 <td style="text-align:right;">
-0.1213751
+0.2645605
 </td>
 <td style="text-align:right;">
-0.2041107
+0.6394168
 </td>
 <td style="text-align:right;">
 0
@@ -1428,16 +1428,16 @@ ds2s1
 33
 </td>
 <td style="text-align:right;">
-0.5636438
+0.8346470
 </td>
 <td style="text-align:right;">
-0.8472846
+0.9777629
 </td>
 <td style="text-align:right;">
-0.6644882
+-0.0940484
 </td>
 <td style="text-align:right;">
-0.3767359
+0.9722101
 </td>
 <td style="text-align:right;">
 0
@@ -1451,16 +1451,16 @@ ds2s1
 34
 </td>
 <td style="text-align:right;">
-0.8564115
+0.4571697
 </td>
 <td style="text-align:right;">
-0.7207477
+0.5129494
 </td>
 <td style="text-align:right;">
-0.4086298
+0.3824752
 </td>
 <td style="text-align:right;">
--0.0274899
+0.7442081
 </td>
 <td style="text-align:right;">
 0
@@ -1474,16 +1474,16 @@ ds2s1
 35
 </td>
 <td style="text-align:right;">
-0.8206874
+0.7628611
 </td>
 <td style="text-align:right;">
-0.6536444
+0.8346470
 </td>
 <td style="text-align:right;">
-0.0227570
+1.1333591
 </td>
 <td style="text-align:right;">
-0.4390953
+0.0713173
 </td>
 <td style="text-align:right;">
 0
@@ -1497,16 +1497,16 @@ ds2s1
 36
 </td>
 <td style="text-align:right;">
-0.8404672
+0.7593002
 </td>
 <td style="text-align:right;">
-0.3718727
+0.7593002
 </td>
 <td style="text-align:right;">
-0.2794046
+0.0713173
 </td>
 <td style="text-align:right;">
-0.1213751
+-0.0940484
 </td>
 <td style="text-align:right;">
 0
@@ -1520,16 +1520,16 @@ ds2s1
 37
 </td>
 <td style="text-align:right;">
-0.8472846
+0.5720099
 </td>
 <td style="text-align:right;">
-0.4777498
+0.8479384
 </td>
 <td style="text-align:right;">
-0.3711596
+1.0933573
 </td>
 <td style="text-align:right;">
-0.7789544
+0.2645605
 </td>
 <td style="text-align:right;">
 0
@@ -1543,16 +1543,16 @@ ds2s1
 38
 </td>
 <td style="text-align:right;">
-0.7436556
+0.9404425
 </td>
 <td style="text-align:right;">
-0.5706142
+0.5720099
 </td>
 <td style="text-align:right;">
-0.3595058
+0.3257800
 </td>
 <td style="text-align:right;">
-0.5231752
+0.3824752
 </td>
 <td style="text-align:right;">
 0
@@ -1566,16 +1566,16 @@ ds2s1
 39
 </td>
 <td style="text-align:right;">
-0.3822063
+0.5293605
 </td>
 <td style="text-align:right;">
-0.6941948
+0.7925921
 </td>
 <td style="text-align:right;">
-0.3767359
+0.7442081
 </td>
 <td style="text-align:right;">
-0.6770100
+0.2624670
 </td>
 <td style="text-align:right;">
 0
@@ -1589,16 +1589,16 @@ ds2s1
 40
 </td>
 <td style="text-align:right;">
-0.6536444
+0.7939373
 </td>
 <td style="text-align:right;">
-0.5636438
+0.6984740
 </td>
 <td style="text-align:right;">
-0.7789544
+0.4116613
 </td>
 <td style="text-align:right;">
-0.1927987
+-0.0863051
 </td>
 <td style="text-align:right;">
 0
@@ -1609,7 +1609,7 @@ ds2s1
 </tr>
 </tbody>
 </table></div>
-<p>Constraints in phase delays can be justified by studies showing that humans tend to anticipate to the beat<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;See Repp and Su (2012) for a review of finger tapping and anticipation.&lt;/p&gt;"><sup>32</sup></a>.</p>
+<p>Constraints in phase delays can be justified by studies showing that humans tend to anticipate to the beat<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;See Repp and Su (2012) for a review of finger tapping and anticipation.&lt;/p&gt;"><sup>30</sup></a>.</p>
 <p>Table <a href="chapTappers1.html#tab:chapTappersKDtable">7.1</a> shows the parameters for 40 state equations, that is, 40 dynamical systems.
 The columns represent the number and the parameters <span class="math inline">\(ks1m1, ks2m2, ds1m1, ds2m2\)</span>. We don’t specify <span class="math inline">\(ds2s1\)</span> nor <span class="math inline">\(ds1s2\)</span>.
 Note that the first and second 20 dynamic systems have the same coupling strengths. The first 20 systems have zero phase delay, while the second 20 systems have a non-zero phase delay:</p>
@@ -2099,7 +2099,7 @@ We also set boundaries for the parameters. Here is an overview:</p>
 ##  $ time_gen       : num [1:100] 0.0001 0.3698 0.7395 1.1092 1.4789 ...
 ##  $ names_indicator: num [1:244] 4 4 2 1 4 3 1 2 4 3 ...</code></pre>
 <p>This input can be sent to Stan from inside R using the function <code>stan</code> from the R-package <code>rstan</code>. It sends the program, contained in <code>filenameStanCode</code> to the sampler-algorithms, which creates the posterior of the likelihood function and priors.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filenameStanCode</span> <span class="op">=</span> <span class="st">"Code/chapTappers/chapTappers_StateSpaceModel.stan"</span></span>
 <span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">stan</span><span class="op">(</span></span>
@@ -2117,33 +2117,33 @@ We also set boundaries for the parameters. Here is an overview:</p>
 </h3>
 <p>The code in <code>filenameStancode</code> contains several blocks.
 The states equations in the syntax of Stan are:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="chapTappers1.html#cb62-1" tabindex="-1"></a>functions {</span>
-<span id="cb62-2"><a href="chapTappers1.html#cb62-2" tabindex="-1"></a>  vector <span class="fu">do_dt</span>(real t, vector y,  real ks1m1, real ks2m2,  real ds1m1, real ds2m2,</span>
-<span id="cb62-3"><a href="chapTappers1.html#cb62-3" tabindex="-1"></a>               real ds1s2, real ds2s1){</span>
-<span id="cb62-4"><a href="chapTappers1.html#cb62-4" tabindex="-1"></a>    real pi600 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pi</span>()<span class="sc">/</span>.<span class="dv">6</span>; <span class="sc">/</span><span class="er">/</span> Eigenfrequency s1, m1</span>
-<span id="cb62-5"><a href="chapTappers1.html#cb62-5" tabindex="-1"></a>    real pi610 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pi</span>()<span class="sc">/</span>.<span class="dv">61</span>;  <span class="sc">/</span><span class="er">/</span> Eigenfrequency s2, m2</span>
-<span id="cb62-6"><a href="chapTappers1.html#cb62-6" tabindex="-1"></a></span>
-<span id="cb62-7"><a href="chapTappers1.html#cb62-7" tabindex="-1"></a>    real dm1dt <span class="ot">=</span> pi600;</span>
-<span id="cb62-8"><a href="chapTappers1.html#cb62-8" tabindex="-1"></a>    real ds1dt <span class="ot">=</span> pi600 <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>(ks1m1<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">2</span>]<span class="sc">+</span>ds1m1)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>ks1m1)<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">4</span>]<span class="sc">-</span>y[<span class="dv">2</span>]<span class="sc">+</span>ds1s2));</span>
-<span id="cb62-9"><a href="chapTappers1.html#cb62-9" tabindex="-1"></a>    real dm2dt <span class="ot">=</span> pi610;</span>
-<span id="cb62-10"><a href="chapTappers1.html#cb62-10" tabindex="-1"></a>    real ds2dt <span class="ot">=</span> pi610 <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>(ks2m2<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">3</span>]<span class="sc">-</span>y[<span class="dv">4</span>]<span class="sc">+</span>ds2m2)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>ks2m2)<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">4</span>]<span class="sc">+</span>ds2s1));</span>
-<span id="cb62-11"><a href="chapTappers1.html#cb62-11" tabindex="-1"></a>    return <span class="fu">to_vector</span>([dm1dt,ds1dt,dm2dt,ds2dt]);</span>
-<span id="cb62-12"><a href="chapTappers1.html#cb62-12" tabindex="-1"></a>  }</span>
-<span id="cb62-13"><a href="chapTappers1.html#cb62-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="chapTappers1.html#cb53-1" tabindex="-1"></a>functions {</span>
+<span id="cb53-2"><a href="chapTappers1.html#cb53-2" tabindex="-1"></a>  vector <span class="fu">do_dt</span>(real t, vector y,  real ks1m1, real ks2m2,  real ds1m1, real ds2m2,</span>
+<span id="cb53-3"><a href="chapTappers1.html#cb53-3" tabindex="-1"></a>               real ds1s2, real ds2s1){</span>
+<span id="cb53-4"><a href="chapTappers1.html#cb53-4" tabindex="-1"></a>    real pi600 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pi</span>()<span class="sc">/</span>.<span class="dv">6</span>; <span class="sc">/</span><span class="er">/</span> Eigenfrequency s1, m1</span>
+<span id="cb53-5"><a href="chapTappers1.html#cb53-5" tabindex="-1"></a>    real pi610 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pi</span>()<span class="sc">/</span>.<span class="dv">61</span>;  <span class="sc">/</span><span class="er">/</span> Eigenfrequency s2, m2</span>
+<span id="cb53-6"><a href="chapTappers1.html#cb53-6" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="chapTappers1.html#cb53-7" tabindex="-1"></a>    real dm1dt <span class="ot">=</span> pi600;</span>
+<span id="cb53-8"><a href="chapTappers1.html#cb53-8" tabindex="-1"></a>    real ds1dt <span class="ot">=</span> pi600 <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>(ks1m1<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">2</span>]<span class="sc">+</span>ds1m1)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>ks1m1)<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">4</span>]<span class="sc">-</span>y[<span class="dv">2</span>]<span class="sc">+</span>ds1s2));</span>
+<span id="cb53-9"><a href="chapTappers1.html#cb53-9" tabindex="-1"></a>    real dm2dt <span class="ot">=</span> pi610;</span>
+<span id="cb53-10"><a href="chapTappers1.html#cb53-10" tabindex="-1"></a>    real ds2dt <span class="ot">=</span> pi610 <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>(ks2m2<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">3</span>]<span class="sc">-</span>y[<span class="dv">4</span>]<span class="sc">+</span>ds2m2)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>ks2m2)<span class="sc">*</span><span class="fu">sin</span>(y[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">4</span>]<span class="sc">+</span>ds2s1));</span>
+<span id="cb53-11"><a href="chapTappers1.html#cb53-11" tabindex="-1"></a>    return <span class="fu">to_vector</span>([dm1dt,ds1dt,dm2dt,ds2dt]);</span>
+<span id="cb53-12"><a href="chapTappers1.html#cb53-12" tabindex="-1"></a>  }</span>
+<span id="cb53-13"><a href="chapTappers1.html#cb53-13" tabindex="-1"></a>}</span></code></pre></div>
 <p>The call to this function is defined as:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="chapTappers1.html#cb63-1" tabindex="-1"></a>vector[<span class="dv">4</span>] omega[n_times] <span class="ot">=</span> <span class="fu">ode_rk45</span>(do_dt, y0, time0, time,</span>
-<span id="cb63-2"><a href="chapTappers1.html#cb63-2" tabindex="-1"></a>        ks1m1, ks2m2, ds1m1, ds2m2, ds1s2, ds2s1) ;</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="chapTappers1.html#cb54-1" tabindex="-1"></a>vector[<span class="dv">4</span>] omega[n_times] <span class="ot">=</span> <span class="fu">ode_rk45</span>(do_dt, y0, time0, time,</span>
+<span id="cb54-2"><a href="chapTappers1.html#cb54-2" tabindex="-1"></a>        ks1m1, ks2m2, ds1m1, ds2m2, ds1s2, ds2s1) ;</span></code></pre></div>
 <p><code>Omega</code> is an array of vectors containing the state values of <span class="math inline">\(m1\)</span>, <span class="math inline">\(s1\)</span>, <span class="math inline">\(m2\)</span>, <span class="math inline">\(s2\)</span> at all <code>n_times</code> tick and tap events. With omega we thus get the phases of all units, as well as distributions for the estimated parameters <span class="math inline">\(ks1m1, ks2m2, ds1m1, ds2m2, ds1s2\)</span>, and <span class="math inline">\(ds2s1\)</span>.</p>
 <p>This works because we put it in a likelihood function where observations are linked with states.</p>
 <p>The function can be understood as follows. Any tick and tap <span class="math inline">\(n\)</span>, the observed value at <code>[n]</code> (which is zero, or close to zero) has the state value as its mean, plus a value drawn from a normal distribution with a to-be-estimated standard deviation of the corresponding unit.</p>
 <p>Note that the state value is a single value for <code>names_indicator[n]</code> taken at event <span class="math inline">\(n\)</span>, of the array <code>omega</code>, after applying a modulo <span class="math inline">\(2\pi\)</span> rotation so that the phase occurs in the interval <span class="math inline">\([-\pi,+\pi]\)</span>. In other words, when an observed value is considered, it is fitted by updating the states with a call to omega. The returned state is then mixed with noise to fit the observation.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="chapTappers1.html#cb64-1" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_times){</span>
-<span id="cb64-2"><a href="chapTappers1.html#cb64-2" tabindex="-1"></a>  state <span class="ot">=</span> <span class="fu">fmod</span>(omega[n,names_indicator[n]] <span class="sc">+</span> <span class="fu">pi</span>(), pi2 ) <span class="sc">-</span> <span class="fu">pi</span>();</span>
-<span id="cb64-3"><a href="chapTappers1.html#cb64-3" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> single value returned here because we have only one observation per time</span>
-<span id="cb64-4"><a href="chapTappers1.html#cb64-4" tabindex="-1"></a>  observed[n] <span class="sc">~</span> <span class="fu">normal</span>(state, observation_std[names_indicator[n]]);</span>
-<span id="cb64-5"><a href="chapTappers1.html#cb64-5" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> names_indicator defines which unit is active at n</span>
-<span id="cb64-6"><a href="chapTappers1.html#cb64-6" tabindex="-1"></a>}</span>
-<span id="cb64-7"><a href="chapTappers1.html#cb64-7" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="chapTappers1.html#cb55-1" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_times){</span>
+<span id="cb55-2"><a href="chapTappers1.html#cb55-2" tabindex="-1"></a>  state <span class="ot">=</span> <span class="fu">fmod</span>(omega[n,names_indicator[n]] <span class="sc">+</span> <span class="fu">pi</span>(), pi2 ) <span class="sc">-</span> <span class="fu">pi</span>();</span>
+<span id="cb55-3"><a href="chapTappers1.html#cb55-3" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> single value returned here because we have only one observation per time</span>
+<span id="cb55-4"><a href="chapTappers1.html#cb55-4" tabindex="-1"></a>  observed[n] <span class="sc">~</span> <span class="fu">normal</span>(state, observation_std[names_indicator[n]]);</span>
+<span id="cb55-5"><a href="chapTappers1.html#cb55-5" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> names_indicator defines which unit is active at n</span>
+<span id="cb55-6"><a href="chapTappers1.html#cb55-6" tabindex="-1"></a>}</span>
+<span id="cb55-7"><a href="chapTappers1.html#cb55-7" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 </div>
 <div id="posterior-predictions-or-generated-states-and-observations" class="section level3 unnumbered">
 <h3>Posterior predictions, or generated states and observations<a class="anchor" aria-label="anchor" href="#posterior-predictions-or-generated-states-and-observations"><i class="fas fa-link"></i></a>
@@ -2155,15 +2155,15 @@ This generates the vector <code>states_generated</code> as an array of vectors.
 The length of the array is now <code>n_gen_times</code>, and the vector holds the state values of the units at each point in this array. Obviously, we could have used exactly the same times as the observation events which we gave as input to the system.
 Here, however, we specified time points between those events. In fact, we want the time points at a given sampling interval so that we get 100 time points per outphasing-inphasing cycle of 36.6 seconds.</p>
 <p>Secondly, once we have the states generated, we calculate the observations for each unit separately at each time point <code>n</code>. These observations are drawn from a normal distribution with given mean and standard deviation.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="chapTappers1.html#cb65-1" tabindex="-1"></a>generated quantities {</span>
-<span id="cb65-2"><a href="chapTappers1.html#cb65-2" tabindex="-1"></a>  vector[<span class="dv">4</span>] observations_generated[n_gen_times];</span>
-<span id="cb65-3"><a href="chapTappers1.html#cb65-3" tabindex="-1"></a>  vector[<span class="dv">4</span>] states_generated[n_gen_times] <span class="ot">=</span> <span class="fu">ode_rk45</span>(do_dt, y0, time0, time_gen, ks1m1, ks2m2, ds1m1, ds2m2,ds1s2,ds2s1) ;</span>
-<span id="cb65-4"><a href="chapTappers1.html#cb65-4" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_gen_times){</span>
-<span id="cb65-5"><a href="chapTappers1.html#cb65-5" tabindex="-1"></a>    observations_generated[n,<span class="dv">1</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">1</span>],observation_std[<span class="dv">1</span>]);</span>
-<span id="cb65-6"><a href="chapTappers1.html#cb65-6" tabindex="-1"></a>    observations_generated[n,<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">2</span>],observation_std[<span class="dv">2</span>]);</span>
-<span id="cb65-7"><a href="chapTappers1.html#cb65-7" tabindex="-1"></a>    observations_generated[n,<span class="dv">3</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">3</span>],observation_std[<span class="dv">3</span>]);</span>
-<span id="cb65-8"><a href="chapTappers1.html#cb65-8" tabindex="-1"></a>    observations_generated[n,<span class="dv">4</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">4</span>],observation_std[<span class="dv">4</span>]);</span>
-<span id="cb65-9"><a href="chapTappers1.html#cb65-9" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="chapTappers1.html#cb56-1" tabindex="-1"></a>generated quantities {</span>
+<span id="cb56-2"><a href="chapTappers1.html#cb56-2" tabindex="-1"></a>  vector[<span class="dv">4</span>] observations_generated[n_gen_times];</span>
+<span id="cb56-3"><a href="chapTappers1.html#cb56-3" tabindex="-1"></a>  vector[<span class="dv">4</span>] states_generated[n_gen_times] <span class="ot">=</span> <span class="fu">ode_rk45</span>(do_dt, y0, time0, time_gen, ks1m1, ks2m2, ds1m1, ds2m2,ds1s2,ds2s1) ;</span>
+<span id="cb56-4"><a href="chapTappers1.html#cb56-4" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_gen_times){</span>
+<span id="cb56-5"><a href="chapTappers1.html#cb56-5" tabindex="-1"></a>    observations_generated[n,<span class="dv">1</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">1</span>],observation_std[<span class="dv">1</span>]);</span>
+<span id="cb56-6"><a href="chapTappers1.html#cb56-6" tabindex="-1"></a>    observations_generated[n,<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">2</span>],observation_std[<span class="dv">2</span>]);</span>
+<span id="cb56-7"><a href="chapTappers1.html#cb56-7" tabindex="-1"></a>    observations_generated[n,<span class="dv">3</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">3</span>],observation_std[<span class="dv">3</span>]);</span>
+<span id="cb56-8"><a href="chapTappers1.html#cb56-8" tabindex="-1"></a>    observations_generated[n,<span class="dv">4</span>] <span class="ot">=</span> <span class="fu">normal_rng</span>(states_generated[n,<span class="dv">4</span>],observation_std[<span class="dv">4</span>]);</span>
+<span id="cb56-9"><a href="chapTappers1.html#cb56-9" tabindex="-1"></a>  }</span></code></pre></div>
 <p>Basically, that’s all there is to modelling in Stan.</p>
 </div>
 <div id="summary-stan-code" class="section level3 unnumbered">
@@ -2171,85 +2171,85 @@ Here, however, we specified time points between those events. In fact, we want t
 </h3>
 <p>The code is rather compact and apart from the variable definitions and constraints, it is not more than a few lines.
 Here we reproduce it entirely.
-The code is also found in Code/chapTappers/chapTappers_StateSpaceModel.stan.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Admitted, it takes some effort to get into the philosophy of probabilistic programming. Our sources were the Stan manuals available at &lt;a href="https://mc-stan.org/users/documentation/" class="uri"&gt;https://mc-stan.org/users/documentation/&lt;/a&gt;), and the study of Bob Carpenter on the predator-pray population dynamics available at &lt;a href="https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html" class="uri"&gt;https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html&lt;/a&gt;&lt;/p&gt;'><sup>33</sup></a>.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode stan"><code class="sourceCode stan"><span id="cb66-1"><a href="chapTappers1.html#cb66-1" tabindex="-1"></a><span class="kw">functions</span> {</span>
-<span id="cb66-2"><a href="chapTappers1.html#cb66-2" tabindex="-1"></a>  <span class="dt">vector</span> do_dt(<span class="dt">real</span> t, <span class="dt">vector</span> y,  <span class="dt">real</span> ks1m1, <span class="dt">real</span> ks2m2,  <span class="dt">real</span> ds1m1, <span class="dt">real</span> ds2m2,</span>
-<span id="cb66-3"><a href="chapTappers1.html#cb66-3" tabindex="-1"></a>  <span class="dt">real</span> ds1s2, <span class="dt">real</span> ds2s1){</span>
-<span id="cb66-4"><a href="chapTappers1.html#cb66-4" tabindex="-1"></a>    <span class="dt">real</span> pi600 = <span class="dv">2</span>*pi()/.<span class="dv">6</span>; <span class="co">// Eigenfrequency s1, m1</span></span>
-<span id="cb66-5"><a href="chapTappers1.html#cb66-5" tabindex="-1"></a>    <span class="dt">real</span> pi610 = <span class="dv">2</span>*pi()/.<span class="dv">61</span>;</span>
-<span id="cb66-6"><a href="chapTappers1.html#cb66-6" tabindex="-1"></a>    <span class="dt">real</span> dm1dt = pi600; </span>
-<span id="cb66-7"><a href="chapTappers1.html#cb66-7" tabindex="-1"></a>    <span class="dt">real</span> ds1dt = dm1dt + (ks1m1 * sin(y[<span class="dv">1</span>] - y[<span class="dv">2</span>] + ds1m1) + </span>
-<span id="cb66-8"><a href="chapTappers1.html#cb66-8" tabindex="-1"></a>      (<span class="dv">1</span>-ks1m1) * sin(y[<span class="dv">4</span>] - y[<span class="dv">2</span>] + ds1s2)  ); </span>
-<span id="cb66-9"><a href="chapTappers1.html#cb66-9" tabindex="-1"></a>    <span class="dt">real</span> dm2dt = pi610;</span>
-<span id="cb66-10"><a href="chapTappers1.html#cb66-10" tabindex="-1"></a>    <span class="dt">real</span> ds2dt = dm2dt + (ks2m2 * sin(y[<span class="dv">3</span>] - y[<span class="dv">4</span>] + ds2m2) + </span>
-<span id="cb66-11"><a href="chapTappers1.html#cb66-11" tabindex="-1"></a>        (<span class="dv">1</span>-ks2m2) * sin(y[<span class="dv">2</span>] - y[<span class="dv">4</span>] + ds2s1)  ); </span>
-<span id="cb66-12"><a href="chapTappers1.html#cb66-12" tabindex="-1"></a>        <span class="cf">return</span> to_vector([dm1dt,ds1dt,dm2dt,ds2dt]);</span>
-<span id="cb66-13"><a href="chapTappers1.html#cb66-13" tabindex="-1"></a>  }</span>
-<span id="cb66-14"><a href="chapTappers1.html#cb66-14" tabindex="-1"></a>}</span>
-<span id="cb66-15"><a href="chapTappers1.html#cb66-15" tabindex="-1"></a></span>
-<span id="cb66-16"><a href="chapTappers1.html#cb66-16" tabindex="-1"></a><span class="kw">data</span> {</span>
-<span id="cb66-17"><a href="chapTappers1.html#cb66-17" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; n_times; <span class="co">// Number of time steps minus one</span></span>
-<span id="cb66-18"><a href="chapTappers1.html#cb66-18" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; n_gen_times;</span>
-<span id="cb66-19"><a href="chapTappers1.html#cb66-19" tabindex="-1"></a>  <span class="dt">real</span> time0;</span>
-<span id="cb66-20"><a href="chapTappers1.html#cb66-20" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">real</span> observed; <span class="co">// Observed taps, minus initial state</span></span>
-<span id="cb66-21"><a href="chapTappers1.html#cb66-21" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">real</span> time ;</span>
-<span id="cb66-22"><a href="chapTappers1.html#cb66-22" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; names_indicator; <span class="co">// names of oscillators</span></span>
-<span id="cb66-23"><a href="chapTappers1.html#cb66-23" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">real</span> time_gen; <span class="co">// times to generate simulated data for</span></span>
-<span id="cb66-24"><a href="chapTappers1.html#cb66-24" tabindex="-1"></a>}</span>
-<span id="cb66-25"><a href="chapTappers1.html#cb66-25" tabindex="-1"></a></span>
-<span id="cb66-26"><a href="chapTappers1.html#cb66-26" tabindex="-1"></a><span class="kw">parameters</span> {</span>
-<span id="cb66-27"><a href="chapTappers1.html#cb66-27" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>,<span class="kw">upper</span>=<span class="dv">1</span>&gt; ks1m1;</span>
-<span id="cb66-28"><a href="chapTappers1.html#cb66-28" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>,<span class="kw">upper</span>=<span class="dv">1</span>&gt; ks2m2;</span>
-<span id="cb66-29"><a href="chapTappers1.html#cb66-29" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds1m1; <span class="co">// 5_aug</span></span>
-<span id="cb66-30"><a href="chapTappers1.html#cb66-30" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds2m2; <span class="co">// 5_aug</span></span>
-<span id="cb66-31"><a href="chapTappers1.html#cb66-31" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds1s2; <span class="co">// 5_aug</span></span>
-<span id="cb66-32"><a href="chapTappers1.html#cb66-32" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds2s1; <span class="co">// 5_aug</span></span>
-<span id="cb66-33"><a href="chapTappers1.html#cb66-33" tabindex="-1"></a>  <span class="co">// real &lt;lower = 0, upper = 20&gt; kappa[4];</span></span>
-<span id="cb66-34"><a href="chapTappers1.html#cb66-34" tabindex="-1"></a>  <span class="dt">array</span>[<span class="dv">4</span>] <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; observation_std; <span class="co">// Variance of observation</span></span>
-<span id="cb66-35"><a href="chapTappers1.html#cb66-35" tabindex="-1"></a>  <span class="dt">real</span> y0_s1;</span>
-<span id="cb66-36"><a href="chapTappers1.html#cb66-36" tabindex="-1"></a>  <span class="dt">real</span> y0_s2;</span>
-<span id="cb66-37"><a href="chapTappers1.html#cb66-37" tabindex="-1"></a>}</span>
-<span id="cb66-38"><a href="chapTappers1.html#cb66-38" tabindex="-1"></a></span>
-<span id="cb66-39"><a href="chapTappers1.html#cb66-39" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
-<span id="cb66-40"><a href="chapTappers1.html#cb66-40" tabindex="-1"></a>  <span class="dt">vector</span>[<span class="dv">4</span>] y0 = [.<span class="dv">0</span>,y0_s1,.<span class="dv">0</span>,y0_s2]' ;</span>
-<span id="cb66-41"><a href="chapTappers1.html#cb66-41" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">vector</span>[<span class="dv">4</span>] omega = ode_rk45(do_dt, y0, time0, time, ks1m1, ks2m2, ds1m1, ds2m2, ds1s2, ds2s1) ;</span>
-<span id="cb66-42"><a href="chapTappers1.html#cb66-42" tabindex="-1"></a>}</span>
-<span id="cb66-43"><a href="chapTappers1.html#cb66-43" tabindex="-1"></a></span>
-<span id="cb66-44"><a href="chapTappers1.html#cb66-44" tabindex="-1"></a><span class="kw">model</span> {</span>
-<span id="cb66-45"><a href="chapTappers1.html#cb66-45" tabindex="-1"></a>  ks1m1 ~ beta(<span class="dv">19</span>,<span class="dv">2</span>) ;</span>
-<span id="cb66-46"><a href="chapTappers1.html#cb66-46" tabindex="-1"></a>  ks2m2 ~ beta(<span class="dv">19</span>,<span class="dv">2</span>) ;</span>
-<span id="cb66-47"><a href="chapTappers1.html#cb66-47" tabindex="-1"></a>  ds1m1 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
-<span id="cb66-48"><a href="chapTappers1.html#cb66-48" tabindex="-1"></a>  ds2m2 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
-<span id="cb66-49"><a href="chapTappers1.html#cb66-49" tabindex="-1"></a>  ds1s2 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
-<span id="cb66-50"><a href="chapTappers1.html#cb66-50" tabindex="-1"></a>  ds2s1 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
-<span id="cb66-51"><a href="chapTappers1.html#cb66-51" tabindex="-1"></a>  observation_std[<span class="dv">1</span>] ~ normal(.<span class="dv">0</span>,.<span class="dv">1</span>) ;</span>
-<span id="cb66-52"><a href="chapTappers1.html#cb66-52" tabindex="-1"></a>  observation_std[<span class="dv">2</span>] ~ normal(.<span class="dv">0</span>,<span class="dv">1</span>) ;</span>
-<span id="cb66-53"><a href="chapTappers1.html#cb66-53" tabindex="-1"></a>  observation_std[<span class="dv">3</span>] ~ normal(.<span class="dv">0</span>,.<span class="dv">1</span>) ;</span>
-<span id="cb66-54"><a href="chapTappers1.html#cb66-54" tabindex="-1"></a>  observation_std[<span class="dv">4</span>] ~ normal(.<span class="dv">0</span>,<span class="dv">1</span>) ;</span>
-<span id="cb66-55"><a href="chapTappers1.html#cb66-55" tabindex="-1"></a>  y0_s1 ~ normal(.<span class="dv">0</span>,.<span class="dv">15</span>) ;</span>
-<span id="cb66-56"><a href="chapTappers1.html#cb66-56" tabindex="-1"></a>  y0_s2 ~ normal(.<span class="dv">0</span>,.<span class="dv">15</span>) ;</span>
-<span id="cb66-57"><a href="chapTappers1.html#cb66-57" tabindex="-1"></a>  <span class="dt">real</span> pi2 = <span class="dv">2</span>*pi() ;</span>
-<span id="cb66-58"><a href="chapTappers1.html#cb66-58" tabindex="-1"></a>  <span class="dt">real</span> state;</span>
-<span id="cb66-59"><a href="chapTappers1.html#cb66-59" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:n_times){</span>
-<span id="cb66-60"><a href="chapTappers1.html#cb66-60" tabindex="-1"></a>    state = fmod(omega[n,names_indicator[n]] + pi(), pi2 ) - pi(); </span>
-<span id="cb66-61"><a href="chapTappers1.html#cb66-61" tabindex="-1"></a>    <span class="co">// single value returned here because we have only one observation per time</span></span>
-<span id="cb66-62"><a href="chapTappers1.html#cb66-62" tabindex="-1"></a>    observed[n] ~ normal(state, (observation_std[names_indicator[n]]));</span>
-<span id="cb66-63"><a href="chapTappers1.html#cb66-63" tabindex="-1"></a>    <span class="co">// names_indicator defines which unit is active at n</span></span>
-<span id="cb66-64"><a href="chapTappers1.html#cb66-64" tabindex="-1"></a>  }</span>
-<span id="cb66-65"><a href="chapTappers1.html#cb66-65" tabindex="-1"></a>}</span>
-<span id="cb66-66"><a href="chapTappers1.html#cb66-66" tabindex="-1"></a></span>
-<span id="cb66-67"><a href="chapTappers1.html#cb66-67" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
-<span id="cb66-68"><a href="chapTappers1.html#cb66-68" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">vector</span>[<span class="dv">4</span>] observations_generated;</span>
-<span id="cb66-69"><a href="chapTappers1.html#cb66-69" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">vector</span>[<span class="dv">4</span>] states_generated = ode_rk45(do_dt, y0, time0, time_gen, ks1m1, ks2m2, ds1m1, ds2m2,ds1s2,ds2s1) ;</span>
-<span id="cb66-70"><a href="chapTappers1.html#cb66-70" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:n_gen_times){</span>
-<span id="cb66-71"><a href="chapTappers1.html#cb66-71" tabindex="-1"></a>    observations_generated[n,<span class="dv">1</span>] = normal_rng(states_generated[n,<span class="dv">1</span>],observation_std[<span class="dv">1</span>]);</span>
-<span id="cb66-72"><a href="chapTappers1.html#cb66-72" tabindex="-1"></a>    observations_generated[n,<span class="dv">2</span>] = normal_rng(states_generated[n,<span class="dv">2</span>],observation_std[<span class="dv">2</span>]);</span>
-<span id="cb66-73"><a href="chapTappers1.html#cb66-73" tabindex="-1"></a>    observations_generated[n,<span class="dv">3</span>] = normal_rng(states_generated[n,<span class="dv">3</span>],observation_std[<span class="dv">3</span>]);</span>
-<span id="cb66-74"><a href="chapTappers1.html#cb66-74" tabindex="-1"></a>    observations_generated[n,<span class="dv">4</span>] = normal_rng(states_generated[n,<span class="dv">4</span>],observation_std[<span class="dv">4</span>]);</span>
-<span id="cb66-75"><a href="chapTappers1.html#cb66-75" tabindex="-1"></a>  }</span>
-<span id="cb66-76"><a href="chapTappers1.html#cb66-76" tabindex="-1"></a>}</span></code></pre></div>
+The code is also found in Code/chapTappers/chapTappers_StateSpaceModel.stan.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Admitted, it takes some effort to get into the philosophy of probabilistic programming. Our sources were the Stan manuals available at &lt;a href="https://mc-stan.org/users/documentation/" class="uri"&gt;https://mc-stan.org/users/documentation/&lt;/a&gt;), and the study of Bob Carpenter on the predator-pray population dynamics available at &lt;a href="https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html" class="uri"&gt;https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html&lt;/a&gt;&lt;/p&gt;'><sup>31</sup></a>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode stan"><code class="sourceCode stan"><span id="cb57-1"><a href="chapTappers1.html#cb57-1" tabindex="-1"></a><span class="kw">functions</span> {</span>
+<span id="cb57-2"><a href="chapTappers1.html#cb57-2" tabindex="-1"></a>  <span class="dt">vector</span> do_dt(<span class="dt">real</span> t, <span class="dt">vector</span> y,  <span class="dt">real</span> ks1m1, <span class="dt">real</span> ks2m2,  <span class="dt">real</span> ds1m1, <span class="dt">real</span> ds2m2,</span>
+<span id="cb57-3"><a href="chapTappers1.html#cb57-3" tabindex="-1"></a>  <span class="dt">real</span> ds1s2, <span class="dt">real</span> ds2s1){</span>
+<span id="cb57-4"><a href="chapTappers1.html#cb57-4" tabindex="-1"></a>    <span class="dt">real</span> pi600 = <span class="dv">2</span>*pi()/.<span class="dv">6</span>; <span class="co">// Eigenfrequency s1, m1</span></span>
+<span id="cb57-5"><a href="chapTappers1.html#cb57-5" tabindex="-1"></a>    <span class="dt">real</span> pi610 = <span class="dv">2</span>*pi()/.<span class="dv">61</span>;</span>
+<span id="cb57-6"><a href="chapTappers1.html#cb57-6" tabindex="-1"></a>    <span class="dt">real</span> dm1dt = pi600; </span>
+<span id="cb57-7"><a href="chapTappers1.html#cb57-7" tabindex="-1"></a>    <span class="dt">real</span> ds1dt = dm1dt + (ks1m1 * sin(y[<span class="dv">1</span>] - y[<span class="dv">2</span>] + ds1m1) + </span>
+<span id="cb57-8"><a href="chapTappers1.html#cb57-8" tabindex="-1"></a>      (<span class="dv">1</span>-ks1m1) * sin(y[<span class="dv">4</span>] - y[<span class="dv">2</span>] + ds1s2)  ); </span>
+<span id="cb57-9"><a href="chapTappers1.html#cb57-9" tabindex="-1"></a>    <span class="dt">real</span> dm2dt = pi610;</span>
+<span id="cb57-10"><a href="chapTappers1.html#cb57-10" tabindex="-1"></a>    <span class="dt">real</span> ds2dt = dm2dt + (ks2m2 * sin(y[<span class="dv">3</span>] - y[<span class="dv">4</span>] + ds2m2) + </span>
+<span id="cb57-11"><a href="chapTappers1.html#cb57-11" tabindex="-1"></a>        (<span class="dv">1</span>-ks2m2) * sin(y[<span class="dv">2</span>] - y[<span class="dv">4</span>] + ds2s1)  ); </span>
+<span id="cb57-12"><a href="chapTappers1.html#cb57-12" tabindex="-1"></a>        <span class="cf">return</span> to_vector([dm1dt,ds1dt,dm2dt,ds2dt]);</span>
+<span id="cb57-13"><a href="chapTappers1.html#cb57-13" tabindex="-1"></a>  }</span>
+<span id="cb57-14"><a href="chapTappers1.html#cb57-14" tabindex="-1"></a>}</span>
+<span id="cb57-15"><a href="chapTappers1.html#cb57-15" tabindex="-1"></a></span>
+<span id="cb57-16"><a href="chapTappers1.html#cb57-16" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb57-17"><a href="chapTappers1.html#cb57-17" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; n_times; <span class="co">// Number of time steps minus one</span></span>
+<span id="cb57-18"><a href="chapTappers1.html#cb57-18" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; n_gen_times;</span>
+<span id="cb57-19"><a href="chapTappers1.html#cb57-19" tabindex="-1"></a>  <span class="dt">real</span> time0;</span>
+<span id="cb57-20"><a href="chapTappers1.html#cb57-20" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">real</span> observed; <span class="co">// Observed taps, minus initial state</span></span>
+<span id="cb57-21"><a href="chapTappers1.html#cb57-21" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">real</span> time ;</span>
+<span id="cb57-22"><a href="chapTappers1.html#cb57-22" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; names_indicator; <span class="co">// names of oscillators</span></span>
+<span id="cb57-23"><a href="chapTappers1.html#cb57-23" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">real</span> time_gen; <span class="co">// times to generate simulated data for</span></span>
+<span id="cb57-24"><a href="chapTappers1.html#cb57-24" tabindex="-1"></a>}</span>
+<span id="cb57-25"><a href="chapTappers1.html#cb57-25" tabindex="-1"></a></span>
+<span id="cb57-26"><a href="chapTappers1.html#cb57-26" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb57-27"><a href="chapTappers1.html#cb57-27" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>,<span class="kw">upper</span>=<span class="dv">1</span>&gt; ks1m1;</span>
+<span id="cb57-28"><a href="chapTappers1.html#cb57-28" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span> = <span class="dv">0</span>,<span class="kw">upper</span>=<span class="dv">1</span>&gt; ks2m2;</span>
+<span id="cb57-29"><a href="chapTappers1.html#cb57-29" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds1m1; <span class="co">// 5_aug</span></span>
+<span id="cb57-30"><a href="chapTappers1.html#cb57-30" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds2m2; <span class="co">// 5_aug</span></span>
+<span id="cb57-31"><a href="chapTappers1.html#cb57-31" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds1s2; <span class="co">// 5_aug</span></span>
+<span id="cb57-32"><a href="chapTappers1.html#cb57-32" tabindex="-1"></a>  <span class="dt">real</span> &lt;<span class="kw">lower</span> = -pi(),<span class="kw">upper</span>=pi()&gt; ds2s1; <span class="co">// 5_aug</span></span>
+<span id="cb57-33"><a href="chapTappers1.html#cb57-33" tabindex="-1"></a>  <span class="co">// real &lt;lower = 0, upper = 20&gt; kappa[4];</span></span>
+<span id="cb57-34"><a href="chapTappers1.html#cb57-34" tabindex="-1"></a>  <span class="dt">array</span>[<span class="dv">4</span>] <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; observation_std; <span class="co">// Variance of observation</span></span>
+<span id="cb57-35"><a href="chapTappers1.html#cb57-35" tabindex="-1"></a>  <span class="dt">real</span> y0_s1;</span>
+<span id="cb57-36"><a href="chapTappers1.html#cb57-36" tabindex="-1"></a>  <span class="dt">real</span> y0_s2;</span>
+<span id="cb57-37"><a href="chapTappers1.html#cb57-37" tabindex="-1"></a>}</span>
+<span id="cb57-38"><a href="chapTappers1.html#cb57-38" tabindex="-1"></a></span>
+<span id="cb57-39"><a href="chapTappers1.html#cb57-39" tabindex="-1"></a><span class="kw">transformed parameters</span> {</span>
+<span id="cb57-40"><a href="chapTappers1.html#cb57-40" tabindex="-1"></a>  <span class="dt">vector</span>[<span class="dv">4</span>] y0 = [.<span class="dv">0</span>,y0_s1,.<span class="dv">0</span>,y0_s2]' ;</span>
+<span id="cb57-41"><a href="chapTappers1.html#cb57-41" tabindex="-1"></a>  <span class="dt">array</span>[n_times] <span class="dt">vector</span>[<span class="dv">4</span>] omega = ode_rk45(do_dt, y0, time0, time, ks1m1, ks2m2, ds1m1, ds2m2, ds1s2, ds2s1) ;</span>
+<span id="cb57-42"><a href="chapTappers1.html#cb57-42" tabindex="-1"></a>}</span>
+<span id="cb57-43"><a href="chapTappers1.html#cb57-43" tabindex="-1"></a></span>
+<span id="cb57-44"><a href="chapTappers1.html#cb57-44" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb57-45"><a href="chapTappers1.html#cb57-45" tabindex="-1"></a>  ks1m1 ~ beta(<span class="dv">19</span>,<span class="dv">2</span>) ;</span>
+<span id="cb57-46"><a href="chapTappers1.html#cb57-46" tabindex="-1"></a>  ks2m2 ~ beta(<span class="dv">19</span>,<span class="dv">2</span>) ;</span>
+<span id="cb57-47"><a href="chapTappers1.html#cb57-47" tabindex="-1"></a>  ds1m1 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
+<span id="cb57-48"><a href="chapTappers1.html#cb57-48" tabindex="-1"></a>  ds2m2 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
+<span id="cb57-49"><a href="chapTappers1.html#cb57-49" tabindex="-1"></a>  ds1s2 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
+<span id="cb57-50"><a href="chapTappers1.html#cb57-50" tabindex="-1"></a>  ds2s1 ~ normal(.<span class="dv">0</span>,.<span class="dv">5</span>) ;</span>
+<span id="cb57-51"><a href="chapTappers1.html#cb57-51" tabindex="-1"></a>  observation_std[<span class="dv">1</span>] ~ normal(.<span class="dv">0</span>,.<span class="dv">1</span>) ;</span>
+<span id="cb57-52"><a href="chapTappers1.html#cb57-52" tabindex="-1"></a>  observation_std[<span class="dv">2</span>] ~ normal(.<span class="dv">0</span>,<span class="dv">1</span>) ;</span>
+<span id="cb57-53"><a href="chapTappers1.html#cb57-53" tabindex="-1"></a>  observation_std[<span class="dv">3</span>] ~ normal(.<span class="dv">0</span>,.<span class="dv">1</span>) ;</span>
+<span id="cb57-54"><a href="chapTappers1.html#cb57-54" tabindex="-1"></a>  observation_std[<span class="dv">4</span>] ~ normal(.<span class="dv">0</span>,<span class="dv">1</span>) ;</span>
+<span id="cb57-55"><a href="chapTappers1.html#cb57-55" tabindex="-1"></a>  y0_s1 ~ normal(.<span class="dv">0</span>,.<span class="dv">15</span>) ;</span>
+<span id="cb57-56"><a href="chapTappers1.html#cb57-56" tabindex="-1"></a>  y0_s2 ~ normal(.<span class="dv">0</span>,.<span class="dv">15</span>) ;</span>
+<span id="cb57-57"><a href="chapTappers1.html#cb57-57" tabindex="-1"></a>  <span class="dt">real</span> pi2 = <span class="dv">2</span>*pi() ;</span>
+<span id="cb57-58"><a href="chapTappers1.html#cb57-58" tabindex="-1"></a>  <span class="dt">real</span> state;</span>
+<span id="cb57-59"><a href="chapTappers1.html#cb57-59" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:n_times){</span>
+<span id="cb57-60"><a href="chapTappers1.html#cb57-60" tabindex="-1"></a>    state = fmod(omega[n,names_indicator[n]] + pi(), pi2 ) - pi(); </span>
+<span id="cb57-61"><a href="chapTappers1.html#cb57-61" tabindex="-1"></a>    <span class="co">// single value returned here because we have only one observation per time</span></span>
+<span id="cb57-62"><a href="chapTappers1.html#cb57-62" tabindex="-1"></a>    observed[n] ~ normal(state, (observation_std[names_indicator[n]]));</span>
+<span id="cb57-63"><a href="chapTappers1.html#cb57-63" tabindex="-1"></a>    <span class="co">// names_indicator defines which unit is active at n</span></span>
+<span id="cb57-64"><a href="chapTappers1.html#cb57-64" tabindex="-1"></a>  }</span>
+<span id="cb57-65"><a href="chapTappers1.html#cb57-65" tabindex="-1"></a>}</span>
+<span id="cb57-66"><a href="chapTappers1.html#cb57-66" tabindex="-1"></a></span>
+<span id="cb57-67"><a href="chapTappers1.html#cb57-67" tabindex="-1"></a><span class="kw">generated quantities</span> {</span>
+<span id="cb57-68"><a href="chapTappers1.html#cb57-68" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">vector</span>[<span class="dv">4</span>] observations_generated;</span>
+<span id="cb57-69"><a href="chapTappers1.html#cb57-69" tabindex="-1"></a>  <span class="dt">array</span>[n_gen_times] <span class="dt">vector</span>[<span class="dv">4</span>] states_generated = ode_rk45(do_dt, y0, time0, time_gen, ks1m1, ks2m2, ds1m1, ds2m2,ds1s2,ds2s1) ;</span>
+<span id="cb57-70"><a href="chapTappers1.html#cb57-70" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span>:n_gen_times){</span>
+<span id="cb57-71"><a href="chapTappers1.html#cb57-71" tabindex="-1"></a>    observations_generated[n,<span class="dv">1</span>] = normal_rng(states_generated[n,<span class="dv">1</span>],observation_std[<span class="dv">1</span>]);</span>
+<span id="cb57-72"><a href="chapTappers1.html#cb57-72" tabindex="-1"></a>    observations_generated[n,<span class="dv">2</span>] = normal_rng(states_generated[n,<span class="dv">2</span>],observation_std[<span class="dv">2</span>]);</span>
+<span id="cb57-73"><a href="chapTappers1.html#cb57-73" tabindex="-1"></a>    observations_generated[n,<span class="dv">3</span>] = normal_rng(states_generated[n,<span class="dv">3</span>],observation_std[<span class="dv">3</span>]);</span>
+<span id="cb57-74"><a href="chapTappers1.html#cb57-74" tabindex="-1"></a>    observations_generated[n,<span class="dv">4</span>] = normal_rng(states_generated[n,<span class="dv">4</span>],observation_std[<span class="dv">4</span>]);</span>
+<span id="cb57-75"><a href="chapTappers1.html#cb57-75" tabindex="-1"></a>  }</span>
+<span id="cb57-76"><a href="chapTappers1.html#cb57-76" tabindex="-1"></a>}</span></code></pre></div>
 <p>Note that this is a Stan file, which is then called from within R, as in the following example code. See <code>Code/chapTappers/chapTappers_04_Modelling.R</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">stan</span><span class="op">(</span></span>
 <span>      data <span class="op">=</span> <span class="va">StanData</span>,</span>
 <span>      file <span class="op">=</span> <span class="va">filenameStancode</span>,</span>
@@ -4640,9 +4640,9 @@ Figure 7.14: Dynamic system 21. Top: Defined discrete observations (circles) ver
 </div>
 </div>
 </div>
-<div id="discussion-3" class="section level2" number="7.5">
+<div id="discussion-2" class="section level2" number="7.5">
 <h2>
-<span class="header-section-number">7.5</span> Discussion<a class="anchor" aria-label="anchor" href="#discussion-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.5</span> Discussion<a class="anchor" aria-label="anchor" href="#discussion-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>The error between <em>defined</em> and <em>estimated</em> coupling strength parameters is about 1% of the coupling strength scale, and there is no great difference in accuracy for coupling strengths with our without defined phase delay.</p>
 <p>However, several limitations and shortcomings of the evaluation should be mentioned as well.</p>
@@ -4651,9 +4651,9 @@ Figure 7.14: Dynamic system 21. Top: Defined discrete observations (circles) ver
 <p>Finally, the modelling needs to accurately reflect the physical setup. A slightly different paradigm for studying rhythmic entrainment (e.g. with spontaneous tapping without metronomes) could require a careful adaptation of the dynamic system defined in this chapter. In the next chapter, we’ll see that the eigen-frequency of the second metronome is not exactly 610 but 609.375, due to the experimental design to get 39 seconds for the outphasing-inphasing cycle (<span class="math inline">\((600 * 609.375/9.375) /1000 = 39\)</span>).</p>
 <p>Overall, the dynamic model might be useful for real observations (i.e., tapping data from real subjects) but we have to keep in mind that some assumptions from our simulation could be very different in the real world. For example, subjects might be distracted and loose the synchrony all together.</p>
 </div>
-<div id="conclusion-6" class="section level2" number="7.6">
+<div id="conclusion-5" class="section level2" number="7.6">
 <h2>
-<span class="header-section-number">7.6</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.6</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-5"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this chapter we studied entrainment from a dynamic system’s perspective defined by network of timing units (metronomes and subjects). In these units, a phase flow can be described by a state-space model, with state equations and observation equation.
 The state-space model can generate states from which it is possible to generate discrete observations, standing for tics and taps.
@@ -4686,7 +4686,7 @@ Once we have observations, the state-space model can be used for estimating para
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#chapTappers1"><span class="header-section-number">7</span> Two finger tappers’ entrainment (Part 1)</a></li>
 <li>
-<a class="nav-link" href="#theory-4"><span class="header-section-number">7.1</span> Theory</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#theory-3"><span class="header-section-number">7.1</span> Theory</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#entrainment-1">Entrainment</a></li>
 <li><a class="nav-link" href="#dynamic-system">Dynamic system</a></li>
 <li><a class="nav-link" href="#drifting-metronomes">Drifting metronomes</a></li>
@@ -4726,8 +4726,8 @@ Once we have observations, the state-space model can be used for estimating para
 <li><a class="nav-link" href="#evaluating-the-posterior-predictions">Evaluating the posterior predictions</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#discussion-3"><span class="header-section-number">7.5</span> Discussion</a></li>
-<li><a class="nav-link" href="#conclusion-6"><span class="header-section-number">7.6</span> Conclusion</a></li>
+<li><a class="nav-link" href="#discussion-2"><span class="header-section-number">7.5</span> Discussion</a></li>
+<li><a class="nav-link" href="#conclusion-5"><span class="header-section-number">7.6</span> Conclusion</a></li>
 </ul>
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -4744,7 +4744,7 @@ Once we have observations, the state-space model can be used for estimating para
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-13.</p>
+    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

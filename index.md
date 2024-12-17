@@ -1,7 +1,7 @@
 --- 
 title: "Exploring music interactions"
 author: "Marc Leman"
-date:  '2024-12-13'
+date:  '2024-12-17'
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: krantz
@@ -29,7 +29,7 @@ This is the online home of *Exploring music interactions*, a book on musical dat
 Data and code will be provided soon. 
 Any comments can be send to Marc.Leman@ugent.be
 
-<a href="https://www.ugent.be"><img src="images/cover.jpeg" width="250" height="375" alt="The book cover" align="right" style="margin: 0 1em 0 1em" /></a>
+<a href="https://www.ugent.be"><img src="images/cover.jpg" width="250" height="375" alt="The book cover" align="right" style="margin: 0 1em 0 1em" /></a>
  
 
 <!-- ```{r, cover, fig.show='hold', echo=FALSE, out.width='50%'} -->

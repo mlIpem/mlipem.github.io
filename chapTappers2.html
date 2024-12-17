@@ -89,7 +89,7 @@
 <p>This chapter builds upon the previous chapter’s discussion of entrainment and its development of a state-space model. We now apply the state-space model to analyze entrainment in human finger tapping data. Our primary objective is to investigate whether the synchronized tapping of two individuals becomes influenced, or entrained, when they can see each other tapping, compared to when they cannot. Our goal is to gain a global perspective on the entrainment capabilities of the subjects.</p>
 <p>As a bonus, we show that the state-space model can explain earlier findings based on smooth regression and recurrence analysis.</p>
 <p>The code can be found in the following scripts for data preparation and plotting, modelling and plotting, and contrast analysis:</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_00_Initialization.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapAll_01_Functions.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers2/chapTappers2_02_DataPreparation.R"</span><span class="op">)</span></span>
@@ -99,9 +99,9 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers2/chapTappers2_06_Contrasts.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers2/chapTappers2_05_SSM_DataPreparation_Posterior.R"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Code/chapTappers2/chapTappers2_06_SSM_Plotting.R"</span><span class="op">)</span></span></code></pre></div>
-<div id="theory-5" class="section level2" number="8.1">
+<div id="theory-4" class="section level2" number="8.1">
 <h2>
-<span class="header-section-number">8.1</span> Theory<a class="anchor" aria-label="anchor" href="#theory-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1</span> Theory<a class="anchor" aria-label="anchor" href="#theory-4"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given the state-space model as defined in the previous chapter, we can define some interaction concepts in terms of its state and observation parameters.</p>
 <p>For example, <em>entrainment</em> can now be defined as depending on the coupling strength to the partner:
@@ -135,7 +135,7 @@ When the value of the phase delay parameter is positive it means anticipation, o
 <span class="header-section-number">8.2</span> Setup<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are now ready to have a look at the tapping data from the experiment described in Rosso et al. (2023). We thereby limit ourselves to the uncoupled (U) and coupled (C) conditions of that experiment.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We are not including the conditions involving perspective taking, the so-called: swap conditions where subjects see the partner’s arm as their own arm, or their own arm as the partner’s arm.
-The U and C conditions are the socalled normal conditions, which apply to what people see in the natural condition, namely, the arm of the other person is seen from a second person perspective, then own arm from the first person perspective.&lt;/p&gt;"><sup>34</sup></a></p>
+The U and C conditions are the socalled normal conditions, which apply to what people see in the natural condition, namely, the arm of the other person is seen from a second person perspective, then own arm from the first person perspective.&lt;/p&gt;"><sup>32</sup></a></p>
 <p>The experimental setup implements the drifting metronomes paradigm. In the <em>uncoupled</em> condition (U), subjects are requested to tap in sync with the metronome heard through headphones at 600 ms and 610 ms. In fact, the second metronome is not exactly 610 ms. It is 609.375 ms so that the outphasing-inphasing cycle is 39 seconds. Note that this period (609.375 ms) has been used in the state-space model that followins. Henceforth we’ll say: about 610 ms. In the <em>coupled</em> condition (C) subject 1 hears 600 ms and sees the hand of subject 2, presumably tapping at about 610 ms, and subject 2 hears about 610 ms and sees the hand of subject 1, presumably tapping at about 600 ms. This creates the <em>incongruency</em> and the subjects’ syncing may be influenced by seeing the partner tapping.</p>
 <div id="raw-tapping-data" class="section level3 unnumbered">
 <h3>Raw tapping data<a class="anchor" aria-label="anchor" href="#raw-tapping-data"><i class="fas fa-link"></i></a>
@@ -216,10 +216,10 @@ Obviously, in U, the fitted models shouldn’t capture an interaction. The coupl
 <p>The modelling with Stan is similar to what we did in the previous chapter, that is, one model per cycle (n= 10) of a dyad (n=19) of a given condition (n=2). In total, we have 380 models.</p>
 <p>Here we show how to run one single model, say <code>C_dyad_8_cycle_2</code>. It stands for cycle 2 of dyad 8 in condition C.</p>
 <p>First we filter the data for that model, from the tappings recorded during the experiment:</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">datt</span> <span class="op">&lt;-</span> <span class="va">DTapping</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">codycy</span> <span class="op">==</span> <span class="st">"C.dyad_8.cycle_5"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">arrange</span><span class="op">(</span><span class="va">time0c</span><span class="op">)</span></span></code></pre></div>
 <p>We also need the relative phase of the originally tapped data:</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Note that we use the function do_calc_phase2 to calculate the relative phase based on time values</span></span>
 <span>  <span class="va">Dummy</span> <span class="op">&lt;-</span> <span class="va">datt</span> </span>
 <span>  <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">w</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">Dummy</span><span class="op">$</span><span class="va">time0c</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span><span class="va">Dummy</span> <span class="op">&lt;-</span> <span class="va">Dummy</span><span class="op">[</span><span class="op">-</span><span class="va">w</span>,<span class="op">]</span></span>
@@ -234,7 +234,7 @@ Obviously, in U, the fitted models shouldn’t capture an interaction. The coupl
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">Dummy</span>,<span class="va">Om1</span>,<span class="va">Os1</span>,<span class="va">Om2</span>,<span class="va">Os2</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">dummy_C1</span>,<span class="va">dummy_C2</span><span class="op">)</span></span></code></pre></div>
 <p>The relative phase is shown as:</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p0</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">Observations_relphase</span>,</span>
 <span>             <span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">time</span>,<span class="co">#%%aligned_beat_sec,</span></span>
@@ -269,7 +269,7 @@ Figure 8.3: Top: relative phase. Bottom: same but with rotated phase
 </p>
 </div>
 <p>Next we define a function which first prepares our data for the state-space model and then runs the Stan engine with the code of the state-space model.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">do_TapFitting_Stan</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">Dat</span>, <span class="va">fn</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="co"># Dat = datt</span></span>
 <span>  <span class="co"># fn = filenameFitted</span></span>
@@ -297,7 +297,7 @@ Figure 8.3: Top: relative phase. Bottom: same but with rotated phase
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Here we show a routine that calls the above stan function when <code>run</code> is set to <code>TRUE</code>. However, we pre-calculated the model and stored the result as an <code>.rds</code> file, which we read.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">run</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="co">#run = TRUE</span></span>
 <span><span class="kw">if</span><span class="op">(</span><span class="va">run</span><span class="op">)</span><span class="op">{</span></span>
@@ -307,7 +307,7 @@ Figure 8.3: Top: relative phase. Bottom: same but with rotated phase
 <span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Fitted/chapTappers2_C.dyad_8.cycle_8.rds"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## [1] "readRDS a model"</code></pre>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">run</span> <span class="op">=</span> <span class="cn">FALSE</span></span></code></pre></div>
 <p>In figure <a href="chapTappers2.html#fig:chapTappers2run6">8.4</a> we show a summary of the posterior of <code>fit.</code></p>
 <div class="figure" style="text-align: center">
@@ -359,7 +359,7 @@ The columns <code>observations_generated</code> and <code>states_generated</code
 <p>In what follows, we show how to calculate the relative phase from <code>observations_generated</code>, showing a grey band that captures .75% of the uncertainty.
 The relative phase is calculated similar to what we did in chapter <a href="chapTappers1.html#chapTappers1">7</a>.
 The script is also very similar to what we did in chapTappers_05_ModelPlotting when we calculated the relative phase.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># From fit_ps (summary of posterior selecting parameters)</span></span>
 <span>  <span class="va">S</span> <span class="op">&lt;-</span> <span class="va">fit_ps</span> <span class="op">%&gt;%</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">.variable</span>,<span class="va">.value</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
@@ -404,7 +404,7 @@ The script is also very similar to what we did in chapTappers_05_ModelPlotting w
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">dummy_data1</span>,<span class="va">dummy_data1.l</span>,<span class="va">dummy_data1.u</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">dummy_data2</span>,<span class="va">dummy_data2.l</span>,<span class="va">dummy_data2.u</span><span class="op">)</span></span></code></pre></div>
 <p>Here we generate the plot showing the relative phase:</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cbPalette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>,<span class="st">"#56B4E9"</span>,<span class="st">"#E69F00"</span>,<span class="st">"#56B4E9"</span><span class="op">)</span></span>
 <span><span class="va">p0</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_lineribbon</span><span class="op">(</span>data <span class="op">=</span> <span class="va">Observations_generated_relphase</span>, </span>
@@ -426,7 +426,7 @@ The script is also very similar to what we did in chapTappers_05_ModelPlotting w
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09_chapTappers_2_files/figure-html/chapTappers2run10-1.png" width="672"></div>
 <p>We then calculate the instantaneous period from <code>states_generated</code>.</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># 2. Instantaneous period of continuous generated observations</span></span>
 <span>  </span>
 <span>  <span class="va">m1</span> <span class="op">&lt;-</span> <span class="va">post_states</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">unit</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> </span>
@@ -459,7 +459,7 @@ The script is also very similar to what we did in chapTappers_05_ModelPlotting w
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"time [s]"</span><span class="op">)</span></span>
 <span>  <span class="va">p1</span></span></code></pre></div>
 <div class="inline-figure"><img src="09_chapTappers_2_files/figure-html/chapTappers2run11-1.png" width="672"></div>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#  make_fig(paste("Figures/chapTappers2_exampleRelphase_model_",sep=""), p0)</span></span>
 <span><span class="co">#  make_fig(paste("Figures/chapTappers2_exampleInstPeriod_model_",sep=""), p1)</span></span>
 <span>  </span>
@@ -862,14 +862,14 @@ The goal is to estimate the means of the posterior distribution defined by condi
 <h3>Syntax specification<a class="anchor" aria-label="anchor" href="#syntax-specification"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have the syntax of this model specified as:</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">form_K00</span> <span class="op">=</span> <span class="fu">bf</span><span class="op">(</span><span class="va">.value</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">.variable</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">.variable</span><span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span>,</span>
 <span>     <span class="va">sigma</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">.variable</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">.variable</span><span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>This is a distributional model that estimates the parameters (<span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>) of a skew-normal distribution for the data. The response is called <code>.value</code>, which refers to the mean of the distributions of <span class="math inline">\(ks1m1\)</span> and <span class="math inline">\(ks2m2\)</span> obtained by the state-space modelling of 380 performances. We have
 <code>condition</code> (U, C) and <code>.variable</code> (<span class="math inline">\(ks1m1\)</span> and <span class="math inline">\(ks2m2\)</span>) as predictors, with <code>dyad:cycle</code> as group-level predictor.
 The latter implies that cycles within each dyad are modeled as a random variable.</p>
 <p>For phase delays we use a similar model assuming a gaussian distribution.</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">form_D00</span> <span class="op">=</span> <span class="fu">bf</span><span class="op">(</span><span class="va">parameter</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span>,</span>
 <span>                <span class="va">sigma</span> <span class="op">~</span> <span class="va">condition</span> <span class="op">*</span> <span class="va">names</span> <span class="op">+</span> <span class="op">(</span> <span class="fl">1</span>  <span class="op">|</span> <span class="va">dyad</span><span class="op">:</span><span class="va">cycle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1494,7 +1494,7 @@ Figure 8.14: Posterior predictions
 </p>
 </div>
 <p>However, there is a way to check the models via Rhat, a diagnostic of the sampling behavior applied by Stan. Rhat should be <span class="math inline">\(&lt; 1.05\)</span>. Here we check <code>C.dyad_1.cycle_5</code> and we observe high Rhat values.</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Fitted/chapTappers2_"</span>, <span class="st">"C.dyad_1.cycle_5"</span>, <span class="st">".rds"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">$</span><span class="va">summary</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Rhat</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##                         Rhat
@@ -1510,7 +1510,7 @@ Figure 8.14: Posterior predictions
 ## observation_std[4]  2.305922</code></pre>
 <p>A check of all Rhat values for these 10 parameters reveals that 29 out of 380 models, the Markov Chain Monte Carlo (MCMC) chains did not converge properly. Although it does not necessarily mean that the model should be immediately rejected, high values are suspicious.
 The table shows the line number on the right (n=380), the <code>mRhat</code> value, showing the mean of the Rhat of the relevant parameters per model, and the identifier for the model. Clearly the majority of the models having high mRhat are in condition C, with high values for dyad_1 and dyad_6.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RhatMean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Fitted/chapTappers2_RhatMean.rds"</span><span class="op">)</span></span>
 <span><span class="va">w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">RhatMean</span><span class="op">$</span><span class="va">mRhat</span> <span class="op">&gt;</span> <span class="fl">1.05</span><span class="op">)</span></span>
 <span><span class="co">#RhatMean[w,]</span></span>
@@ -1862,7 +1862,7 @@ C.dyad_19.cycle_2
 <p>In an earlier stage we obtained mean values for fitted parameters of condition C.
 Here, we plug these mean values into the state equations.
 It gives us a idea of how an average dyad of our population experiences entrainment.</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dydt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">parms</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">parms</span><span class="op">)</span><span class="op">)</span>, <span class="op">{</span></span>
 <span>    <span class="va">p600</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="fl">1000</span><span class="op">/</span><span class="fl">600</span></span>
@@ -1928,7 +1928,7 @@ It gives us a idea of how an average dyad of our population experiences entrainm
 Figure 8.15: Generated phase-functions of average dyad interaction. (Top panel) Relative phase. (Middle panel) Instantaneous frequency. (Bottom panel) instantaneous frequency difference
 </p>
 </div>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># \@ref(fig:chapTappers2dynEq2)</span></span></code></pre></div>
 <p>The results are shown in figure <a href="chapTappers2.html#fig:chapTappers2dynEq2">8.15</a>.
 The top panel shows a relative phase representation.
@@ -2001,9 +2001,9 @@ This result implies that overall, when two subjects are seeing each other tappin
 <p>Then, using the fitted parameters we generated continuous observations based on generated continuous states, and these can be compared with discrete tapping data. Using averages of all the parameters, it is possible to generate data as in @ref(fig:chapTappers2_dynEq2). The curves represent relative phase, instantaneous frequency or instantaneous period, and instantaneous frequency difference. A high similarity with smooth regression solutions and recurrence analysis performed on the entire population reveals the power of the state-space approach.</p>
 </div>
 </div>
-<div id="conclusion-7" class="section level2" number="8.6">
+<div id="conclusion-6" class="section level2" number="8.6">
 <h2>
-<span class="header-section-number">8.6</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.6</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion-6"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this chapter, we explored how synchronized finger tapping can be entrained by seeing a partner tapping differently. The fact that non-voluntary entrainment can override the intended audio-based synchronization shows that entrainment is a extremely powerful phenomenon.</p>
 <p>The conclusion is that entrainment may be hard to resist. It seems as if the brain is determined to solve incongruent feedback, to such a degree that resistance to entrainment might require a specific training targetted at neglecting cause of incongruency.</p>
@@ -2026,7 +2026,7 @@ This result implies that overall, when two subjects are seeing each other tappin
 <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#chapTappers2"><span class="header-section-number">8</span> Two finger tappers’ entrainment (Part 2)</a></li>
-<li><a class="nav-link" href="#theory-5"><span class="header-section-number">8.1</span> Theory</a></li>
+<li><a class="nav-link" href="#theory-4"><span class="header-section-number">8.1</span> Theory</a></li>
 <li>
 <a class="nav-link" href="#setup"><span class="header-section-number">8.2</span> Setup</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#raw-tapping-data">Raw tapping data</a></li></ul>
 </li>
@@ -2053,7 +2053,7 @@ This result implies that overall, when two subjects are seeing each other tappin
 <li><a class="nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#conclusion-7"><span class="header-section-number">8.6</span> Conclusion</a></li>
+<li><a class="nav-link" href="#conclusion-6"><span class="header-section-number">8.6</span> Conclusion</a></li>
 </ul>
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -2070,7 +2070,7 @@ This result implies that overall, when two subjects are seeing each other tappin
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-13.</p>
+    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

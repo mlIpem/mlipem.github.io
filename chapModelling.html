@@ -120,10 +120,10 @@ Figure 2.1: Bayesian model
 <span><span class="va">likelihood_distribution</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10000</span>,<span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">prior_combined_with_likelihood_distribution</span> <span class="op">=</span> <span class="op">(</span><span class="va">prior_distribution</span> <span class="op">+</span> <span class="va">likelihood_distribution</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">prior_combined_with_likelihood_distribution</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] -0.5524965</code></pre>
+<pre><code>## [1] -0.551553</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">std</span><span class="op">(</span><span class="va">prior_combined_with_likelihood_distribution</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 0.2682651</code></pre>
+<pre><code>## [1] 0.2703112</code></pre>
 <p>The dog approaches and you observe it more friendly than you expected on the basis of your (new) prior belief.
 As a result, our next posterior belief will shift more in the direction of friendly dog.</p>
 <p>Now, with a second variable added, say we also consider the posture of the dog on a scale from -2 to 2 (stiff versus relaxed), our normal distribution would become two-dimensional rather than one-dimensional. Our mean would be specified by two values, and so would our standard deviation define ellipses around that mean. Yet the reasoning would remain the same. There would be a prior and a likelihood. And the posterior would just combine two-dimensional distributions, which could be used as a new prior, that is, an expectation about the attitude-size.</p>
@@ -999,7 +999,7 @@ This approach offers many possibilities that will be further explored in the nex
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-13.</p>
+    <p>"<strong>Exploring music interactions</strong>" was written by Marc Leman. It was last built on 2024-12-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
