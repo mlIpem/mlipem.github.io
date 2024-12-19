@@ -1,7 +1,7 @@
 --- 
 title: "Exploring music interactions"
 author: "Marc Leman"
-date:  '2024-12-17'
+date:  '2024-12-19'
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: krantz
@@ -72,7 +72,7 @@ Third, this book is not a textbook, but rather a guide to navigating the space b
 
 Finally, this book is not about applications or technologies, although we are personally interested in biofeedback applications. While some of our data were collected using technologies such as augmented reality, virtual reality, and exoskeletons, we do not delve deeply into these topics.
 
-Given these limitations, and above all, our own limited capacities as musicologists, we offer this book as an open contribution to the field. We welcome suggestions for improvement from our readers.
+Given these limitations, and above all, our own limited capacities as musicologist, we offer this book as an open contribution to the field. We welcome suggestions for improvement from our readers.
 
 ## Overview {-}
 
